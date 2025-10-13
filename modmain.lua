@@ -40,7 +40,7 @@ local STRINGS = GLOBAL.STRINGS
 -- The character select screen lines
 STRINGS.CHARACTER_TITLES.gramfuel = "The Sunshine Charcoal Burner"
 STRINGS.CHARACTER_NAMES.gramfuel = "Fuel"
-STRINGS.CHARACTER_DESCRIPTIONS.gramfuel = "*Lumberjack at Heart\n*Tazmilian Hospitality\n*Slow Healer"
+STRINGS.CHARACTER_DESCRIPTIONS.gramfuel = "*Lumberjack at Heart\n*Raised on Tazmilian Hospitality\n*Slow Healer"
 STRINGS.CHARACTER_QUOTES.gramfuel = "\"Well, I'm not all back with soot this time!\""
 STRINGS.CHARACTER_SURVIVABILITY.gramfuel = "Slim"
 
