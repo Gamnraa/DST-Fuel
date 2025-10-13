@@ -15,6 +15,12 @@ end
 AddComponentPostInit("health", function(self)
     local _dodelta = self.DoDelta
     self.DoDelta = function(self, amount, overtime, cause, ignore_invincible, afflicter, ignore_absorb, ...)
+        if self.inst.jumpstart then
+            dohealingtask(self.inst, _dodelta)
+            self.inst.jumpstart = false
+            return
+        end
+
         if self.inst:HasTag("slowhealer") and amount ~= 0 and self.redirect == nil and cause ~= "cold" and cause ~= "hunger" then
             if amount < 0 and math.random(100) + 5 < math.abs(amount) then
                 --Take away maxhealth

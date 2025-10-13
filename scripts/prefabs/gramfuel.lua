@@ -38,8 +38,12 @@ local function onbecameghost(inst)
    inst.components.locomotor:RemoveExternalSpeedMultiplier(inst, "gramfuel_speed_mod")
 end
 
+local function onsave(inst, data)
+	data.expectedhealth = inst.expectedhealth
+end
+
 -- When loading or spawning the character
-local function onload(inst)
+local function onload(inst, data)
     inst:ListenForEvent("ms_respawnedfromghost", onbecamehuman)
     inst:ListenForEvent("ms_becameghost", onbecameghost)
 
@@ -48,6 +52,12 @@ local function onload(inst)
     else
         onbecamehuman(inst)
     end
+
+	if data then
+		inst.expectedhealth = data.expectedhealth
+		inst.jumpstart = true
+		inst:DoTaskInTime(0, function(inst) inst.components.health:DoDelta(0) end)
+	end
 end
 
 
@@ -82,6 +92,7 @@ local master_postinit = function(inst)
 	-- Hunger rate (optional)
 	inst.components.hunger.hungerrate = 1 * TUNING.WILSON_HUNGER_RATE
 	
+	inst.OnSave = onsave
 	inst.OnLoad = onload
     inst.OnNewSpawn = onload
 
