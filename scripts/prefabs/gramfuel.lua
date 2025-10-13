@@ -85,6 +85,8 @@ local master_postinit = function(inst)
 	inst.OnLoad = onload
     inst.OnNewSpawn = onload
 
+	inst.healtickrate = 0.5 --measured in seconds
+
 	inst:ListenForEvent("timerdone", ontimerdone)
 	
 end
