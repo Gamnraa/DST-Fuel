@@ -99,6 +99,13 @@ local master_postinit = function(inst)
 	inst.healtickrate = 0.5 --measured in seconds
 
 	inst:ListenForEvent("timerdone", ontimerdone)
+
+	inst.components.workmultiplier:AddMultiplier(ACTIONS.CHOP, 1.25, inst)
+	if not inst.components.efficientuser then
+		inst:AddComponent("efficientuser")
+	end
+	inst.components.efficientuser:AddMultiplier(ACTIONS.CHOP, .75, inst)
+
 	
 end
 
