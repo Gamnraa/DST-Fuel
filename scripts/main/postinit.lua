@@ -75,19 +75,28 @@ local function Split(inst)
     OnTakeLog(inst)
 end
 
-AddPrefabPostInit("evergreen_stump", function(inst)
-    print("postinit", inst)
-    inst:AddComponent("trader")
-    inst.components.trader:SetAcceptTest(CanGiveStumpLog)
-    inst.components.trader.deleteitemonaccept = false
-    inst.components.trader.onaccept = OnGiveStumpLog
+local function MakeLogHolder(inst)
+     if inst and inst:HasTag("stump") then
+        inst:AddComponent("trader")
+        inst.components.trader:SetAcceptTest(CanGiveStumpLog)
+        inst.components.trader.deleteitemonaccept = false
+        inst.components.trader.onaccept = OnGiveStumpLog
 
-    inst:AddComponent("pickable")
-    inst.components.pickable.caninteractwith = false
-    inst.components.pickable.quickpick = true
-    inst.components.pickable.onpickedfn = OnTakeLog
+        inst:AddComponent("pickable")
+        inst.components.pickable.caninteractwith = false
+        inst.components.pickable.quickpick = true
+        inst.components.pickable.onpickedfn = OnTakeLog
 
-    inst:ListenForEvent("splitlog", Split)
+        inst:ListenForEvent("splitlog", Split)
+    end
+end
+
+AddPrefabPostInit("evergreen", function(inst)
+    inst:DoTaskInTime(0, function(inst) if inst:HasTag("stump") then MakeLogHolder(inst) end end)
+
+    inst:ListenForEvent("workfinished", function(inst)
+        inst:DoTaskInTime(0, MakeLogHolder)
+    end)
 end)
 
 AddPrefabPostInit("log", function(inst)
