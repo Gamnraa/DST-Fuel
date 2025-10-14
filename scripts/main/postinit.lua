@@ -39,3 +39,50 @@ AddComponentPostInit("health", function(self)
         _dodelta(self, amount, overtime, cause, ignore_invincible, afflicter, ignore_absorb, ...)
     end
 end)
+
+local function CanGiveStumpLog(inst, item, giver)
+    return item.prefab == "log" and not item:HasTag("split") and (giver:HasTag("gramfuel") or giver:HasTag("gramfuelally"))
+end
+
+local function OnGiveStumpLog(inst, giver, item)
+    inst.components.trader:Disable()
+    inst.components.pickable:SetUp("log", 1000000)
+    inst.components.pickable:Pause()
+    inst.components.pickable.caninteractwith = true
+    inst:AddTag("haslog")
+
+    --Set art
+end
+
+local function OnTakeLog(inst, taker, loot)
+    inst.components.trader:Enable()
+    inst:RemoveTag("haslog")
+
+    --Set art
+end
+
+local function Split(inst)
+    inst.components.pickable.product = nil
+    local log1 = GLOBAL.SpawnPrefab("log")
+    log1:AddTag("split")
+    --art
+    local log2 = GLOBAL.SpawnPrefab("log")
+    log2:AddTag("split")
+    inst.components.lootdropper:FlingItem(log1)
+    inst.components.lootdropper:FlingItem(log2)
+    OnTakeLog(inst)
+end
+
+AddPrefabPostInit("evergreen_stump", function(inst)
+    inst:AddComponent("trader")
+    inst.components.trader:SetAcceptTest(CanGiveStumpLog)
+    inst.components.trader.deleteitemonaccept = false
+    inst.components.trader.onaccept = OnGiveStumpLog
+
+    inst:AddComponent("pickable")
+    inst.components.pickable.caninteractwith = false
+    inst.components.pickable.quickpick = true
+    inst.components.pickable.onpickedfn = OnTakeLog
+
+    inst:ListenForEvent("splitlog", Split)
+end)

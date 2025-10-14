@@ -67,4 +67,5 @@ local skin_modes = {
 AddModCharacter("gramfuel", "MALE", skin_modes)
 
 modimport("scripts/main/postinit")
+modimport("scripts/main/actions")
 modimport("scripts/main/recipes")
