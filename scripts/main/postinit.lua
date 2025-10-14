@@ -65,15 +65,18 @@ local function Split(inst)
     inst.components.pickable.product = nil
     local log1 = GLOBAL.SpawnPrefab("log")
     log1:AddTag("split")
+    log1.skinname = "fuellog"
     --art
     local log2 = GLOBAL.SpawnPrefab("log")
     log2:AddTag("split")
+    log2.skinname = "fuellog"
     inst.components.lootdropper:FlingItem(log1)
     inst.components.lootdropper:FlingItem(log2)
     OnTakeLog(inst)
 end
 
 AddPrefabPostInit("evergreen_stump", function(inst)
+    print("postinit", inst)
     inst:AddComponent("trader")
     inst.components.trader:SetAcceptTest(CanGiveStumpLog)
     inst.components.trader.deleteitemonaccept = false
@@ -86,3 +89,32 @@ AddPrefabPostInit("evergreen_stump", function(inst)
 
     inst:ListenForEvent("splitlog", Split)
 end)
+
+AddPrefabPostInit("log", function(inst)
+    inst.skinname = inst:HasTag("split") and "fuellog" or nil
+end)
+
+
+AddGlobalClassPostConstruct("entityscript", "EntityScript", function(self)
+    local _stackableskinhack = self.StackableSkinHack
+    function self:StackableSkinHack(target, ...)
+        if self.prefab == "log" then
+            return self:HasTag("split") == target:HasTag("split")
+        end
+        return _stackableskinhack(self, target, ...)
+    end
+end)
+--[[AddComponentPostInit("stackable", function(self)
+    local _put = self.Put
+    self.Put = function(self, item, source_pos, ...)
+        if item.prefab ~= "log" or self.inst.prefab ~= "log" then
+            _put(self, item, source_pos, ...)
+            return
+        end
+
+        --Logic must be: i
+        if item:HasTag("split") and self.inst:HasTag("split") then
+            _put(self, item, source_pos, ...)
+        end
+    end
+end)]]
