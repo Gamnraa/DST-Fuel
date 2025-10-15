@@ -62,7 +62,7 @@ local function OnTakeLog(inst, taker, loot)
 end
 
 local function Split(inst)
-    inst.components.pickable.product = nil
+    inst.components.pickable:MakeEmpty()
     local log1 = GLOBAL.SpawnPrefab("log")
     log1:AddTag("split")
     log1.skinname = "fuellog"
@@ -100,7 +100,9 @@ AddPrefabPostInit("evergreen", function(inst)
 end)
 
 AddPrefabPostInit("log", function(inst)
-    inst.skinname = inst:HasTag("split") and "fuellog" or nil
+    --If your mod adds an OnSave and OnLoad to the log we have beef
+    inst.OnSave = function(inst, data) data.skinname = inst.skinname end
+    inst.OnLoad = function(inst, data) inst.skinname = data and data.skinname if inst.skinname then inst:AddTag("split") end end
 end)
 
 
