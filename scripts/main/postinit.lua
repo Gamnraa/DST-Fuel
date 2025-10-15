@@ -1,4 +1,5 @@
 local function mastersim() return GLOBAL.TheWorld.ismastersim end 
+local ACTIONS = GLOBAL.ACTIONS
 
 local dohealingtask = function(inst, _dodelta)
     local health = inst.components.health
@@ -120,26 +121,40 @@ AddGlobalClassPostConstruct("entityscript", "EntityScript", function(self)
     end
 end)
 
+local function StopFollowingFuel(inst, data)
+    if data.leader:HasTag("GramFuel") then
+        inst.components.workmultiplier:RemoveModifier(ACTIONS.CHOP "fuelhand")
+        inst.components.combat.externaldamagemultiplier:RemoveModifier("fuelhand")
+    end
+end
+
 AddPrefabPostInit("pigman", function(inst)
     if not mastersim() then return end
+    if not inst.components.workmultiplier then
+        inst:AddComponent("workmultiplier")
+    end
+    inst:ListenForEvent("loseloyalty", StopFollowingFuel)
     local _onaccept = inst.components.trader.onaccept
     inst.components.trader.onaccept = function(inst, giver, item, ...)
         _onaccept(inst, giver, item, ...)
         if giver:HasTag("gramfuel") and inst.components.follower.leader == giver then
             inst.components.follower:AddLoyaltyTime(item.components.edible:GetHunger() * TUNING.PIG_LOYALTY_PER_HUNGER * .5)
             inst.components.follower.maxfollowtime = TUNING.PIG_LOYALTY_MAXTIME * 1.5
+            inst.components.workmultiplier:AddMultiplier(ACTIONS.CHOP, 1.15, "fuelhand", inst)
         end
     end
 end)
 
 AddPrefabPostInit("bunnyman", function(inst)
     if not mastersim() then return end
+    inst:ListenForEvent("loseloyalty", StopFollowingFuel)
     local _onaccept = inst.components.trader.onaccept
     inst.components.trader.onaccept = function(inst, giver, item, ...)
         _onaccept(inst, giver, item, ...)
          if giver:HasTag("gramfuel") and inst.components.follower.leader == giver then
             inst.components.follower:AddLoyaltyTime(TUNING.RABBIT_CARROT_LOYALTY * .5)
             inst.components.follower.maxfollowtime = TUNING.PIG_LOYALTY_MAXTIME * 1.5
+            inst.components.combat.externaldamagemultiplier:AddMultiplier(1.15, "fuelhand", inst)
         end
     end
 end)
