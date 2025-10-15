@@ -1,3 +1,5 @@
+local function mastersim() return GLOBAL.TheWorld.ismastersim end 
+
 local dohealingtask = function(inst, _dodelta)
     local health = inst.components.health
     if inst.slowhealtask then inst.slowhealtask:Cancel() end
@@ -92,6 +94,7 @@ local function MakeLogHolder(inst)
 end
 
 AddPrefabPostInit("evergreen", function(inst)
+    if not mastersim() then return end
     inst:DoTaskInTime(0, function(inst) if inst:HasTag("stump") then MakeLogHolder(inst) end end)
 
     inst:ListenForEvent("workfinished", function(inst)
@@ -101,6 +104,7 @@ end)
 
 AddPrefabPostInit("log", function(inst)
     --If your mod adds an OnSave and OnLoad to the log we have beef
+    if not mastersim() then return end
     inst.OnSave = function(inst, data) data.skinname = inst.skinname end
     inst.OnLoad = function(inst, data) inst.skinname = data and data.skinname if inst.skinname then inst:AddTag("split") end end
 end)
@@ -115,17 +119,39 @@ AddGlobalClassPostConstruct("entityscript", "EntityScript", function(self)
         return _stackableskinhack(self, target, ...)
     end
 end)
---[[AddComponentPostInit("stackable", function(self)
-    local _put = self.Put
-    self.Put = function(self, item, source_pos, ...)
-        if item.prefab ~= "log" or self.inst.prefab ~= "log" then
-            _put(self, item, source_pos, ...)
-            return
-        end
 
-        --Logic must be: i
-        if item:HasTag("split") and self.inst:HasTag("split") then
-            _put(self, item, source_pos, ...)
+AddPrefabPostInit("pigman", function(inst)
+    if not mastersim() then return end
+    local _onaccept = inst.components.trader.onaccept
+    inst.components.trader.onaccept = function(inst, giver, item, ...)
+        _onaccept(inst, giver, item, ...)
+        if giver:HasTag("gramfuel") and inst.components.follower.leader == giver then
+            inst.components.follower:AddLoyaltyTime(item.components.edible:GetHunger() * TUNING.PIG_LOYALTY_PER_HUNGER * .5)
+            inst.components.follower.maxfollowtime = TUNING.PIG_LOYALTY_MAXTIME * 1.5
         end
     end
-end)]]
+end)
+
+AddPrefabPostInit("bunnyman", function(inst)
+    if not mastersim() then return end
+    local _onaccept = inst.components.trader.onaccept
+    inst.components.trader.onaccept = function(inst, giver, item, ...)
+        _onaccept(inst, giver, item, ...)
+         if giver:HasTag("gramfuel") and inst.components.follower.leader == giver then
+            inst.components.follower:AddLoyaltyTime(TUNING.RABBIT_CARROT_LOYALTY * .5)
+            inst.components.follower.maxfollowtime = TUNING.PIG_LOYALTY_MAXTIME * 1.5
+        end
+    end
+end)
+
+AddPrefabPostInit("rocky", function(inst)
+    if not mastersim() then return end
+    local _onaccept = inst.components.trader.onaccept
+    inst.components.trader.onaccept = function(inst, giver, item, ...)
+        _onaccept(inst, giver, item, ...)
+         if giver:HasTag("gramfuel") and inst.components.follower.leader == giver then
+            inst.components.follower:AddLoyaltyTime(TUNING.ROCKY_LOYALTY * .5)
+            inst.components.follower.maxfollowtime = TUNING.PIG_LOYALTY_MAXTIME * 1.5
+        end
+    end
+end)
