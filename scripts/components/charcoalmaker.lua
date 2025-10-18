@@ -32,10 +32,13 @@ function CharcoalMaker:IsTooHot() return self.inst.components.temperature:GetCur
 function CharcoalMaker:Start()
     if self.startfn then self.startfn(self.inst) end
     self:UpdateSlots()
-    self.logs = self.logslots[1].components.stackable.stacksize + self.logslots[2].components.stackable.stacksize
+    self.logs = (self.logslots[1] and self.logslots[1].components.stackable.stacksize or 0) + (self.logslots[2] and self.logslots[2].components.stackable.stacksize or 0)
     self.timeleft = TUNING.CHARCOALPILE_CHAR_TIME or 480
     charcoaltickrate = self.timeleft / self.logs
+    charcoaltick = charcoaltickrate
     ashtickrate = charcoaltickrate * 3
+    ashtick = ashtickrate
+    temptick = temptickrate
 
     self.inst:StartUpdatingComponent(self) 
     self.inst.components.container:Close()
@@ -94,8 +97,11 @@ function CharcoalMaker:Harvest(doer)
 end
 
 function CharcoalMaker:OnUpdate(dt)
-    self.timeleft = self.timeleft - dt - (self.inst.components.moisture:GetMoisturePercent() >= .9 and 2 or 0)
+    self.timeleft = self.timeleft - dt - (self.inst.components.moisture:GetMoisturePercent() >= .9 and 1 or 0)
     if self:IsDone() then
+        self.numproductproduced = self.numproductproduced + self.logs
+        self.inst.components.container:RemoveItem("log", true)
+        self:UpdateSlots()
         self:Finish()
         return
     end
@@ -103,7 +109,7 @@ function CharcoalMaker:OnUpdate(dt)
     if dt < charcoaltick then
         charcoaltick = charcoaltick - dt
     else
-        self.numproductproduced = self.numproductedproduced + 1
+        self.numproductproduced = self.numproductproduced + 1
         self.logs = self.logs - 1
         if self.slots[1] or self.slots[2] then
             self.inst.components.container:RemoveItem("log", false)
@@ -113,7 +119,7 @@ function CharcoalMaker:OnUpdate(dt)
     end
 
     if dt < ashtick then
-        ashtick = ashtick - dt - (self:IsTooHot() and 4)
+        ashtick = ashtick - dt - (self:IsTooHot() and 4 or 0)
     else
         self.numashproduced = self.ashproduced + 1
         self.numproductproduced = self.numproductproduced - 1

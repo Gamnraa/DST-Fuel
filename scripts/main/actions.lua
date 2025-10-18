@@ -42,3 +42,6 @@ AddComponentAction("SCENE", "charcoalmaker", function(inst, doer, actions, right
     end
 end)
 
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.CHAR, "give"))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.CHAR, "give"))
+

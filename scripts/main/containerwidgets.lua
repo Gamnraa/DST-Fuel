@@ -41,7 +41,7 @@ end
 
 charpile.widget.buttoninfo.fn = function(inst, doer)
     if inst.components.container then
-        GLOBAL.BufferedAction(doer, inst, GLOBAL.Actions.CHAR):Do()
+        GLOBAL.BufferedAction(doer, inst, GLOBAL.ACTIONS.CHAR):Do()
     elseif inst.replica.container then
         GLOBAL.SendRPCToServer(GLOBAL.RPC.DoWidgetButtonAction, GLOBAL.ACTIONS.CHAR, inst, GLOBAL.ACTIONS.CHAR.mod_name)
     end
