@@ -9,6 +9,10 @@ local validturfs = {
     ["turf_deciduous"] = true
 }
 
+for k, _ in pairs(validturfs) do
+    AddPrefabPostInit(k, function(inst) inst:AddTag("charcoalburnerturf") end)
+end
+
 local charpile = {
     widget = 
     {
@@ -33,5 +37,13 @@ charpile.itemtestfn = function(container, item, slot)
     return (slot == nil and (item.prefab == "log" or validturfs[item.prefab]))
         or (slot == 1 and validturfs[item.prefab])
         or ((slot == 2 or slot == 3) and item.prefab == "log")
+end
+
+charpile.widget.buttoninfo.fn = function(inst, doer)
+    if inst.components.container then
+        GLOBAL.BufferedAction(doer, inst, GLOBAL.Actions.CHAR):Do()
+    elseif inst.replica.container then
+        GLOBAL.SendRPCToServer(GLOBAL.RPC.DoWidgetButtonAction, GLOBAL.ACTIONS.CHAR, inst, GLOBAL.ACTIONS.CHAR.mod_name)
+    end
 end
 c.params.charpile = charpile
