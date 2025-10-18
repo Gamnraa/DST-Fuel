@@ -22,3 +22,14 @@ end)
 
 AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.SPLIT, "hammer_start"))
 AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.SPLIT, "hammer_start"))
+
+AddComponentAction("SCENE", "charcoalmaker", function(inst, doer, actions, right)
+    if not (doer.replica.rider and doer.replica.rider:IsRiding()) then
+        if inst:HasTag("readytoharvest") then
+        --    table.insert(actions. ACTIONS.HARVEST)
+        elseif right and (inst:HasTag("ready") and doer:HasTag("GramFuel"))
+            or (inst.replica.container and inst.replica.container:IsFull() and inst.replica.container:IsOpenedBy(doer)) then
+            table.insert(actions, ACTIONS.CHAR)
+        end
+    end
+end)

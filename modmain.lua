@@ -1,6 +1,7 @@
 PrefabFiles = {
 	"gramfuel",
 	"gramfuel_none",
+    "charcoalpile",
 }
 
 Assets = {
@@ -68,4 +69,5 @@ AddModCharacter("gramfuel", "MALE", skin_modes)
 
 modimport("scripts/main/postinit")
 modimport("scripts/main/actions")
+modimport("scripts/main/containerwidgets")
 modimport("scripts/main/recipes")
