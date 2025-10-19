@@ -36,7 +36,7 @@ end)
 AddComponentAction("SCENE", "charcoalmaker", function(inst, doer, actions, right)
     if not (doer.replica.rider and doer.replica.rider:IsRiding()) then
         if inst:HasTag("readytoharvest") then
-        --    table.insert(actions. ACTIONS.HARVEST)
+            table.insert(actions, ACTIONS.HARVESTCHAR)
         elseif right and (inst:HasTag("ready") and doer:HasTag("GramFuel")) then
             table.insert(actions, ACTIONS.CHAR)
         end
@@ -46,3 +46,13 @@ end)
 AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.CHAR, "give"))
 AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.CHAR, "give"))
 
+local harverstch = AddAction("HARVESTCHAR", "Harvest", function(act)
+    if act.doer and act.target then
+        act.target.components.charcoalmaker:Harvest(act.doer)
+        return true
+    end
+    return false
+end)
+
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.HARVESTCHAR, "dolongaction"))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.HARVESTCHAR, "dolongaction"))

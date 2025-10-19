@@ -95,7 +95,7 @@ local function fn()
     MakeObstaclePhysics(inst, .5)
 
     inst.Light:Enable(false)
-    inst.Light:SetRadius(.6)
+    inst.Light:SetRadius(2.2)
     inst.Light:SetFalloff(1)
     inst.Light:SetIntensity(.5)
     inst.Light:SetColour(235/255,62/255,12/255)

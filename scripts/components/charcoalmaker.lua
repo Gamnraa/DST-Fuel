@@ -35,6 +35,7 @@ function CharcoalMaker:Start()
     self.numproductproduced = 0
     self.numashproduced = 0
     self.logs = (self.logslots[1] and self.logslots[1].components.stackable.stacksize or 0) + (self.logslots[2] and self.logslots[2].components.stackable.stacksize or 0)
+    if self.logs > 0 then self.logs = math.ceil(self.logs * 1.5) end
     self.timeleft = TUNING.CHARCOALPILE_CHAR_TIME or 480
     charcoaltickrate = self.timeleft / self.logs
     charcoaltick = charcoaltickrate
@@ -50,6 +51,7 @@ end
 function CharcoalMaker:Finish()
     self.inst:StopUpdatingComponent(self)
     if self.finishfn then self.finishfn(self.inst) end
+    self.inst:AddTag("readytoharvest")
 end
 
 
@@ -94,6 +96,8 @@ function CharcoalMaker:Harvest(doer)
         ashtickrate = nil
         ashtick = nil
 
+        self.inst:RemoveTag("readytoharvest")
+
         return true
     end
 end
@@ -113,7 +117,7 @@ function CharcoalMaker:OnUpdate(dt)
     else
         self.numproductproduced = self.numproductproduced + 1
         self.logs = self.logs - 1
-        if self.slots[1] or self.slots[2] then
+        if self.logslots[1] or self.logslots[2] then
             self.inst.components.container:RemoveItem("log", false)
             self:UpdateSlots()
         end
@@ -123,7 +127,7 @@ function CharcoalMaker:OnUpdate(dt)
     if dt < ashtick then
         ashtick = ashtick - dt - (self:IsTooHot() and 4 or 0)
     else
-        self.numashproduced = self.ashproduced + 1
+        self.numashproduced = self.numashproduced + 1
         self.numproductproduced = self.numproductproduced - 1
         ashtick = ashtickrate
     end
