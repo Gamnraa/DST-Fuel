@@ -32,6 +32,8 @@ function CharcoalMaker:IsTooHot() return self.inst.components.temperature:GetCur
 function CharcoalMaker:Start()
     if self.startfn then self.startfn(self.inst) end
     self:UpdateSlots()
+    self.numproductproduced = 0
+    self.numashproduced = 0
     self.logs = (self.logslots[1] and self.logslots[1].components.stackable.stacksize or 0) + (self.logslots[2] and self.logslots[2].components.stackable.stacksize or 0)
     self.timeleft = TUNING.CHARCOALPILE_CHAR_TIME or 480
     charcoaltickrate = self.timeleft / self.logs
