@@ -42,9 +42,6 @@ local function donecharring(inst)
     inst.AnimState:PushAnimation("idle_full", false)
     inst:AddTag("finished")
     inst.Light:Enable(false)
-    --[[inst.components.pickable:Enable()
-    inst.components.pickable.product = "charcoal"
-    inst.components.pickable.numtoharvest = inst.components.charcoalmaker.numproductproduced]]
 end
 
 local function harvest(inst)
@@ -102,6 +99,7 @@ local function fn()
 
     inst:AddTag("structure")
     inst:AddTag("fuelcharcoalmaker")
+    inst:AddTag("HASHEATER")
 
     inst.AnimState:SetBank("cook_pot")
     inst.AnimState:SetBuild("cook_pot")
@@ -131,10 +129,6 @@ local function fn()
     inst.components.workable:SetOnWorkCallback(onhit)
 
     inst:AddComponent("moisture")
-    inst:AddComponent("temperature")
-    inst.components.temperature.maxtemp = 250
-    inst.components.temperature.mintemp = 50
-
     inst:AddComponent("charcoalmaker")
     inst.components.charcoalmaker.onharvest = harvest
     inst.components.charcoalmaker.startfn = startcharring

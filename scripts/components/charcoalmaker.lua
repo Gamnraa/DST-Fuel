@@ -1,4 +1,4 @@
-local temptickrate = 5
+local temptickrate = 3
 local ashtickrate = nil
 local charcoaltickrate = nil
 
@@ -6,6 +6,8 @@ local temptick = nil
 local ashtick = nil
 local charcoaltick = nil
 
+local mintemp = 150
+local maxtemp = 300
 
 local CharcoalMaker = Class(function(self, inst)
     self.inst = inst
@@ -18,6 +20,7 @@ local CharcoalMaker = Class(function(self, inst)
     self.onharvest = nil
     self.startfn = nil
     self.finishfn = nil
+    self.temperature = mintemp
 end, nil, {})
 
 function CharcoalMaker:UpdateSlots()
@@ -27,7 +30,7 @@ end
 
 function CharcoalMaker:IsDone() return self.timeleft and self.timeleft <= 0 end
 
-function CharcoalMaker:IsTooHot() return self.inst.components.temperature:GetCurrent() >= self.inst.components.temperature:GetMax() - 30 end
+function CharcoalMaker:IsTooHot() return self.temperature > maxtemp - 40 end
 
 function CharcoalMaker:Start()
     if self.startfn then self.startfn(self.inst) end
@@ -39,7 +42,7 @@ function CharcoalMaker:Start()
     self.timeleft = TUNING.CHARCOALPILE_CHAR_TIME or 480
     charcoaltickrate = self.timeleft / self.logs
     charcoaltick = charcoaltickrate
-    ashtickrate = charcoaltickrate * 3
+    ashtickrate = charcoaltickrate * 10
     ashtick = ashtickrate
     temptick = temptickrate
 
@@ -103,7 +106,7 @@ function CharcoalMaker:Harvest(doer)
 end
 
 function CharcoalMaker:OnUpdate(dt)
-    self.timeleft = self.timeleft - dt - (self.inst.components.moisture:GetMoisturePercent() >= .9 and 1 or 0)
+    self.timeleft = self.timeleft - dt - (self.inst.components.moisture:GetMoisturePercent() >= .65 and 1 or 0)
     if self:IsDone() then
         self.numproductproduced = self.numproductproduced + self.logs
         self.inst.components.container:RemoveItem("log", true)
@@ -111,6 +114,8 @@ function CharcoalMaker:OnUpdate(dt)
         self:Finish()
         return
     end
+
+    print("temp", self.temperature, ashtick)
 
     if dt < charcoaltick then
         charcoaltick = charcoaltick - dt
@@ -125,17 +130,17 @@ function CharcoalMaker:OnUpdate(dt)
     end
 
     if dt < ashtick then
-        ashtick = ashtick - dt - (self:IsTooHot() and 4 or 0)
+        ashtick = ashtick - dt - (self:IsTooHot() and 1 or 0)
     else
-        self.numashproduced = self.numashproduced + 1
-        self.numproductproduced = self.numproductproduced - 1
+        self.numashproduced =  self.numashproduced + 1
+        self.numproductproduced =  math.max(1, self.numproductproduced - 1)
         ashtick = ashtickrate
     end
 
     if dt < temptick then
         temptick = temptick - dt
     else
-        self.inst.components.temperature:DoDelta(1)
+        self.temperature = math.clamp(self.temperature + 1, mintemp, maxtemp)
         temptick = temptickrate
     end
 end
