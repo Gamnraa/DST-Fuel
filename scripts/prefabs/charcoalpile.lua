@@ -34,6 +34,7 @@ end
 local function startcharring(inst)
     inst.AnimState:PlayAnimation("cooking_loop", true)
     inst.Light:Enable(true)
+    inst:RemoveTag("ready")
 end
 
 local function donecharring(inst) 
@@ -55,7 +56,7 @@ end
 local function getstatus(inst, viewer)
     return ((viewer:HasTag("GramFuel") and inst.components.charcoalmaker:IsDone()) and "DONE")
         or ((viewer:HasTag("GramFuel") and inst.components.charcoalmaker:IsTooHot()) and "NEEDSWATER")
-        or (inst.components.charcoalmaker:IsCharring() and "CHARRING")
+        or (inst.components.charcoalmaker.timeleft and "CHARRING")
         or "NEEDSMATERIALS"
 end
 
