@@ -37,6 +37,8 @@ AddComponentAction("SCENE", "charcoalmaker", function(inst, doer, actions, right
     if not (doer.replica.rider and doer.replica.rider:IsRiding()) then
         if inst:HasTag("readytoharvest") then
             table.insert(actions, ACTIONS.HARVESTCHAR)
+        elseif right and inst:HasTag("overheating") then
+            table.insert(actions, ACTIONS.WATERCHAR)
         elseif right and (inst:HasTag("ready") and doer:HasTag("GramFuel")) then
             table.insert(actions, ACTIONS.CHAR)
         end
