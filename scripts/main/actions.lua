@@ -72,13 +72,14 @@ local waterch = AddAction("WATERCHAR", "Cool Down", function(act)
 			    return false, (act.invobject:HasTag("wateringcan") and "OUT_OF_WATER" or nil)
             end
         end
+
+        if not act.target:HasTag("wantswater") then
+            return false
+        end
         
         if act.target and act.target:IsValid() then
             act.target.components.moisture:DoDelta(50)
             act.target.components.charcoalmaker.temperature = act.target.components.charcoalmaker.temperature - 10
-            if not act.target:HasTag("wantswater") then
-                --
-            end
             return true
         end
     end
