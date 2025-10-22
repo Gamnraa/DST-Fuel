@@ -55,7 +55,7 @@ local function onload(inst, data)
 
 	if data then
 		inst.expectedhealth = data.expectedhealth
-		inst.jumpstart = true
+		inst.jumpstart = inst.expectedhealth and inst.expectedhealth ~= inst.components.health.currenthealth
 		inst:DoTaskInTime(0, function(inst) inst.components.health:DoDelta(0) end)
 	end
 end
