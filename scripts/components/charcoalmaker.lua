@@ -34,7 +34,7 @@ function CharcoalMaker:IsTooHot()
     if self.temperature > maxtemp - 45 then
         self.inst:AddTag("wantswater")
         return true
-    elseif self.temperature < maxtemp - 100 then 
+    elseif self.temperature < maxtemp - 130 then
         self.inst:RemoveTag("wantswater")
     end
     return false
@@ -71,8 +71,7 @@ function CharcoalMaker:Harvest(doer)
     if self.numproductproduced and self.numashproduced then
        
         local tileproduct = SpawnPrefab(self.tileslot:HasTag("charred") and "ash" or "turf_grass")
-        local item self.inst.components.container:RemoveItemBySlot(1)
-        if item and item:IsValid() then item:Remove() end
+        self.inst.components.container:DestroyContents()
 
         for i = 1, self.numproductproduced do
             local product = SpawnPrefab("charcoal") 
@@ -151,7 +150,7 @@ function CharcoalMaker:OnLoad(data)
 end
 
 function CharcoalMaker:OnUpdate(dt)
-    self.timeleft = self.timeleft - dt - (self.inst.components.moisture:GetMoisturePercent() >= .65 and 1 or 0)
+    self.timeleft = self.timeleft - dt - (self.inst.components.moisture:GetMoisturePercent() >= .38 and FRAMES * 2 or 0)
     if self:IsDone() then
         self.numproductproduced = self.numproductproduced + self.logs
         local item = self.inst.components.container:RemoveItem(self.inst.components.container:FindItem(function(inst) return inst.prefab == "log" end, true))
@@ -167,9 +166,9 @@ function CharcoalMaker:OnUpdate(dt)
         self.numproductproduced = self.numproductproduced + 1
         self.logs = self.logs - 1
         if self.logslots[1] or self.logslots[2] then
-            local item = self.inst.components.container:RemoveItem(self.inst.components.container:FindItem(function(inst) return inst.prefab == "log" end, false))
-            if item then item:Remove() end
-            self:UpdateSlots()
+            --local item = self.inst.components.container:RemoveItem(self.inst.components.container:FindItem(function(inst) return inst.prefab == "log" end, false))
+            --if item then item:Remove() end
+            --self:UpdateSlots()
         end
         charcoaltick = charcoaltickrate
     end
@@ -186,6 +185,7 @@ function CharcoalMaker:OnUpdate(dt)
         temptick = temptick - dt
     else
         self.temperature = math.clamp(self.temperature + 1, mintemp, maxtemp)
+        self.inst.components.moisture:DoDelta(-2)
         temptick = temptickrate
     end
 end
