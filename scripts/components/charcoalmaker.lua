@@ -118,11 +118,11 @@ function CharcoalMaker:OnSave()
     return {
         timeleft = self.timeleft,
         logs = self.logs,
-        charcoaltickrate = self.charcoaltickrate,
-        charcoaltick = self.charcoaltick,
-        temptick = self.temptick,
-        ashtickrate = self.ashtickrate,
-        ashtick = self.ashtick,
+        charcoaltickrate = charcoaltickrate,
+        charcoaltick = charcoaltick,
+        temptick = temptick,
+        ashtickrate = ashtickrate,
+        ashtick = ashtick,
         numproductproduced = self.numproductproduced,
         numashproduced = self.numashproduced,
     }
@@ -133,16 +133,18 @@ function CharcoalMaker:OnLoad(data)
 
     self.timeleft = data.timeleft
     self.logs = data.logs
-    self.charcoaltickrate = data.charcoaltickrate
-    self.charcoaltick = data.charcoaltick
-    self.temptick = data.temptick
-    self.ashtickrate = data.ashtickrate
-    self.ashtick = data.ashtick
+    charcoaltickrate = data.charcoaltickrate
+    charcoaltick = data.charcoaltick
+    temptick = data.temptick
+    ashtickrate = data.ashtickrate
+    ashtick = data.ashtick
     self.numproductproduced = data.numproductproduced
     self.numashproduced = data.numashproduced
 
+    print(charcoaltick, charcoaltickrate, temptick, ashtick, ashtickrate, data.charcoaltick)
+
     if self.timeleft then 
-        self.inst:StartUpdatingComponent(self) 
+        self.inst:DoTaskInTime(0, function(inst) inst:StartUpdatingComponent(self) end) 
         self.inst.components.container:Close()
         self.inst.components.container.canbeopened = false
     end
@@ -152,8 +154,8 @@ function CharcoalMaker:OnUpdate(dt)
     self.timeleft = self.timeleft - dt - (self.inst.components.moisture:GetMoisturePercent() >= .65 and 1 or 0)
     if self:IsDone() then
         self.numproductproduced = self.numproductproduced + self.logs
-        local item = self.inst.components.container:RemoveItem("log", true)
-        if item and item:IsValid() then item:Remove() end
+        local item = self.inst.components.container:RemoveItem(self.inst.components.container:FindItem(function(inst) return inst.prefab == "log" end, true))
+        if item then item:Remove() end
         self:UpdateSlots()
         self:Finish()
         return
@@ -165,8 +167,8 @@ function CharcoalMaker:OnUpdate(dt)
         self.numproductproduced = self.numproductproduced + 1
         self.logs = self.logs - 1
         if self.logslots[1] or self.logslots[2] then
-            local item = self.inst.components.container:RemoveItem("log", false)
-            if item and item:IsValid() then item:Remove() end
+            local item = self.inst.components.container:RemoveItem(self.inst.components.container:FindItem(function(inst) return inst.prefab == "log" end, false))
+            if item then item:Remove() end
             self:UpdateSlots()
         end
         charcoaltick = charcoaltickrate
