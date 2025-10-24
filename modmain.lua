@@ -2,6 +2,7 @@ PrefabFiles = {
 	"gramfuel",
 	"gramfuel_none",
     "charcoalpile",
+    "refurbishedpighouse"
 }
 
 Assets = {

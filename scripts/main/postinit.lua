@@ -123,7 +123,7 @@ end)
 
 local function StopFollowingFuel(inst, data)
     if data.leader:HasTag("GramFuel") then
-        inst.components.workmultiplier:RemoveModifier(ACTIONS.CHOP "fuelhand")
+        inst.components.workmultiplier:AddMultiplier(ACTIONS.CHOP, math.max(1, inst.components.workmultiplier:GetMultiplier(ACTIONS.CHOP) - .15), inst)
         inst.components.combat.externaldamagemultiplier:RemoveModifier("fuelhand")
     end
 end
@@ -140,7 +140,7 @@ AddPrefabPostInit("pigman", function(inst)
         if giver:HasTag("gramfuel") and inst.components.follower.leader == giver then
             inst.components.follower:AddLoyaltyTime(item.components.edible:GetHunger() * TUNING.PIG_LOYALTY_PER_HUNGER * .5)
             inst.components.follower.maxfollowtime = TUNING.PIG_LOYALTY_MAXTIME * 1.5
-            inst.components.workmultiplier:AddMultiplier(ACTIONS.CHOP, 1.15, "fuelhand", inst)
+            inst.components.workmultiplier:AddMultiplier(ACTIONS.CHOP, inst.components.workmultiplier:GetMultiplier(ACTIONS.CHOP) + .15, inst)
         end
     end
 end)
@@ -167,6 +167,16 @@ AddPrefabPostInit("rocky", function(inst)
          if giver:HasTag("gramfuel") and inst.components.follower.leader == giver then
             inst.components.follower:AddLoyaltyTime(TUNING.ROCKY_LOYALTY * .5)
             inst.components.follower.maxfollowtime = TUNING.PIG_LOYALTY_MAXTIME * 1.5
+        end
+    end
+end)
+
+AddComponentPostInit("childspawner", function(self)
+    local _spawnchild = self.SpawnChild
+    self.SpawnChild = function(target, prefab, radius, ...)
+        local child = _spawnchild(target, prefab, radius, ...)
+        if child then
+            self.inst:PushEvent("spawnedchild", {child = child})
         end
     end
 end)
