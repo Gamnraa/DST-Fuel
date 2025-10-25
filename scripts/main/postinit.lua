@@ -180,3 +180,12 @@ AddComponentPostInit("childspawner", function(self)
         end
     end
 end)
+
+AddComponentPostInit("trader", function(self)
+    local _acceptgift = self.AcceptGift
+    self.AcceptGift = function(item, giver, count, ...)
+        if _acceptgift(item, giver, count, ...) then
+            giver:PushEvent("giveitem", self.inst, item)
+        end
+    end
+end)

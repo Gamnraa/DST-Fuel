@@ -27,6 +27,18 @@ local function ontimerdone(inst, data)
 	end
 end
 
+local function ongiveitem(inst, receiver)
+	if receiver:HasTag("character") and inst.giftstogive > 0 and math.random(100) < inst.giftstogive * 20 then
+		inst.components.talker:Say(GetString(inst, "ANNOUNCE_TAZMILIAN_CHARITY"))
+		inst.components.sanity:DoDelta(5)
+		inst.giftstogive = inst.giftstogive - 1
+	end
+end
+
+local function onnewday(inst)
+	inst.giftstogive = 5
+end
+
 -- When the character is revived from human
 local function onbecamehuman(inst)
 	-- Set speed when not a ghost (optional)
@@ -40,6 +52,7 @@ end
 
 local function onsave(inst, data)
 	data.expectedhealth = inst.expectedhealth
+	data.giftstogive = inst.giftstogive
 end
 
 -- When loading or spawning the character
@@ -54,6 +67,7 @@ local function onload(inst, data)
     end
 
 	if data then
+		inst.giftstogive = data.giftstogive or 5
 		inst.expectedhealth = data.expectedhealth
 		inst.jumpstart = inst.expectedhealth and inst.expectedhealth ~= inst.components.health.currenthealth
 		inst:DoTaskInTime(0, function(inst) inst.components.health:DoDelta(0) end)
@@ -105,6 +119,9 @@ local master_postinit = function(inst)
 		inst:AddComponent("efficientuser")
 	end
 	inst.components.efficientuser:AddMultiplier(ACTIONS.CHOP, .75, inst)
+
+	inst:ListenForEvent("giveitem", ongiveitem)
+	inst:WatchWorldState("isday", onnewday)
 
 	
 end
