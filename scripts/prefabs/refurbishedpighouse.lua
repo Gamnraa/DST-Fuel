@@ -94,6 +94,7 @@ end
 
 local function getstatus(inst)
     return (inst:HasTag("burnt") and "BURNT")
+        or (not inst.components.fueled:IsEmpty() and "COZY")
         or (inst.components.childspawner ~= nil and
             inst.components.childspawner.childreninside > 0 and
             (inst.lightson and "OCUPPIED" or "LIGHTSOUT"))
@@ -185,7 +186,7 @@ local function onhammered(inst, worker)
         inst.doortask = nil
     end
     if inst.components.childspawner ~= nil then
-        inst.components.childspawner:ReleaseChild()
+        inst.components.childspawner:ReleaseAllChildren()
     end
     inst.components.lootdropper:DropLoot()
     local fx = SpawnPrefab("collapse_big")
@@ -287,7 +288,7 @@ end
 local function spawncheckday(inst)
     inst.inittask = nil
     inst:WatchWorldState("startcaveday", OnStartDay)
-    inst:WatchWorldState("startdusk", function(inst) inst.components.childspawner:StopSpawning() end)
+    inst:WatchWorldState("stopcaveday", function(inst) inst.components.childspawner:StopSpawning() end)
     if inst.components.childspawner ~= nil then
         if TheWorld.state.iscaveday or
             (inst.components.burnable ~= nil and inst.components.burnable:IsBurning()) then
@@ -389,6 +390,7 @@ end
 
 local function OnFuelEmpty(inst)
     inst.Light:SetRadius(1)
+    LightsOff(inst)
     for _, v in pairs(inst.components.childspawner.childrenoutside) do
         v.components.workmultiplier:AddMultiplier(ACTIONS.CHOP, math.max(1, v.components.workmultiplier:GetMultiplier(ACTIONS.CHOP) - .15), v)
     end
@@ -456,7 +458,8 @@ local function fn()
     cs.onoccupied = onoccupied
     cs.onvacate = onvacate
     cs:SetMaxChildren(3)
-    cs:SetSpawnPeriod(1)
+    cs:SetSpawnPeriod(.34, 0)
+    --cs.spawnvariance = 0
     cs:SetRegenPeriod(TUNING.PIGHOUSE_SPAWN_TIME)
     --inst.components.childspawner:SetWaterSpawning(false, true)
     --inst.components.childspawner:CancelSpawning()
