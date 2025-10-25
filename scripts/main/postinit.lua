@@ -124,7 +124,7 @@ end)
 local function StopFollowingFuel(inst, data)
     if data.leader:HasTag("GramFuel") then
         inst.components.workmultiplier:AddMultiplier(ACTIONS.CHOP, math.max(1, inst.components.workmultiplier:GetMultiplier(ACTIONS.CHOP) - .15), inst)
-        inst.components.combat.externaldamagemultiplier:RemoveModifier("fuelhand")
+        inst.components.combat.externaldamagemultipliers:RemoveModifier("fuelhand")
     end
 end
 
@@ -154,7 +154,7 @@ AddPrefabPostInit("bunnyman", function(inst)
          if giver:HasTag("gramfuel") and inst.components.follower.leader == giver then
             inst.components.follower:AddLoyaltyTime(TUNING.RABBIT_CARROT_LOYALTY * .5)
             inst.components.follower.maxfollowtime = TUNING.PIG_LOYALTY_MAXTIME * 1.5
-            inst.components.combat.externaldamagemultiplier:AddMultiplier(1.15, "fuelhand", inst)
+            inst.components.combat.externaldamagemultipliers:SetModifier(inst, 1.15, "fuelhand")
         end
     end
 end)
