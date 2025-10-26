@@ -185,7 +185,80 @@ AddComponentPostInit("trader", function(self)
     local _acceptgift = self.AcceptGift
     self.AcceptGift = function(item, giver, count, ...)
         if _acceptgift(item, giver, count, ...) then
-            giver:PushEvent("giveitem", self.inst, item)
+            if giver then giver:PushEvent("giveitem", self.inst, item) end
         end
+    end
+end)
+
+AddStategraphPostInit("wilson", function(sg)
+    local _chops = sg.states.chop_start
+	local _chopsonenter = _chops.onenter
+	_chops.onenter = function(inst,...)
+        _chopsonenter(inst,...)
+        local item = inst.components.inventory and inst.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
+        if item and item:HasTag("bigolaxe") then
+            local speed = 0.67
+            --inst.sg:SetTimeout(inst.sg.timeout/speed) --override timeout
+            inst.AnimState:SetDeltaTimeMultiplier(speed) -- time multiplier
+            for k, v in pairs(_chops.timeline) do --override timeline
+                v.time = v.time/speed
+            end
+        end
+    end
+    local _choponexit = sg.states.chop.onexit
+	sg.states.chop.onexit = function(inst,...)
+        local item = inst.components.inventory and inst.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
+		
+		if item and item:HasTag("bigolaxe") then
+            inst:RemoveTag("fuelchop")
+            local speed = 0.8
+			inst.AnimState:SetDeltaTimeMultiplier(1)			
+			for k, v in pairs(sg.states.chop.timeline) do
+				v.time = v.time*speed
+			end
+		end
+		return _choponexit(inst,...)
+	end
+
+    local _chop = sg.states.chop
+    local _choponenter = _chop.onenter
+    _chop.onenter = function(inst, ...)
+        _choponenter(inst,...)
+        local item = inst.components.inventory and inst.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
+        if item and item:HasTag("bigolaxe") then
+            if not inst:HasTag("fuelchop") then
+                local speed = 0.8
+                inst.AnimState:SetDeltaTimeMultiplier(speed)
+                for k, v in pairs(_chop.timeline) do
+                    v.time = v.time/speed
+                end
+            end
+            inst:AddTag("fuelchop")
+        end
+    end
+end)
+
+AddStategraphPostInit("wilson_client", function(sg)
+    local _chop = sg.states.chop_start
+    local _onenter = _chop.onenter
+    _chop.onenter = function(inst, ...)
+        _onenter(inst, ...)
+        if inst:HasTag("bigolaxe") then
+            --inst.sg:SetTimeout(inst.sg.timeout * 2)
+            inst.AnimState:SetDeltaTimeMultiplier(0.67)
+            for k, v in pairs(_chop.timeline) do
+				v.time = v.time / .67
+			end
+        end
+    end
+    --_onexit = _dolongaction.onexit
+    _chop.onexit = function(inst,...)
+        if inst:HasTag("bigolaxe") then
+            inst.AnimState:SetDeltaTimeMultiplier(1)			
+			for k, v in pairs(_chop.timeline) do
+				v.time = v.time * .67
+			end
+        end
+       -- return _onexit(inst, ...)
     end
 end)
