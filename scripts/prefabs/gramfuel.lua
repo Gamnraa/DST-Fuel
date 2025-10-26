@@ -4,11 +4,6 @@ local assets = {
     Asset("SCRIPT", "scripts/prefabs/player_common.lua"),
 }
 
--- Your character's stats
-TUNING.GRAMFUEL_HEALTH = 130
-TUNING.GRAMFUEL_HUNGER = 130
-TUNING.GRAMFUEL_SANITY = 130
-
 -- Custom starting inventory
 TUNING.GAMEMODE_STARTING_ITEMS.DEFAULT.GRAMFUEL = {
 	"charcoal",

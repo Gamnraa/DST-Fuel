@@ -29,4 +29,76 @@ server_filter_tags = {
 "character", "earthbound"
 }
 
---configuration_options = {}
+configuration_options = {
+    {
+        name = "GRAMFUEL_HEALTH",
+        label = "Fuel's Health",
+        options = {
+            {description = "120", data = 120},
+            {description = "130", data = 130},
+            {description = "140", data = 140},
+        },
+        default = 130
+    },
+    {
+        name = "GRAMFUEL_SANITY",
+        label = "Fuel's Sanity",
+        options = {
+            {description = "120", data = 120},
+            {description = "130", data = 130},
+            {description = "140", data = 140},
+        },
+        default = 130
+    },
+    {
+        name = "GRAMFUEL_HUNGER",
+        label = "Fuel's Hunger",
+        options = {
+            {description = "120", data = 120},
+            {description = "130", data = 130},
+            {description = "140", data = 140},
+        },
+        default = 140
+    },
+    {
+        name = "FUELAXE_DAMAGE",
+        label = "Big Ol' Axe Damage",
+        options = {
+            {description = "49", data = 49},
+            {description = "55", data = 55},
+            {description = "61", data = 61},
+        },
+        default = 55
+    },
+    {
+        name = "FUELAXE_USES",
+        label = "Big Ol' Axe Durability",
+        options = {
+            {description = "250", data = 250},
+            {description = "300", data = 300},
+            {description = "350", data = 350},
+        },
+        default = 300
+    },
+    {
+        name = "FUELSPEAR_DAMAGE",
+        label = "Charcoal Spear Damage",
+        options = {
+            {description = "17", data = 17},
+            {description = "21", data = 21},
+            {description = "25", data = 25},
+        },
+        default = 21
+    },
+    {
+        name = "FUELSPEAR_CONSUMPTION",
+        label = "Charcoal Spear's Usage Rate",
+        hover = "The rate at which the Charcoal Spear depletes at",
+        options = {
+            {description = "Low",   data = 0, hover = "low consumption (takes longer to deplete)"},
+            {description = "Medium",data = 1, hover = "medium consumption (default depletion time)"},
+            {description = "High",  data = 2, hover = "high consumption (depletes very more quickly)"},
+        },
+        default = 1
+    }
+}
