@@ -5,6 +5,7 @@ PrefabFiles = {
     "refurbishedpighouse",
     "refurbishedrabbithouse",
     "bigfuelaxe",
+    "charcoalspear"
 }
 
 Assets = {
@@ -63,7 +64,7 @@ TUNING.FUELAXE_USES = GetModConfigData("FUELAXE_USES")
 TUNING.FUELSPEAR_DAMAGE = GetModConfigData("FUELSPEAR_DAMAGE")
 local speardata = GetModConfigData("FUELSPEAR_CONSUMPTION")
 TUNING.FUELSPEAR_FUEL = (speardata == 0 and 800) or (speardata == 1 and 500) or (speardata == 2 and 300)
-TUNING.FUELSPEAR_RATE = (speardata == 0 and 2.5) or (speardata == 1 and 4) or (speardata == 2 and 5)
+TUNING.FUELSPEAR_RATE = (speardata == 0 and 2.5) or (speardata == 1 and 4) or (speardata == 2 and 5) --not used by the fueled component, but for how much durability is lost on attacking
 
 -- The skins shown in the cycle view window on the character select screen.
 -- A good place to see what you can put in here is in skinutils.lua, in the function GetSkinModes

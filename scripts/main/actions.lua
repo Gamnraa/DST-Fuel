@@ -86,3 +86,19 @@ local waterch = AddAction("WATERCHAR", "Cool Down", function(act)
 end)
 AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.WATERCHAR, "pour"))
 AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.WATERCHAR, "pour"))
+
+
+local lightspear = AddAction("LIGHTSPEAR", "Ignite Spear", function(act)
+    if act.invobject and act.invobject:IsValid() and act.target and act.target.components.burnable:IsBurning() then
+        act.invobject.components.burnable:Ignite(true, act.target, act.doer)
+        return true
+    end
+end)
+AddComponentAction("EQUIPPED", "burnable", function(inst, doer, target, actions, right)
+    if right and target:HasTag("campfire") and target:HasTag("fire") then
+        table.insert(actions, ACTIONS.LIGHTSPEAR)
+    end
+end)
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.LIGHTSPEAR, "catchonfire"))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.LIGHTSPEAR, "catchonfire"))
+
