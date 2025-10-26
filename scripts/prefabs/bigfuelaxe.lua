@@ -67,8 +67,8 @@ local function fn()
     if TheNet:GetServerGameMode() ~= "quagmire" then
         -------
         inst:AddComponent("finiteuses")
-        inst.components.finiteuses:SetMaxUses(500)
-        inst.components.finiteuses:SetUses(500)
+        inst.components.finiteuses:SetMaxUses(TUNING.FUELAXE_USES)
+        inst.components.finiteuses:SetUses(TUNING.FUELAXE_USES)
         inst.components.finiteuses:SetOnFinished(inst.Remove)
         inst.components.finiteuses:SetConsumption(ACTIONS.CHOP, 1)
 
