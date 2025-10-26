@@ -267,6 +267,7 @@ AddStategraphPostInit("wilson", function(sg)
     end
 end)
 
+--Slower Fuel Axe swings
 AddStategraphPostInit("wilson_client", function(sg)
     local _attack = sg.states.attack
 	local _onenter = _attack.onenter
