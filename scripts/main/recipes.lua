@@ -85,7 +85,7 @@ AddCharacterRecipe("fuelcharcoalpile",
         product = "fuelcharcoalpile",
         builder_tag = "GramFuel",
         numtogive = 1,
-        atlas = "cookpot",
+        --atlas = "cook_pot",
     },
     {
         "STRUCTURES",
