@@ -142,4 +142,5 @@ local function fn()
     return inst
 end
 
-return Prefab("charcoalpile", fn, assets, prefabs)
+return Prefab("fuelcharcoalpile", fn, assets, prefabs),
+    MakePlacer("fuelcharcoalpile_placer", "fuelcharcoalpile", "cookpot", "idle")
