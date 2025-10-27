@@ -13,7 +13,7 @@ STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.FUELCHARCOALPILE = {
     NEEDSWATER = "It's getting too hot! Some water will hit the spot.",
     DONE = "Would you look at that! Dad taught me well.",
 }
-STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.PIGHOUSE_FUELREBURISHED = "I made it nice and homely. Stove included!"
+STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.PIGHOUSE_FUELREFURBISHED = "I made it nice and homely. Stove included!"
 STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.RABBITHOUSE_FUELREFURBISHED = "I made it nice and homely. Stove included!"
 STRINGS.CHARACTERS.GRAMFUEL.ANNOUNCE_TAZMILIAN_CHARITY = {
     "Here ya go!",
