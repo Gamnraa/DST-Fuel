@@ -1,4 +1,5 @@
 local Ingredient = GLOBAL.Ingredient
+local TECH = GLOBAL.TECH
 local function AddFuelLogDiscount(recipe, sortkey)
     local ingredients = {}
     for _, v in pairs(recipe.ingredients) do
