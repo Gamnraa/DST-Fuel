@@ -330,7 +330,6 @@ local function OnConstructRefurbish(inst, doer)
     end
 
     local child = inst.components.spawner.child
-    print(child)
     inst.SoundEmitter:PlaySound("hookline_2/characters/hermit/house/stage2_place")
     local upgrade = GLOBAL.ReplacePrefab(inst, inst.prefab .. "_fuelrefurbished")
     if child then upgrade.components.childspawner:TakeOwnership(child) end
