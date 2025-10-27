@@ -330,15 +330,32 @@ local function OnConstructRefurbish(inst, doer)
     end
 
     inst.SoundEmitter:PlaySound("hookline_2/characters/hermit/house/stage2_place")
-    local upgrade = GLOBAL.ReplacePrefab(inst, inst.prefab .. _"fuelrefurbished")
+    local upgrade = GLOBAL.ReplacePrefab(inst, inst.prefab .. "_fuelrefurbished")
 end
 
 local function addrefurbishing(inst) 
     inst:AddTag("fuelupgradeable")
-    if not mastersim() then return end
+    inst:AddTag("constructionsite")
+    if not mastersim() then
+        --Construction Site does not have a way to set it so only entities with certain tags are capable of performing the action
+        --Construction Site checks its replica to determine if the player can perform the action
+        --The replica does not communicate to the server when it's updated
+        --So what we can do is we keep the component activated on the Serverside, and then disable it through the client replica
+        --And then update it based on who is looking at it
+        --That way, only Fuel can actually access the component action!
+        local _replicated = inst.OnEntityReplicated
+        inst.OnEntityReplicated = function(inst)
+            if _replicated then _replicated(inst) end
+            inst.replica.constructionsite:SetEnabled(false)
+        end
+        return 
+    end
 
     local con = inst:AddComponent("constructionsite")
     con:SetConstructionPrefab("construction_container")
     con:SetOnConstructedFn(OnConstructRefurbish)
-    con:Disable()
+    --con:Disable()
 end
+
+AddPrefabPostInit("pighouse", addrefurbishing)
+AddPrefabPostInit("rabbithouse", addrefurbishing)
