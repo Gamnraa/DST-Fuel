@@ -321,3 +321,24 @@ AddStategraphPostInit("wilson_client", function(sg)
         end
     end
 end)
+
+local function OnConstructRefurbish(inst, doer)
+    for _, v in pairs(GLOBAL.CONSTRUCTION_PLANS[inst.prefab]) do 
+        if inst.components.constructionsite:GetMaterialCount(v.type) < v.amount then
+            return
+        end
+    end
+
+    inst.SoundEmitter:PlaySound("hookline_2/characters/hermit/house/stage2_place")
+    local upgrade = GLOBAL.ReplacePrefab(inst, inst.prefab .. _"fuelrefurbished")
+end
+
+local function addrefurbishing(inst) 
+    inst:AddTag("fuelupgradeable")
+    if not mastersim() then return end
+
+    local con = inst:AddComponent("constructionsite")
+    con:SetConstructionPrefab("construction_container")
+    con:SetOnConstructedFn(OnConstructRefurbish)
+    con:Disable()
+end

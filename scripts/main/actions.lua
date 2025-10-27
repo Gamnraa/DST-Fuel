@@ -102,3 +102,7 @@ end)
 AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.LIGHTSPEAR, "catchonfire"))
 AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.LIGHTSPEAR, "catchonfire"))
 
+
+AddComponentAction("SCENE", "constructionsite", function(inst, doer, actions, right)
+    if inst:HasTag("fuelupgradeable") then inst.replica.constructionsite:SetEnabled(doer:HasTag("GramFuel")) end
+end)
