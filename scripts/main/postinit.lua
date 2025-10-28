@@ -339,10 +339,10 @@ local function addrefurbishing(inst)
     inst:AddTag("fuelupgradeable")
     inst:AddTag("constructionsite")
     if not mastersim() then
-        --Construction Site does not have a way to set it so only entities with certain tags are capable of performing the action
+        --Construction Site does not have a way to set it so only entities with certain tags are capable of performing the construction for its attached entity
         --Construction Site checks its replica to determine if the player can perform the action
         --The replica does not communicate to the server when it's updated
-        --So what we can do is we keep the component activated on the Serverside, and then disable it through the client replica
+        --So what we can do is we keep the component activated on the Serverside, and then disable it through the client's replica
         --And then update it based on who is looking at it
         --That way, only Fuel can actually access the component action!
         local _replicated = inst.OnEntityReplicated
