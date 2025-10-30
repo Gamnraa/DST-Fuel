@@ -6,7 +6,12 @@ STRINGS.NAMES.PIGHOUSE_FUELREFURBISHED = "Refurbished Pighouse"
 STRINGS.NAMES.RABBITHOUSE_FUELREFURBISHED = "Refurbished Rabbit Hutch"
 
 STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.BIGFUELAXE = "It's hefty, but with the right form, it makes short work of any tree."
-STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.FUELCHARCOALSPEAR = "It won't do much, but charcoal is real irratatin' if it gets in yer eyes!"
+STRINGS.CHARACTERS.GRAMFUEL.ANNOUNCE_OTHER_PICKUP_FUELAXE = {
+    "Heavier than it looks, huh, %s?",
+    "Careful with that, %s! Don't wanna throw your back out. Or worse!",
+    "Your form's all wrong, %s."
+}
+STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.FUELCHARCOALSPEAR = "It won't do much, but charcoal is real irratatin' if it gets in your eyes!"
 STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.FUELCHARCOALPILE = {
     NEEDSMATERIALS = "Just needs some turf and wood, and I can do my magic!",
     CHARRING = "The smoke is how you tell when it's ready.",
@@ -23,4 +28,11 @@ STRINGS.CHARACTERS.GRAMFUEL.ANNOUNCE_TAZMILIAN_CHARITY = {
     "Dad always said to be a good neighbor!",
     "Here, have this!",
     "Happy to help!",
+}
+
+STRINGS.CHARACTERS.GRAMFUEL.ANNOUNCE_CRITICAL_INJURY = {
+    "Ooooh, that one's not healin' anytime soon.",
+    "Owwww...",
+    "OUCH! That's... That's gonna leave a mark...",
+    "I don't think my arm is supposed to twist like that."
 }

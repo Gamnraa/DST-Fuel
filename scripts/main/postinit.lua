@@ -27,6 +27,7 @@ AddComponentPostInit("health", function(self)
         if self.inst:HasTag("slowhealer") and amount ~= 0 and self.redirect == nil and cause ~= "cold" and cause ~= "hunger" then
             if amount < 0 and math.random(100) + 5 < math.abs(amount) then
                 --Take away maxhealth
+                self.inst.components.talker:Say(GetString(inst, "ANNOUNCE_CRITICAL_INJURY"))
                 self:DeltaPenalty((-amount * .25) / self.maxhealth)
                 self.inst.expectedhealth = math.ceil(math.max(0, (self.inst.expectedhealth or self.currenthealth) + (amount * .25)))
                 dohealingtask(self.inst, _dodelta)
@@ -275,7 +276,7 @@ AddStategraphPostInit("wilson_client", function(sg)
 		_onenter(inst,...)
 		local weapon = inst.components.inventory and inst.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
         if weapon and weapon:HasTag("bigolaxe") then
-			local speed = 0.8
+			local speed = inst:HasTag("GramFuel") and 0.85 or 0.75
 					
 			inst.sg:SetTimeout(inst.sg.timeout/speed)
 			inst.AnimState:SetDeltaTimeMultiplier(speed)				
@@ -289,7 +290,7 @@ AddStategraphPostInit("wilson_client", function(sg)
 	_attack.onexit = function(inst,...)
 		local weapon = inst.components.inventory and inst.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
         if weapon and weapon:HasTag("bigolaxe") then
-			local speed = 0.8
+			local speed = inst:HasTag("GramFuel") and 0.85 or 0.75
 			inst.AnimState:SetDeltaTimeMultiplier(1)			
 			for k, v in pairs(_attack.timeline) do
 				v.time = v.time*speed
@@ -305,18 +306,20 @@ AddStategraphPostInit("wilson_client", function(sg)
         local weapon = inst.components.inventory and inst.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
         if weapon and weapon:HasTag("bigolaxe") then
             --inst.sg:SetTimeout(inst.sg.timeout * 2)
-            inst.AnimState:SetDeltaTimeMultiplier(0.67)
+            local speed = inst:HasTag("GramFuel") and 0.75 or 0.5
+            inst.AnimState:SetDeltaTimeMultiplier(speed)
             for k, v in pairs(_chop.timeline) do
-				v.time = v.time / .6
+				v.time = v.time / speed
 			end
         end
     end
     _chop.onexit = function(inst,...)
         local weapon = inst.components.inventory and inst.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
         if weapon and weapon:HasTag("bigolaxe") then
+            local speed = inst:HasTag("GramFuel") and 0.75 or 0.5
             inst.AnimState:SetDeltaTimeMultiplier(1)			
 			for k, v in pairs(_chop.timeline) do
-				v.time = v.time * .6
+				v.time = v.time * speed
 			end
         end
     end

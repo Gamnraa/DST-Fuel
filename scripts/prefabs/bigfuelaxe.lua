@@ -5,6 +5,7 @@ local assets =
 }
 
 local function onequip(inst, owner)
+    inst.components.equippable.walkspeedmult = owner:HasTag("GramFuel") and 0.88 or 0.66
     local skin_build = inst:GetSkinBuild()
     if skin_build ~= nil then
         owner:PushEvent("equipskinneditem", inst:GetSkinName())
@@ -14,6 +15,11 @@ local function onequip(inst, owner)
     end
     owner.AnimState:Show("ARM_carry")
     owner.AnimState:Hide("ARM_normal")
+    local ent = FindEntity(inst, 10, nil, {"GramFuel"}, {"playerghost"})
+    if ent and ent ~= owner and not ent.bigaxeresponse then --logically, we should not need to check if the owner is Fuel if ent ~= owner
+        ent.components.talker:Say(string.format(GetString(ent, "ANNOUNCE_OTHER_PICKUP_FUELAXE"), owner.name))
+        ent.bigaxeresponse = ent:DoTaskInTime(10, function(inst) inst.bigaxeresponse = nil end)
+    end
 end
 
 local function onunequip(inst, owner)
