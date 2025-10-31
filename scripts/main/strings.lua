@@ -7,9 +7,21 @@ STRINGS.NAMES.RABBITHOUSE_FUELREFURBISHED = "Refurbished Rabbit Hutch"
 
 STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.BIGFUELAXE = "It's hefty, but with the right form, it makes short work of any tree."
 STRINGS.CHARACTERS.GRAMFUEL.ANNOUNCE_OTHER_PICKUP_FUELAXE = {
-    "Heavier than it looks, huh, %s?",
-    "Careful with that, %s! Don't wanna throw your back out. Or worse!",
-    "Your form's all wrong, %s."
+    GENERIC = {
+        "Heavier than it looks, huh, %s?",
+        "Careful with that, %s! Don't wanna throw your back out. Or worse!",
+        "Your form's all wrong, %s."
+    },
+    WOODIE = {
+        "You gonna name this one too, %s?",
+        "Lucy ain't a jealous type, %s?",
+        "Careful, %s. It's ain't your typical lumberjack axe."
+    },
+    WICKERBOTTOM = {
+        "Ho boy. I wanna see this.",
+        "I really don't thin you should be using that, %s.",
+        "You should stick to the readin,' %s."
+    }
 }
 STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.FUELCHARCOALSPEAR = "It won't do much, but charcoal is real irratatin' if it gets in your eyes!"
 STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.FUELCHARCOALPILE = {

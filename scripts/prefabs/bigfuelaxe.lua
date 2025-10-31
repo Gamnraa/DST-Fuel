@@ -17,8 +17,10 @@ local function onequip(inst, owner)
     owner.AnimState:Hide("ARM_normal")
     local ent = FindEntity(inst, 10, nil, {"GramFuel"}, {"playerghost"})
     if ent and ent ~= owner and not ent.bigaxeresponse then --logically, we should not need to check if the owner is Fuel if ent ~= owner
-        ent.components.talker:Say(string.format(GetString(ent, "ANNOUNCE_OTHER_PICKUP_FUELAXE"), owner.name))
+        local mod = STRINGS.CHARACTERS.GRAMFUEL.ANNOUNCE_OTHER_PICKUP_FUELAXE[string.upper(owner.prefab)] or "GENERIC"
+        ent.components.talker:Say(string.format(GetString(ent, "ANNOUNCE_OTHER_PICKUP_FUELAXE", mod), owner.name))
         ent.bigaxeresponse = ent:DoTaskInTime(10, function(inst) inst.bigaxeresponse = nil end)
+        ent.sg:GoToState("fueltaunt")
     end
 end
 

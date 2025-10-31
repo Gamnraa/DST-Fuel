@@ -86,3 +86,28 @@ modimport("scripts/main/containerwidgets")
 modimport("scripts/main/actions")
 modimport("scripts/main/recipes")
 modimport("scripts/main/strings")
+
+local State = GLOBAL.State
+local FRAMES = Global.FRAMES
+local taunt = State({
+    name = "fueltaunt",
+    tags = {"busy", "pausepredict"},
+    onenter = function(inst, data)
+        inst:ClearBufferedAction()
+        inst.components.locomtor:Stop()
+        
+        inst.AnimState:PlayAnimation("emote_pre_sit1")
+        inst.AnimState:PushAnimation("emote_loop_sit1")
+
+        if inst.components.playercontroller then
+            inst.components.playercontroller:RemotePausePrediction()
+        end
+    end,
+    timeline =
+    {
+        GLOBAL.TimeEvent(.5, function(inst)
+            inst.sg:RemoveStateTag("busy")
+            inst.sg:RemoveStateTag("pausepredict")
+        end),
+    },
+})
