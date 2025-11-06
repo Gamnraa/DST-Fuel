@@ -19,8 +19,12 @@ STRINGS.CHARACTERS.GRAMFUEL.ANNOUNCE_OTHER_PICKUP_FUELAXE = {
     },
     WICKERBOTTOM = {
         "Ho boy. I wanna see this.",
-        "I really don't thin you should be using that, %s.",
         "You should stick to the readin,' %s."
+    },
+    WAXWELL = {
+        "A 'gentleman' should leave not-so gentle activities to just 'men,' %s.",
+        "I ain't a judgemental type, but you sure about lugging that around, %s?",
+        "I think you're a little too frail for that, %s."
     }
 }
 STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.FUELCHARCOALSPEAR = "It won't do much, but charcoal is real irratatin' if it gets in your eyes!"
