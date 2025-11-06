@@ -1,12 +1,12 @@
 local assets =
 {
-	Asset( "ANIM", "anim/ms_gramninten_summer.zip" ),
+	Asset( "ANIM", "anim/gramfuel.zip" ),
 	Asset( "ANIM", "anim/ghost_gramninten.zip" ),
 }
 
 local skins =
 {
-	normal_skin = "ms_gramninten_summer",
+	normal_skin = "gramfuel",
 	ghost_skin = "ghost_gramninten",
 }
 
