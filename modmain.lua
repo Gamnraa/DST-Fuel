@@ -45,7 +45,7 @@ local STRINGS = GLOBAL.STRINGS
 -- The character select screen lines
 STRINGS.CHARACTER_TITLES.gramfuel = "The Sunshine Charcoal Burner"
 STRINGS.CHARACTER_NAMES.gramfuel = "Fuel"
-STRINGS.CHARACTER_DESCRIPTIONS.gramfuel = "*Lumberjack at Heart\n*Raised on Tazmilian Hospitality\n*Slow Healer"
+STRINGS.CHARACTER_DESCRIPTIONS.gramfuel = "*Knows how to chop and char\n*Raised on Tazmilian Hospitality\n*Slow Healer"
 STRINGS.CHARACTER_QUOTES.gramfuel = "\"Well, I'm not all black with soot this time!\""
 STRINGS.CHARACTER_SURVIVABILITY.gramfuel = "Slim"
 
@@ -88,13 +88,13 @@ modimport("scripts/main/recipes")
 modimport("scripts/main/strings")
 
 local State = GLOBAL.State
-local FRAMES = Global.FRAMES
+local FRAMES = GLOBAL.FRAMES
 local taunt = State({
     name = "fueltaunt",
     tags = {"busy", "pausepredict"},
     onenter = function(inst, data)
         inst:ClearBufferedAction()
-        inst.components.locomtor:Stop()
+        inst.components.locomotor:Stop()
         
         inst.AnimState:PlayAnimation("emote_pre_sit1")
         inst.AnimState:PushAnimation("emote_loop_sit1")
@@ -111,3 +111,6 @@ local taunt = State({
         end),
     },
 })
+
+AddStategraphState("wilson", taunt)
+AddStategraphState("wilson_client", taunt)
