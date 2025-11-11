@@ -1304,6 +1304,33 @@ return {
             GHOST = "Well, even if my dad's not here, I guess I shouldn't pretend to not see 'em!",
             FIRESTARTER = "Hope that fire is controlled, %s.",
         },
+        GRAMFUEL =
+        {
+            GENERIC = "Must be my long-lost twin.",
+            ATTACKER = "I really swing that axe good, huh?",
+            MURDERER = "Looks like %s is my evil twin!",
+            REVIVER = "Thanks, me!",
+            GHOST = "I'd hate to be only child again.",
+            FIRESTARTER = "Hope that fire is controlled, %s.",
+        },
+        LUCAS = 
+        {
+            GENERIC = "Hey Lucas. Alrights good saying a familiar face!",
+            ATTACKER = "He's much more violent these days.",
+            MURDERER = "You've changed so much, Lucas...",
+            REVIVER = "Thanks, Luke. You've always been a good friend.",
+            GHOST = "No point in leaving you like that, Lucas!",
+            FIRESTARTER = "Sheesh, I'd thought you of all people would know better!",
+        },
+        CLAUS =
+        {
+            GENERIC = "Claus... is it really you? It's been so long...",
+            ATTACKER = "I've never seen him so angry.",
+            MURDERER = "Whatever you are, it ain't Claus.",
+            REVIVER = "Thanks, Claus. You and your brother always kept me good company.",
+            GHOST = "Like it or not, I'm helping you out!",
+            FIRESTARTER = "Claus? What's gotten into you?!",
+        },
         WILSON =
         {
             GENERIC = "Howdy, Mr. Wilson!",
@@ -1448,42 +1475,42 @@ return {
 
         WURT =
         {
-            GENERIC = "Good day, %s!",
-            ATTACKER = "%s is looking especially monstrous today...",
-            MURDERER = "You're just another murderous merm!",
-            REVIVER = "Why thank you, %s!",
-            GHOST = "%s is looking greener around the gills than usual.",
-            FIRESTARTER = "Didn't anyone teach you not to play with fire?!",
+            GENERIC = "Plenty of... 'interesting' folk out here, eh, %s?",
+            ATTACKER = "Not sure what's gotten into them.",
+            MURDERER = "I'm not one to look for trouble, %s.",
+            REVIVER = "That's... surprising of you, %s. Thanks.",
+            GHOST = "Well, even if my dad's not here, I guess I shouldn't pretend to not see 'em!",
+            FIRESTARTER = "You ought to leave the fire business to those in the business, %s!",
         },
 
         WALTER =
         {
-            GENERIC = "Good day, %s!",
-            ATTACKER = "Is that how a Pinetree Pioneer is meant to behave?",
-            MURDERER = "Did you run out of material for your stories, %s?",
-            REVIVER = "I can always count on %s.",
-            GHOST = "I know you're having fun, but we'd best find a heart.",
-            FIRESTARTER = "That doesn't look like a campfire, %s.",
+            GENERIC = "Hi there, Walter!",
+            ATTACKER = "My dad doesn't tolerate that sort of behavior, %s.",
+            MURDERER = "You've gone too far, %s.",
+            REVIVER = "Thanks a ton, %s!",
+            GHOST = "Don't you worry, I'll help ya out!",
+            FIRESTARTER = "Ain't you heard of fire safety, %s?!",
         },
 
         WANDA =
         {
-            GENERIC = "Good day, %s!",
-            ATTACKER = "This really isn't the time or place for that, %s!",
-            MURDERER = "Murderer! You won't get any second chances from me!",
-            REVIVER = "If it wasn't for %s, I'd be history!",
-            GHOST = "I'd better hurry up and find a heart.",
+            GENERIC = "Howdy Ms. Wanda!",
+            ATTACKER = "You should go back to a time before you did that.",
+            MURDERER = "Time travelers are nothin' but trouble from what I've seen.",
+            REVIVER = "Hm. Guess I should thank you, %s.",
+            GHOST = "Yeah, yeah, I'll help 'em out.",
             FIRESTARTER = "Let me guess, this has something to do with \"preserving the timeline\"?",
         },
 
         WONKEY =
         {
-            GENERIC = "It's a monkey.",
-            ATTACKER = "Hey, stop monkeying around!",
-            MURDERER = "They've gone ape!",
-            REVIVER = "My life has been saved... by a monkey?",
-            GHOST = "That's one spooky monkey.",
-            FIRESTARTER = "I wonder if this is how the dinosaurs felt.",
+            GENERIC = "Strange, coulda sworn you were someone else...",
+            ATTACKER = "It's going bananas!",
+            MURDERER = "Someone deal with that monkey!",
+            REVIVER = "Oh! Um, thanks.",
+            GHOST = "Hah!",
+            FIRESTARTER = "You put that torch down right now!",
         },
 
         MIGRATION_PORTAL =
@@ -1494,26 +1521,26 @@ return {
         },
         GLOMMER =
         {
-            GENERIC = "It's cute, in a gross kind of way.",
-            SLEEPING = "Snug as a bug.",
+            GENERIC = "Well, no harm in keeping it around.",
+            SLEEPING = "Rest well.",
         },
         GLOMMERFLOWER =
         {
-            GENERIC = "The petals shimmer in the light.",
-            DEAD = "The petals droop and shimmer in the light.",
+            GENERIC = "I never quite seen a flower like this one.",
+            DEAD = "It's dead now.",
         },
-        GLOMMERWINGS = "These would look empirically amazing on a helmet!",
-        GLOMMERFUEL = "This goop smells foul.",
-        BELL = "Dingalingaling.",
+        GLOMMERWINGS = "Always nice to have a memento.",
+        GLOMMERFUEL = "The potency means... *HACK* it's good... stuff!",
+        BELL = "Leder was the only one who could reach the one we had back in the village.",
         STATUEGLOMMER =
         {
-            GENERIC = "I'm not sure what that's supposed to be.",
-            EMPTY = "I broke it. For science.",
+            GENERIC = "Now who in the world made this?",
+            EMPTY = "All busted up.",
         },
 
-        LAVA_POND_ROCK = "As gneiss a place as any.",
+        LAVA_POND_ROCK = "All cooled down now.",
 
-		WEBBERSKULL = "Poor little guy. He deserves a proper funeral.",
+		WEBBERSKULL = "Creepy.",
 		WORMLIGHT = "Looks delicious.",
 		WORMLIGHT_LESSER = "Kinda wrinkled.",
 		WORM =
