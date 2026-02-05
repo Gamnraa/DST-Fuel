@@ -97,7 +97,7 @@ configuration_options = {
         options = {
             {description = "Low",   data = 0, hover = "low consumption (takes longer to deplete)"},
             {description = "Medium",data = 1, hover = "medium consumption (default depletion time)"},
-            {description = "High",  data = 2, hover = "high consumption (depletes very more quickly)"},
+            {description = "High",  data = 2, hover = "high consumption (depletes more quickly)"},
         },
         default = 1
     }
