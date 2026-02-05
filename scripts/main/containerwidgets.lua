@@ -40,17 +40,14 @@ charpile.itemtestfn = function(container, item, slot)
 end
 
 charpile.widget.buttoninfo.fn = function(inst, doer)
-    print(inst.components.container)
     if inst.components.container then
-        print("container")
         GLOBAL.BufferedAction(doer, inst, GLOBAL.ACTIONS.CHAR):Do()
     elseif inst.replica.container then
-        print("Hello? Send my rpc?")
         GLOBAL.SendRPCToServer(GLOBAL.RPC.DoWidgetButtonAction, GLOBAL.ACTIONS.CHAR.code, inst, GLOBAL.ACTIONS.CHAR.mod_name)
     end
 end
 
 charpile.widget.buttoninfo.validfn = function(inst)
-    return inst.replica.container:Has("log", 1) and inst.replica.container:HasItemWithTag("charcoalburnerturf", 1)
+    return (inst.replica.container:Has("log", 20) or inst.replica.container:Has("livinglog", 20)) and inst.replica.container:HasItemWithTag("charcoalburnerturf", 1)
 end
 c.params.charpile = charpile
