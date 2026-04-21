@@ -4400,55 +4400,55 @@ return {
 
         MEATRACK_HERMIT =
         {
-            DONE = "Jerky time!",
-            DRYING = "Meat takes a while to dry.",
-            DRYINGINRAIN = "Meat takes even longer to dry in rain.",
-            GENERIC = "Those look like they could use some meat.",
-            BURNT = "The rack got dried.",
-            DONE_NOTMEAT = "In laboratory terms, we would call that \"dry\".",
-            DRYING_NOTMEAT = "Drying things is not an exact science.",
-            DRYINGINRAIN_NOTMEAT = "Rain, rain, go away. Be wet again another day.",
+            DONE = "It's ready!",
+            DRYING = "It's not different from charring wood, in a way.",
+            DRYINGINRAIN = "This rain is no help at all!",
+            GENERIC = "I could use that to dry and preserve my meat!",
+            BURNT = "Man...",
+            DONE_NOTMEAT = "Should be good!",
+            DRYING_NOTMEAT = "Just gotta remove the moisture.",
+            DRYINGINRAIN_NOTMEAT = "That's not gonna remove the moisture!",
         },
         BEEBOX_HERMIT =
         {
-            READY = "It's full of honey.",
-            FULLHONEY = "It's full of honey.",
-            GENERIC = "I'm sure there's a little sweetness to be found inside.",
-            NOHONEY = "It's empty.",
-            SOMEHONEY = "Need to wait a bit.",
-            BURNT = "How did it get burned?!!",
+			READY = "I'm gonna be eating good!",
+			FULLHONEY = "I'm gonna be eating good!",
+			GENERIC = "Hope y'all like the little setup I gotcha. Now let's get some honey!",
+			NOHONEY = "Nothin' to take..",
+			SOMEHONEY = "The bees are getting busy!",
+			BURNT = "Aw, man...",
         },
 
-        HERMITCRAB = "Living by yourshellf must get abalonely.",
+        HERMITCRAB = "Must not get many visitors all the way out here...",
 
-        HERMIT_PEARL = "I'll take good care of it.",
-        HERMIT_CRACKED_PEARL = "I... didn't take good care of it.",
+        HERMIT_PEARL = "You trust me that much? I don't know what to say!",
+        HERMIT_CRACKED_PEARL = "I'm horrible. Dad's gonna get good for this!",
 
         -- DSEAS
-        WATERPLANT = "As long as we don't take their barnacles, they'll stay our buds.",
-        WATERPLANT_BOMB = "We're under seedge!",
-        WATERPLANT_BABY = "This one's just a sprout.",
-        WATERPLANT_PLANTER = "They seem to grow best on oceanic rocks.",
+        WATERPLANT = "I never knew 'bout this plant before.",
+        WATERPLANT_BOMB = "That looks dangerous. I want it!",
+        WATERPLANT_BABY = "Still growing.",
+        WATERPLANT_PLANTER = "Just needs a rock to take root.",
 
-        SHARK = "We may need a bigger boat...",
+        SHARK = "Ah!! Ahhhhh!!",
 
-        MASTUPGRADE_LAMP_ITEM = "I'm full of bright ideas.",
-        MASTUPGRADE_LIGHTNINGROD_ITEM = "I've harnessed the power of electricity over land and sea!",
+        MASTUPGRADE_LAMP_ITEM = "Now I can see, at sea!",
+        MASTUPGRADE_LIGHTNINGROD_ITEM = "Last thing I need is getting zapped in the middle of the ocean.",
 
-        WATERPUMP = "It puts out fires very a-fish-iently.",
+        WATERPUMP = "A fire at sea sounds ironic.",
 
-        BARNACLE = "They don't look like knuckles to me.",
-        BARNACLE_COOKED = "I'm told it's quite a delicacy.",
+        BARNACLE = "Yugh.",
+        BARNACLE_COOKED = "Do I really have to?",
 
-        BARNACLEPITA = "Barnacles taste better when you can't see them.",
-        BARNACLESUSHI = "I still seem to have misplaced my chopsticks.",
-        BARNACLINGUINE = "Pass the pasta!",
-        BARNACLESTUFFEDFISHHEAD = "I'm just hungry enough to consider it...",
+        BARNACLEPITA = "I'm full, actually.",
+        BARNACLESUSHI = "I'll pass.",
+        BARNACLINGUINE = "I'll find something else to eat.",
+        BARNACLESTUFFEDFISHHEAD = "I'm gonna be sick.",
 
-        LEAFLOAF = "Mystery leaf meat.",
-        LEAFYMEATBURGER = "Vegetarian, but not cruelty-free.",
-        LEAFYMEATSOUFFLE = "Has science gone too far?",
-        MEATYSALAD = "Strangely filling, for a salad.",
+        LEAFLOAF = "Tastes like the real deal.",
+        LEAFYMEATBURGER = "Mmph, not too bad.",
+        LEAFYMEATSOUFFLE = "I won't complain!",
+        MEATYSALAD = "Yes, I was needing more meat in my salad!",
 
         -- GROTTO
 
