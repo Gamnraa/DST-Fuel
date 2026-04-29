@@ -5,7 +5,7 @@ local assets =
 }
 local function onattack(inst, attacker, target)
     inst.components.fueled:DoDelta(-TUNING.FUELSPEAR_RATE)
-    if math.random(100) < 46 and target.components.hauntable then
+    if math.random(100) < 20 and target.components.hauntable then
         target.components.hauntable:Panic(math.random(5, 10))
     end
 
@@ -16,7 +16,7 @@ local function onattack(inst, attacker, target)
     end
 
     if target.components.burnable and target.components.burnable:IsBurning() then
-       if target.components.health then target.components.health:DoDelta(-TUNING.FUELSPEAR_DAMAGE) end
+       if target.components.health then target.components.health:DoDelta(-TUNING.FUELSPEAR_DAMAGE / 5) end
     end
 end
 
