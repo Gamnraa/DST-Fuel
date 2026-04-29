@@ -5,7 +5,8 @@ PrefabFiles = {
     "refurbishedpighouse",
     "refurbishedrabbithouse",
     "bigfuelaxe",
-    "charcoalspear"
+    "charcoalspear",
+    "livingcoal",
 }
 
 Assets = {
