@@ -1,7 +1,7 @@
 -- This information tells other players more about the mod
 name = "EarthBound: Fuel"
 description = "Adds Fuel from Mother 3."
-author = "Lucas"
+author = "Lucas, Claus, Miz"
 version = "0" -- This is the version of the template. Change it to your own number.
 
 -- This is the URL name of the mod's thread on the forum; the part after the ? and before the first & in the url
@@ -93,7 +93,7 @@ configuration_options = {
     {
         name = "FUELSPEAR_CONSUMPTION",
         label = "Charcoal Spear's Usage Rate",
-        hover = "The rate at which the Charcoal Spear depletes at",
+        hover = "The rate at which the Charcoal Spear depletes",
         options = {
             {description = "Low",   data = 0, hover = "low consumption (takes longer to deplete)"},
             {description = "Medium",data = 1, hover = "medium consumption (default depletion time)"},
