@@ -53,7 +53,7 @@ function CharcoalMaker:Start()
     local slot2 = self.logslots[2]
     self.logs = ((slot1 and slot1.prefab == "log") and slot1.components.stackable.stacksize or 0) + ((slot2 and slot2 == "log") and slot2.components.stackable.stackize or 0)
     self.livinglogs = ((slot1 and slot1.prefab == "livinglog") and slot1.components.stackable.stacksize or 0) + ((slot2 and slot2.prefab == "livinglog") and slot2.components.stackable.stacksize or 0)
-    if self.logs > 0 or self.livinglogs then self.totallogs = math.ceil(self.logs * 1.2) + math.ceil(self.livinglogs * 1.2) end
+    if self.logs > 0 or self.livinglogs > 0 then self.totallogs = math.ceil(self.logs * 1.2) + math.ceil(self.livinglogs * 1.2) end
     self.timeleft = TUNING.CHARCOALPILE_CHAR_TIME or 8 * 2 * 60
     charcoaltickrate = self.timeleft / self.totallogs
     charcoaltick = charcoaltickrate
@@ -82,7 +82,7 @@ function CharcoalMaker:Harvest(doer)
 
         for i = 1, self.numcharcoalproduced do
             local product = SpawnPrefab("charcoal")
-            product.components.fuel.fuelvalue = TUNING.MEDLARGE_FUEL  
+            product.components.fuel.fuelvalue = TUNING.MED_LARGE_FUEL  
             if doer and doer.components.inventory then
                 doer.components.inventory:GiveItem(product, nil, self.inst:GetPosition())
             else
@@ -91,7 +91,7 @@ function CharcoalMaker:Harvest(doer)
         end
 
         for i = 1, self.numlivingcoalproduced do
-            local product = SpawnPrefab("livingcoal")
+            local product = SpawnPrefab("fuelivingcoal")
             if doer and doer.components.inventory then
                 doer.components.inventory:GiveItem(product, nil, self.inst:GetPosition())
             else
@@ -144,6 +144,7 @@ function CharcoalMaker:OnSave()
         numcharcoalproduced = self.numcharcoalproduced,
         numlivingcoalproduced = self.numlivingcoalproduced,
         numashproduced = self.numashproduced,
+        temperature = self.temperature
     }
 end
 
@@ -160,6 +161,7 @@ function CharcoalMaker:OnLoad(data)
     self.numcharcoalproduced = data.numcharcoalproduced
     self.numlivingcoalproduced = data.numlivingcoalproduced
     self.numashproduced = data.numashproduced
+    self.temperature = data.temperature
 
     print(charcoaltick, charcoaltickrate, temptick, ashtick, ashtickrate, data.charcoaltick)
 

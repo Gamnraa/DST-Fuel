@@ -34,9 +34,9 @@ local charpile = {
     type = "cooker"
 }
 charpile.itemtestfn = function(container, item, slot)
-    return (slot == nil and (item.prefab == "log" or validturfs[item.prefab]))
-        or (slot == 1 and validturfs[item.prefab])
+    return (slot == 1 and validturfs[item.prefab])
         or ((slot == 2 or slot == 3) and (item.prefab == "log" or item.prefab == "livinglog"))
+        or (slot == nil and ((item.prefab == "log" or item.prefab == "livinglog") or validturfs[item.prefab]))
 end
 
 charpile.widget.buttoninfo.fn = function(inst, doer)
