@@ -8,7 +8,6 @@ local dohealingtask = function(inst, _dodelta)
         _dodelta(inst.components.health, 
             (health.currenthealth > inst.expectedhealth and -1) or 
             (health.currenthealth < inst.expectedhealth and 1) or 0)
-        print("tick",inst.expectedhealth)
         if math.floor(health.currenthealth) == math.floor(inst.expectedhealth) then
             inst.slowhealtask:Cancel()
         end    
