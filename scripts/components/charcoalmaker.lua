@@ -13,9 +13,12 @@ local CharcoalMaker = Class(function(self, inst)
     self.inst = inst
     self.tileslot = inst.components.container.slots[1]
     self.logslots = {inst.components.container.slots[2], inst.components.container.slots[3]}
-    self.numproductproduced = nil
+    self.numcharcoalproduced = nil
+    self.numlivingcoalproduced = nil
     self.numashproduced = nil
     self.logs = 0
+    self.livinglogs = 0
+    self.totallogs = 0
     self.timeleft = nil
     self.onharvest = nil
     self.startfn = nil
@@ -43,12 +46,16 @@ end
 function CharcoalMaker:Start()
     if self.startfn then self.startfn(self.inst) end
     self:UpdateSlots()
-    self.numproductproduced = 0
+    self.numcharcoalproduced = 0
+    self.numlivingcoalproduced = 0
     self.numashproduced = 0
-    self.logs = (self.logslots[1] and self.logslots[1].components.stackable.stacksize or 0) + (self.logslots[2] and self.logslots[2].components.stackable.stacksize or 0)
-    if self.logs > 0 then self.logs = math.ceil(self.logs * 1.5) end
+    local slot1 = self.logslots[1]
+    local slot2 = self.logslots[2]
+    self.logs = (slot1 and slot1.components.stackable.stacksize and slot1.prefab == "logs" or 0) + (slot2 and slot2 == "logs" and slot2.components.stackable.stackize or 0)
+    self.livinglogs = (slot1 and slot1.prefab == "livinglog" and slot1.components.stackable.stacksize or 0) + (slot2 and slot2.prefab == "livinglog" and slot2.components.stackable.stacksize or 0)
+    if self.logs > 0 or self.livinglogs then self.totallogs = math.ceil(self.logs * 1.2) + math.ceil(self.livinglogs * 1.2) end
     self.timeleft = TUNING.CHARCOALPILE_CHAR_TIME or 8 * 2 * 60
-    charcoaltickrate = self.timeleft / self.logs
+    charcoaltickrate = self.timeleft / self.totallogs
     charcoaltick = charcoaltickrate
     ashtickrate = charcoaltickrate * 30
     ashtick = ashtickrate
@@ -68,20 +75,32 @@ end
 
 function CharcoalMaker:Harvest(doer)
     if self.onharvest then self.onharvest(self.inst) end
-    if self.numproductproduced and self.numashproduced then
+    if self.numcharcoalproduced and self.numashproduced then
        
         local tileproduct = SpawnPrefab(self.tileslot:HasTag("charred") and "ash" or "turf_grass")
         self.inst.components.container:DestroyContents()
 
-        for i = 1, self.numproductproduced do
-            local product = SpawnPrefab("charcoal") 
+        for i = 1, self.numcharcoalproduced do
+            local product = SpawnPrefab("charcoal")
+            product.components.fuel.fuelvalue = TUNING.MEDLARGE_FUEL  
             if doer and doer.components.inventory then
                 doer.components.inventory:GiveItem(product, nil, self.inst:GetPosition())
             else
                 LaunchAt(product, self.inst, nil, 1, 1)
             end
         end
-        self.numproductproduced = nil
+
+        for i = 1, self.numlivingcoalproduced do
+            local product = SpawnPrefab("livingcoal")
+            if doer and doer.components.inventory then
+                doer.components.inventory:GiveItem(product, nil, self.inst:GetPosition())
+            else
+                LaunchAt(product, self.inst, nil, 1, 1)
+            end
+        end
+
+        self.numcharcoalproduced = nil
+        self.numlivingcoalproduced = nil
 
         for i = 1, self.numashproduced do
             local product = SpawnPrefab("ash") 
@@ -122,7 +141,8 @@ function CharcoalMaker:OnSave()
         temptick = temptick,
         ashtickrate = ashtickrate,
         ashtick = ashtick,
-        numproductproduced = self.numproductproduced,
+        numcharcoalproduced = self.numcharcoalproduced,
+        numlivingcoalproduced = self.numlivingcoalproduced,
         numashproduced = self.numashproduced,
     }
 end
@@ -137,7 +157,8 @@ function CharcoalMaker:OnLoad(data)
     temptick = data.temptick
     ashtickrate = data.ashtickrate
     ashtick = data.ashtick
-    self.numproductproduced = data.numproductproduced
+    self.numcharcoalproduced = data.numcharcoalproduced
+    self.numlivingcoalproduced = data.numlivingcoalproduced
     self.numashproduced = data.numashproduced
 
     print(charcoaltick, charcoaltickrate, temptick, ashtick, ashtickrate, data.charcoaltick)
@@ -152,7 +173,7 @@ end
 function CharcoalMaker:OnUpdate(dt)
     self.timeleft = self.timeleft - dt - (self.inst.components.moisture:GetMoisturePercent() >= .38 and FRAMES * 2 or 0)
     if self:IsDone() then
-        self.numproductproduced = self.numproductproduced + self.logs
+        self.numcharcoalproduced = self.numcharcoalproduced + self.logs
         local item = self.inst.components.container:RemoveItem(self.inst.components.container:FindItem(function(inst) return inst.prefab == "log" end, true))
         if item then item:Remove() end
         self:UpdateSlots()
@@ -163,12 +184,12 @@ function CharcoalMaker:OnUpdate(dt)
     if dt < charcoaltick then
         charcoaltick = charcoaltick - dt
     else
-        self.numproductproduced = self.numproductproduced + 1
-        self.logs = self.logs - 1
-        if self.logslots[1] or self.logslots[2] then
-            --local item = self.inst.components.container:RemoveItem(self.inst.components.container:FindItem(function(inst) return inst.prefab == "log" end, false))
-            --if item then item:Remove() end
-            --self:UpdateSlots()
+        if self.logs > 0 then
+            self.numcharcoalproduced = self.numcharcoalproduced + 1
+            self.logs = self.logs - 1
+        else
+            self.numlivingcoalproduced = self.numlivingcoalproduced + 1
+            self.livinglogs = self.livinglogs - 1
         end
         charcoaltick = charcoaltickrate
     end
@@ -177,7 +198,11 @@ function CharcoalMaker:OnUpdate(dt)
         ashtick = ashtick - dt - (self:IsTooHot() and 1 or 0)
     else
         self.numashproduced =  self.numashproduced + 1
-        self.numproductproduced =  math.max(1, self.numproductproduced - 1)
+        if self.logs > 0 then
+            self.numcharcoalproduced =  math.max(1, self.numcharcoalproduced - 1)
+        else
+            self.numlivingcoalproduced = math.max(1, self.numlivingcoalproduced - 1)
+        end
         ashtick = ashtickrate
     end
 
