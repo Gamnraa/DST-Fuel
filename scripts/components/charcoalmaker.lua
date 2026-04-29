@@ -51,8 +51,8 @@ function CharcoalMaker:Start()
     self.numashproduced = 0
     local slot1 = self.logslots[1]
     local slot2 = self.logslots[2]
-    self.logs = (slot1 and slot1.components.stackable.stacksize and slot1.prefab == "log" or 0) + (slot2 and slot2 == "log" and slot2.components.stackable.stackize or 0)
-    self.livinglogs = (slot1 and slot1.prefab == "livinglog" and slot1.components.stackable.stacksize or 0) + (slot2 and slot2.prefab == "livinglog" and slot2.components.stackable.stacksize or 0)
+    self.logs = ((slot1 and slot1.prefab == "log") and slot1.components.stackable.stacksize or 0) + ((slot2 and slot2 == "log") and slot2.components.stackable.stackize or 0)
+    self.livinglogs = ((slot1 and slot1.prefab == "livinglog") and slot1.components.stackable.stacksize or 0) + ((slot2 and slot2.prefab == "livinglog") and slot2.components.stackable.stacksize or 0)
     if self.logs > 0 or self.livinglogs then self.totallogs = math.ceil(self.logs * 1.2) + math.ceil(self.livinglogs * 1.2) end
     self.timeleft = TUNING.CHARCOALPILE_CHAR_TIME or 8 * 2 * 60
     charcoaltickrate = self.timeleft / self.totallogs
