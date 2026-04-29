@@ -36,7 +36,7 @@ local charpile = {
 charpile.itemtestfn = function(container, item, slot)
     return (slot == nil and (item.prefab == "log" or validturfs[item.prefab]))
         or (slot == 1 and validturfs[item.prefab])
-        or ((slot == 2 or slot == 3) and item.prefab == "log")
+        or ((slot == 2 or slot == 3) and (item.prefab == "log" or item.prefab == "livinglog"))
 end
 
 charpile.widget.buttoninfo.fn = function(inst, doer)
