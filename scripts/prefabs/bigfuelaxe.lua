@@ -6,6 +6,7 @@ local assets =
 
 local function onequip(inst, owner)
     inst.components.equippable.walkspeedmult = owner:HasTag("GramFuel") and 0.88 or 0.66
+    if not owner:HasTag("GramFuel") then owner:AddTag("groggy") end
     local skin_build = inst:GetSkinBuild()
     if skin_build ~= nil then
         owner:PushEvent("equipskinneditem", inst:GetSkinName())
@@ -31,6 +32,8 @@ local function onunequip(inst, owner)
     if skin_build ~= nil then
         owner:PushEvent("unequipskinneditem", inst:GetSkinName())
     end
+
+    if not owner:HasTag("GramFuel") then owner:RemoveTag("groggy") end
 end
 
 local function fn()
