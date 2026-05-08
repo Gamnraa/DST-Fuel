@@ -142,10 +142,9 @@ function MakeWallType(data)
     local prefabs =
     {
         "collapse_small",
-        "brokenwall_"..data.name,
     }
 
-	local bank = data.name == "dreadstone" and "wall_dreadstone" or "wall"
+	local bank = "wall"
 
     local function ondeploywall(inst, pt, deployer)
         --inst.SoundEmitter:PlaySound("dontstarve/creatures/spider/spider_egg_sack")
@@ -163,18 +162,15 @@ function MakeWallType(data)
     end
 
     local function onhammered(inst, worker)
-        if data.maxloots ~= nil and data.loot ~= nil then
-            local num_loots = math.max(1, math.floor(data.maxloots * inst.components.health:GetPercent()))
-            for i = 1, num_loots do
-                inst.components.lootdropper:SpawnLootPrefab(data.loot)
-            end
+        
+        local num_loots = math.max(1, math.floor(2 * inst.components.health:GetPercent()))
+        for i = 1, num_loots do
+            inst.components.lootdropper:SpawnLootPrefab("log")
         end
 
         local fx = SpawnPrefab("collapse_small")
         fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
-        if data.material ~= nil then
-            fx:SetMaterial(data.material)
-        end
+        fx:SetMaterial("wood")
 
         inst:Remove()
     end
@@ -191,7 +187,7 @@ function MakeWallType(data)
         inst:AddTag("wallbuilder")
 
 		inst.AnimState:SetBank(bank)
-        inst.AnimState:SetBuild("wall_"..data.name)
+        inst.AnimState:SetBuild("wall_wood")
         inst.AnimState:PlayAnimation("idle")
 
         MakeInventoryFloatable(inst)
@@ -213,8 +209,8 @@ function MakeWallType(data)
         end
 
         inst:AddComponent("repairer")
-        inst.components.repairer.repairmaterial = (data.name == "ruins" and MATERIALS.THULECITE) or (data.name == "scrap" and MATERIALS.GEARS) or data.name
-        inst.components.repairer.healthrepairvalue = data.repairhealth or data.maxhealth / 6
+        inst.components.repairer.repairmaterial = MATERIALS.WOOD
+        inst.components.repairer.healthrepairvalue = 150 / 6
 
         MakeSmallBurnable(inst, TUNING.MED_BURNTIME)
         MakeSmallPropagator(inst)
@@ -236,9 +232,9 @@ function MakeWallType(data)
         if attacker and attacker.components.combat then
             attacker.components.combat:GetAttacked(inst, 10)
         end
-        if data.material ~= nil then
-            inst.SoundEmitter:PlaySound("dontstarve/common/destroy_wood")
-        end
+
+        inst.SoundEmitter:PlaySound("dontstarve/common/destroy_wood")
+
 
         local healthpercent = inst.components.health:GetPercent()
         if healthpercent > 0 then
@@ -275,12 +271,10 @@ function MakeWallType(data)
 		inst:AddTag("electricdamageimmune")
 
 		inst.AnimState:SetBank(bank)
-        inst.AnimState:SetBuild("wall_"..data.name)
+        inst.AnimState:SetBuild("wall_wood")
         inst.AnimState:PlayAnimation("half")
 
-        for i, v in ipairs(data.tags) do
-            inst:AddTag(v)
-        end
+        inst:AddTag("wood")
 
         inst._pfpos = nil
         inst._ispathfinding = net_bool(inst.GUID, "_ispathfinding", "onispathfindingdirty")
@@ -318,21 +312,17 @@ function MakeWallType(data)
         inst.components.health.ondelta = onhealthchange
         inst.components.health.nofadeout = true
         inst.components.health.canheal = false
-		if data.playerdamagemod ~= nil then
-			inst.components.health:SetAbsorptionAmountFromPlayer(data.playerdamagemod)
-		end
 
         MakeMediumBurnable(inst)
         MakeLargePropagator(inst)
         inst.components.burnable.flammability = .5
         inst.components.burnable.nocharring = true
-            inst.components.propagator.flashpoint = 30 + math.random() * 10
-        end
+        inst.components.propagator.flashpoint = 30 + math.random() * 10
   
 
         inst:AddComponent("workable")
         inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
-		inst.components.workable:SetWorkLeft(data.maxwork or 3)
+		inst.components.workable:SetWorkLeft(3)
         inst.components.workable:SetOnFinishCallback(onhammered)
         inst.components.workable:SetOnWorkCallback(onhit)
 
@@ -346,61 +336,6 @@ function MakeWallType(data)
     return Prefab("wall_fuelstakes", fn, assets, prefabs),
         Prefab("wall_fuelstakes_item", itemfn, assets, { "wall_fuelstakes", "wall_fuelstakes_item_placer" }),
 		MakePlacer("wall_wall_fuelstakes_item_placer", bank, "wall_fuelstakes", "half", false, false, true, nil, nil, "eight")
-end
-
-local wallprefabs = {}
-
---6 rock, 8 wood, 4 straw
---NOTE: Stacksize is now set in the actual recipe for the item.
-local walldata =
-{
-    { name = MATERIALS.STONE,          material = "stone", tags = { "stone" },             loot = "rocks",            maxloots = 2, maxhealth = TUNING.STONEWALL_HEALTH,                      buildsound = "dontstarve/common/place_structure_stone" },
-    { name = MATERIALS.STONE.."_2",    material = "stone", tags = { "stone" },             loot = "rocks",            maxloots = 2, maxhealth = TUNING.STONEWALL_HEALTH,                      buildsound = "dontstarve/common/place_structure_stone" },
-    { name = MATERIALS.WOOD,     material = "wood",  tags = { "wood" },              loot = "log",              maxloots = 2, maxhealth = TUNING.WOODWALL_HEALTH,     flammable = true, buildsound = "dontstarve/common/place_structure_wood"  },
-    { name = MATERIALS.HAY,      material = "straw", tags = { "grass" },             loot = "cutgrass",         maxloots = 2, maxhealth = TUNING.HAYWALL_HEALTH,      flammable = true, buildsound = "dontstarve/common/place_structure_straw" },
-    { name = "ruins",            material = "stone", tags = { "stone", "ruins" },    loot = "thulecite_pieces", maxloots = 2, maxhealth = TUNING.RUINSWALL_HEALTH,                      buildsound = "dontstarve/common/place_structure_stone" },
-    { name = "ruins_2",          material = "stone", tags = { "stone", "ruins" },    loot = "thulecite_pieces", maxloots = 2, maxhealth = TUNING.RUINSWALL_HEALTH,                      buildsound = "dontstarve/common/place_structure_stone" },
-	{
-		name = MATERIALS.MOONROCK,
-		material = "stone",
-		tags = { "stone", "moonrock" },
-		loot = "moonrocknugget",
-		maxloots = 2,
-		maxwork = TUNING.MOONROCKWALL_WORK,
-		maxhealth = TUNING.MOONROCKWALL_HEALTH,
-		playerdamagemod = TUNING.MOONROCKWALL_PLAYERDAMAGEMOD,
-		buildsound = "dontstarve/common/place_structure_stone",
-	},
-	{
-		name = MATERIALS.DREADSTONE,
-		material = "stone",
-		tags = { "stone", "dreadstone" },
-		loot = "dreadstone",
-		maxloots = 2,
-		maxwork = TUNING.DREADSTONEWALL_WORK,
-		maxhealth = TUNING.DREADSTONEWALL_HEALTH,
-		playerdamagemod = TUNING.DREADSTONEWALL_PLAYERDAMAGEMOD,
-		repairhealth = TUNING.REPAIR_DREADSTONE_HEALTH * 4,
-		buildsound = "dontstarve/common/place_structure_stone",
-	},
-    {
-        name ="scrap",
-        material = "stone",
-        tags = { "stone", "scrap" },
-        loot = "wagpunk_bits",
-        maxloots = 1,
-        maxwork = TUNING.SCRAPWALL_WORK,
-        maxhealth = TUNING.SCRAPWALL_HEALTH,
-        playerdamagemod = TUNING.SCRAPWALL_PLAYERDAMAGEMOD,
-        repairhealth = TUNING.REPAIR_SCRAP_HEALTH * 4,
-        buildsound = "dontstarve/common/place_structure_stone",
-    },    
-}
-for i, v in ipairs(walldata) do
-    local wall, item, placer = MakeWallType(v)
-    table.insert(wallprefabs, wall)
-    table.insert(wallprefabs, item)
-    table.insert(wallprefabs, placer)
 end
 
 return MakeWallType()
