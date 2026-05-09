@@ -33,6 +33,7 @@ return {
             NOTMERM = "I'd rather not mess with the fish smelling guys.",
             NOKELP = "only_used_by_wurt",
             HASMERMLEADER = "only_used_by_wurt",
+			NOTAROBOT = "Ask Claus 'bout it.",									   
 		},
         APPLYELIXIR =
         {
@@ -365,6 +366,7 @@ return {
             NOTAMERM = "I'll leave them be.",
             NOTSOULJARHANDLER = "I'd best not mess with it.",
             RESTRICTED = "I wouldn't be any use.",
+			NOTAROBOT = "Ask Claus 'bout it.",
 		},
         SADDLE =
         {
@@ -398,6 +400,7 @@ return {
             NOTMASTERCHEF = "My specialty is cooking charcoal, nothin' more.",
             NOTSOULJARHANDLER = "I'll leave it be.",
             RESTRICTED = "I wouldn't be any use.",
+			NOTAROBOT = "Ask Claus 'bout it.",
 		},
         TEACH =
         {
@@ -498,6 +501,10 @@ return {
         {
             MISSED = "Too slow.",
         },
+		-- Winter 2025
+		SOAKIN =
+		{
+			NOSPACE = "Ain't gonna fit.",--there's someone in that space. there's no room there.
     },
 
 	ANNOUNCE_CANNOT_BUILD =
@@ -1084,9 +1091,9 @@ return {
     ANNOUNCE_YOTB_LEARN_NEW_PATTERN =  "My mind has been filled with beefalo styling inspiration!",
 
     -- AE4AE
-    ANNOUNCE_EYEOFTERROR_ARRIVE = "What is that- a giant floating eyeball?!",
-    ANNOUNCE_EYEOFTERROR_FLYBACK = "Finally!",
-    ANNOUNCE_EYEOFTERROR_FLYAWAY = "Get back here, I'm not finished with you yet!",
+    ANNOUNCE_EYEOFTERROR_ARRIVE = "I knew I was being watched!",
+    ANNOUNCE_EYEOFTERROR_FLYBACK = "I don't mind dishing out a second serving!",
+    ANNOUNCE_EYEOFTERROR_FLYAWAY = "Guess he's all filled up on knuckle sandwiches.",
 
     -- PIRATES
     ANNOUNCE_CANT_ESCAPE_CURSE = "It really wants to stay with me.",
@@ -1166,7 +1173,7 @@ return {
     ANNOUNCE_WENDY_BABYSITTER_SET = "only_used_by_wendy", 
     ANNOUNCE_WENDY_BABYSITTER_STOP = "only_used_by_wendy",
 
-	ANNOUNCE_WORTOX_REVIVER_FAILTELEPORT = "Hmm. What went wrong?",
+	ANNOUNCE_WORTOX_REVIVER_FAILTELEPORT = "That all ya got?",
 
     ANNOUNCE_NO_ABIGAIL_FLOWER = "only_used_by_wendy",
 
@@ -1194,6 +1201,12 @@ return {
 
 	-- Rift 6.1
 	ANNOUNCE_LIGHTSOUT_SHADOWHAND = "Go. Away.",
+	-- Hallowed Nights 2025
+    ANNOUNCE_MUTATED_BUZZARD_ARRIVAL = "Something's off about these vultures.", -- Mutated buzzards arrive to lurk and circle the player
+
+    -- Winter's Feast 2025
+    ANNOUNCE_HERMITCRAB_SHELL_BADTELEPORTPOINT = "It didn't work?",
+    ANNOUNCE_HERMITCRAB_SHELL_ARRIVE = "Oh, man, remind to never do that again.",																																					   
 
 
 	BATTLECRY =
@@ -1277,7 +1290,7 @@ return {
         BOOK_GARDENING = "Lotsa good info in that one!",
 		BOOK_SILVICULTURE = "Lotsa good info in that one!",
 		BOOK_HORTICULTURE = "Lotsa good info in that one!",
-        BOOK_SLEEP = "If reading it fails, then using it for blunt force trauma might do the trick!",
+        BOOK_SLEEP = "If reading it fails, then using it as blunt force trauma might do the trick!",
         BOOK_BRIMSTONE = "That's a little familiar.",
 
         BOOK_FISH = "Never been a fisherman myself.",
@@ -1310,12 +1323,12 @@ return {
             ATTACKER = "I really swing that axe good, huh?",
             MURDERER = "Looks like %s is my evil twin!",
             REVIVER = "Thanks, me!",
-            GHOST = "I'd hate to be only child again.",
+            GHOST = "I'd hate to be an only child again.",
             FIRESTARTER = "Hope that fire is controlled, %s.",
         },
         LUCAS = 
         {
-            GENERIC = "Hey Luke. Alrights good saying a familiar face!",
+            GENERIC = "Hey Luke. Alwayw good saying a familiar face!",
             ATTACKER = "He's much more violent these days.",
             MURDERER = "You've changed, Lucas...",
             REVIVER = "Thanks, Luke. You've always been a good friend.",
@@ -1344,7 +1357,7 @@ return {
         {
             GENERIC = "Well it ain't the city boy. Howdy, Ness!",
             ATTACKER = "Yknow Ness, 'round from where I come from, we don't look to kindly at that sorta behavior.",
-            MURDERER = "You may be strong, Ness, but I can't handle a no-gooder like you!",
+            MURDERER = "You may be strong, Ness, but I can handle a no-gooder like you!",
             REVIVER = "You've got a kind heart, sir!",
             GHOST = "I miss home too. You don't see me crying about it!",
             FIRESTARTER = "Recklessness like that almost cost me my life, Ness."
@@ -1372,7 +1385,7 @@ return {
             GENERIC = "Howdy!",
             ATTACKER = "I'll tell ya one thing: yer name isn't Maxwell. That I'm sure of.",
             MURDERER = "Time to make like your magic tricks and disappear.",
-            REVIVER = "Still me, %s? Well I'll be.",
+            REVIVER = "Still need me, %s? Well I'll be.",
             GHOST = "Well, even if my dad's not here, I guess I shouldn't pretend to not see 'em!",
             FIRESTARTER = "Wildfires' no game, %s.",
         },
@@ -1518,7 +1531,7 @@ return {
             MURDERER = "Time travelers are nothin' but trouble from what I've seen.",
             REVIVER = "Hm. Guess I should thank you, %s.",
             GHOST = "Yeah, yeah, I'll help 'em out.",
-            FIRESTARTER = "Let me guess, this has something to do with \"preserving the timeline\"?",
+            FIRESTARTER = "Forest fire's no joke, %s.",
         },
 
         WONKEY =
@@ -1559,22 +1572,22 @@ return {
         LAVA_POND_ROCK = "All cooled down now.",
 
 		WEBBERSKULL = "Creepy.",
-		WORMLIGHT = "Looks delicious.",
-		WORMLIGHT_LESSER = "Kinda wrinkled.",
+		WORMLIGHT = "I'll eat it!",
+		WORMLIGHT_LESSER = "It don't glow as bright.",
 		WORM =
 		{
-		    PLANT = "Seems safe to me.",
-		    DIRT = "Just looks like a pile of dirt.",
-		    WORM = "It's a worm!",
+		    PLANT = "Ooh, I could use a snack!",
+		    DIRT = "Something's down there.",
+		    WORM = "Turns out I'm the snack!",
 		},
-        WORMLIGHT_PLANT = "Seems safe to me.",
+        WORMLIGHT_PLANT = Ooh, I could use a snack!",
 		MOLE =
 		{
-			HELD = "Nowhere left to dig, my friend.",
-			UNDERGROUND = "Something's under there, searching for minerals.",
-			ABOVEGROUND = "I'd sure like to whack that mole... thing.",
+			HELD = "Howdy!",
+			UNDERGROUND = "There's something there.",
+			ABOVEGROUND = "Better not take any of my things!",
 		},
-		MOLEHILL = "What a nice, homey hole in the ground!",
+		MOLEHILL = "A mole lives here.",
 		MOLEHAT = "Yeesh. Maybe I don't wanna see in the dark!",
 
 		EEL = "Freshwater eel.",
@@ -2122,8 +2135,9 @@ return {
 		CHARCOAL = {
             "It'll burn hot enough to melt iron. Where would civilization be without it?",
             "My dad's dad made charcoal, and my son's son will too. It's in our blood!",
-            "Burn everything from wood until there ain't nothin' but its base element, and you got yourself the foundation to the iron age.",
+            "Take everything from wood until there ain't nothin' but its base element.",
             "Charcoal might look humble, but it's done a lotta work for humans over the years.",
+			"Yer lookin' at the foundation of the iron age.",
         },
         CHESSPIECE_PAWN = "Ain't ever had time for that sorta board game.",
         CHESSPIECE_ROOK =
@@ -2221,6 +2235,7 @@ return {
         CRITTER_KITTEN = "Come along if ya want.",
         CRITTER_PERDLING = "Howdy!",
 		CRITTER_LUNARMOTHLING = "So long as you ain't harming none.",
+		CRITTER_BULBIN = "It's cute in an ugly way.",
 
 		CROW =
 		{
@@ -2743,7 +2758,7 @@ return {
         POMEGRANATE = "Never had this fruit before.",
         POMEGRANATE_COOKED = "Mushy.",
         POMEGRANATE_SEEDS = "Some seeds I got.",
-        POND = "I wouldn't mind a swim",
+        POND = "I wouldn't mind a swim,",
         POOP = "I'm no farmer. I got no use for crap!",
         FERTILIZER = "What am I gonna do with this?",
         PUMPKIN = "A pumpkin? They're pretty tasty!",
@@ -5916,6 +5931,203 @@ return {
 			SLEEPING = "Snug like a bug.",
             VENTING = "Careful breathin' that stuff in!", -- in the shield state and venting out gasses
         },
+		--Hallowed Nights 2025
+
+		PUMPKINHAT =
+		{
+			GENERIC = "Now I can see out of it!",
+			UNCARVED = "I should make it a face.",--can't wear it unless it's carved.
+		},
+
+        PENGUINCORPSE =
+		{
+            GENERIC  = "Poor thing.", --witnessing the corpse
+            BURNING  = "Well, maybe it tastes like chicken.", --when its burning
+            REVIVING = "That's unsightly!", --when its mutating and being revived
+		},
+        SPIDERCORPSE =
+		{
+			GENERIC = "Squished and squashed.",
+			BURNING = "Yuck, that smells!",
+			REVIVING = "Huh?",
+		},
+        SPIDERQUEENCORPSE =
+		{
+			GENERIC = "You got bug guts all on me!",
+			BURNING = "Smells awful!",
+			REVIVING = "What's happening to it?",
+		},
+        MERMCORPSE =
+		{
+			GENERIC = "Dead.",
+			BURNING = "And I thought it smelled bad before!",
+			REVIVING = "What the heck?",
+		},
+        GENERIC_CORPSE = -- A generic set of lines for ANY corpse, until they get their own unique lines at least.
+        {
+            GENERIC = "Poke it with a stick. Then you'll know for sure.",
+            BURNING = "Yeesh.",
+            REVIVING = "That's giving me a real bad feeling.",
+        },
+
+		--Winter's Feast 2025
+
+		W_RADIO = "What sorta gadget is that?",
+
+		HERMITHOTSPRING  =
+        {
+        	GENERIC = "Nowhere is brimming with hotsprings!",
+        	BOMBED = "If you ain't ever used one, you ain't a Tazmilian!",
+			EMPTY = "Awwwww...",
+        },
+		HERMITHOTSPRING_CONSTR = "Big things are comin.'",
+		MEATRACK_HERMIT_MULTI = --talk to vito; want to reuse MEATRACK, but less meat focused; more fish/tea
+        {
+		    DONE = "It's ready!",
+            DRYING = "It's not different from charring wood, in a way.",
+            DRYINGINRAIN = "This rain is no help at all!",
+            GENERIC = "I could use that to dry and preserve my meat!",
+            BURNT = "Man...",
+            DONE_NOTMEAT = "Should be good!",
+            DRYING_NOTMEAT = "Just gotta remove the moisture.",
+            DRYINGINRAIN_NOTMEAT = "That's not gonna remove the moisture!",
+            DONE_SALT = "All done!",
+			ABANDONED = "It ain't doing nuthin' now.",
+        },
+		HERMITHOUSE_ORNAMENT = "It's neat.",
+		HERMITHOUSE_LAUNDRY = "Old lady clothes",
+
+        PETALS_DRIED = "Dried forever.",
+        PETALS_EVIL_DRIED = "Dried forever.",
+        FOLIAGE_DRIED = "Dried forever.",
+        SUCCULENT_PICKED_DRIED = "Dried forever.",
+        FIRENETTLES_DRIED = "Dried forever.",
+        TILLWEED_DRIED = "Dried forever.",
+        MOON_TREE_BLOSSOM_DRIED = "Dried forever.",
+        FORGETMELOTS_DRIED = "Dried forever.",
+
+        HERMITCRABTEA_PETALS = "It's real relaxin.'",
+        HERMITCRABTEA_PETALS_EVIL = "This just stresses me out.",
+        HERMITCRABTEA_FOLIAGE = "Tastes funny.",
+        HERMITCRABTEA_SUCCULENT_PICKED = "Mm, not too bad.",
+        HERMITCRABTEA_FIRENETTLES = "Don'tcha worry, I can handle it!",
+        HERMITCRABTEA_TILLWEED = "It's good for ya, I guess.",
+        HERMITCRABTEA_MOON_TREE_BLOSSOM = "Tastes funny.",
+        HERMITCRABTEA_FORGETMELOTS = "I don't mind a sip.",
+        SHELLWEAVER = "Well look at that!",
+        ICESTAFF2 = "Ya ain't seen nothin' yet!",
+        ICESTAFF3 = "I'll freeze this whole place if ya push me to it!",
+        NONSLIPGRIT = "Now I won't bust my ass!",
+        NONSLIPGRITBOOSTED = "I won't bust my butt. There, that language make you happy instead?",
+        DESICCANT = "It'll dry anythin' up.",
+        DESICCANTBOOSTED = "It's mighty dryin' time!",
+        HERMITCRAB_SHELL = "This'll really take me right over there?",
+        SALTY_DOGHAT = "It only comes with a friend-ship.",
+        SALTY_DOG = "Who's a proud little seal pup?",
+
+        HERMITCRAB_TEASHOP =
+        {
+            GENERIC = "The shop is emp-tea.", -- Inactive state, no Pearl inside.
+            ACTIVE = "Tea time!", -- Active, Pearl is inside, can buy from her
+            BREWING = "I paid a steep price.", -- A trade just happened and she's brewing the tea!|
+            BURNT = "Her shop is toast.", -- burnt strings.
+        },
+
+        FISHMEAT_DRIED = "Dried fish? Don't mind if I do!",
+        FISHMEAT_SMALL_DRIED = "Dried fish? Don't mind if I do!",
+
+        HERMITCRAB_LIGHTPOST = -- Similar to YOTS_LANTERN_POST
+        {
+            GENERIC = "They really lighten the mood.",
+            ABANDONED = "It's so sad, I can't stand it.",
+        },
+        HERMITCRAB_LIGHTPOST_ITEM = "Let's string together some ambiance.",
+
+        -- Year of the Clockwork Knight
+
+        YOTH_KNIGHTSHRINE =
+        {
+            GENERIC = "I was shrine my best.", -- Has an offering of either gears, wires or doodad.
+            EMPTY = "It gives the colt shoulder unless I offer it something.", -- No offering. Character should hint at it wanting an offering.
+            BURNT = "It's not a donkey, but it's definitely an ash.", -- Burnt.
+        },
+
+        MASK_PRINCESSHAT = "Hay, princess!",
+        COSTUME_PRINCESS_BODY = "Ignore the neigh-sayers.",
+
+        PLAYBILL_THE_PRINCESS_YOTH = "Hoof you seen this one yet?",
+
+        KNIGHT_YOTH =
+        {
+            GENERIC = "Quit horsin' around!", -- Generic quote. It's aggressive.
+            FOLLOWING = "Good knight!", -- Following the character examining
+            FOLLOWING_OTHER = "Who's in charge? Have you herd?", -- Following another character or mannequin
+        },
+
+        YOTH_KNIGHTHAT = "Will I look like a foal?",
+        ARMOR_YOTH_KNIGHT = "I'm saddled with questions.",
+        HORSESHOE = "It would behoove me to keep this.",
+        YOTH_LANCE = "Hm, can't say I lance-a-lot.",
+
+        FLOATINGLANTERN =
+        {
+            DEFLATED = "Admit deflate!", -- Depleted and on the ground
+            HELD = "The trick is to let it go.", -- In the players inventory
+            GENERIC = "There we glow!", -- Floating in the sky!
+        },
+
+        YOTH_KNIGHTSTICK = "I'm hot to trot!",
+        YOTH_CHAIR_ROCKING_ITEM = "It's a rocky ride!", -- The chair itself uses WOOD_CHAIR inspect states.
+
+		-- Meta 6
+
+		WX78_DRONE_SCOUT = "So far, so good.",
+		WX78_DRONE_DELIVERY = "A freight it will get lost!",
+		WX78_DRONE_ZAP = "It uses current technology.",
+		WX78_DRONE_ZAP_REMOTE =
+		{
+			GENERIC = "It controls remotely? It's a.... Detached Telecommand Apparatus!",
+			CANUSE = "only_used_by_wx78",
+		},
+
+        -- All other characters but Wx-78 share one quote.
+        WX78MODULE_RADAR = "So much science packed into one tiny gizmo.",
+        WX78MODULE_STACKSIZE = "So much science packed into one tiny gizmo.",
+        WX78MODULE_DIGESTION = "So much science packed into one tiny gizmo.",
+        WX78MODULE_SCREECH = "So much science packed into one tiny gizmo.",
+        WX78MODULE_LIGHT2 = "So much science packed into one tiny gizmo.",
+        WX78MODULE_SHIELDING = "So much science packed into one tiny gizmo.",
+        WX78MODULE_SPIN = "So much science packed into one tiny gizmo.",
+		WX78MODULE_CHESS = "So much science packed into one tiny gizmo.",
+
+        WX78_INVENTORYCONTAINER =
+        {
+            HELD = "only_used_by_wx78", -- Held, and working as a container
+			NOPOWER = "only_used_by_wx78", -- Held but can't open due to wx charge level too low
+            GENERIC = "Finite like that.", -- It was dropped, treat it as if its broken down, and is rummagable
+        },
+
+        WX78_FOODBRICK =
+        {
+            WET = "It's a moist try!",
+            GENERIC = "It's too hard to eat.",
+        },
+
+        WX78_BACKUPBODY =
+        {
+            GENERIC = "Practical immortality through engineering!", -- We are examining a claimed body belonging to a WX. We can use their display name if we want to.
+            UNCLAIMED = "only_used_by_wx78", -- We are examining an unclaimed body.
+            VIEWERS_BODY = "only_used_by_wx78", -- We (WX) are examining our own body.
+        },
+
+        WX78_POSSESSEDBODY = "You're not yourself lately!",
+
+        WX78_GESTALTTRAPPER = "What possessed WX to do this?",
+
+        SHADOW_HEART_VEIN = "A vein attempt to be useful.",
+
+        WX78_SHADOWDRONE_DEBUFFER = "It's a keen observer.",
+        WX78_SHADOWDRONE_HARVESTER = "A collector in WX's collection.",
     },
 
     DESCRIBE_GENERIC = "Some thing.",

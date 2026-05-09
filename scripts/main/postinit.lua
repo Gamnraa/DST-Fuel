@@ -363,3 +363,29 @@ end
 
 AddPrefabPostInit("pighouse", addrefurbishing)
 AddPrefabPostInit("rabbithouse", addrefurbishing)
+
+AddComponentnPostInit("burnable", function(self)
+    self.inst.fuelspearcheck = self.inst:DoPeriodicTask(1, function(inst)
+        if not self:IsBurning() then return end
+        local x,y,z = inst:GetWorldPosition()
+        local ents = GLOBAL.TheSim:FindEntities(x,y,z, 8, nil, {"LIMBO", "playerghost"}, {"livingspear", "player"})
+        local isspear = false 
+        for _, v in pairs(ents) do
+            if v:HasTag("livingspear") then
+                v.components.fueled:DoDelta(-0.15)
+                isspear = true
+            else 
+                local handitem = v.components.equippable:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
+                if handitem and handitem:HasTag("livingspear") then
+                    v.components.fueled:DoDelta(-0.15)
+                    isspear = true
+                end
+            end
+        end
+        if isspear then 
+            inst:StopUpdatingComponent(self)
+        else
+            inst:StartUpdatingComponent(self) 
+        end
+    end)
+end)

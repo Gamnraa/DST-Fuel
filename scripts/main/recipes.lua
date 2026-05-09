@@ -1,5 +1,6 @@
 local Ingredient = GLOBAL.Ingredient
 local TECH = GLOBAL.TECH
+local logrecipes = {}
 local function AddFuelLogDiscount(recipe, sortkey)
     local ingredients = {}
     for _, v in pairs(recipe.ingredients) do
@@ -44,9 +45,21 @@ AddSimPostInit(function()
                 if j.type == "log" and j.amount > 1 then
                     v.forward_ingredients = v.name .. "_gramfuel"
                     v.no_builder_tag = "gramfuel"
+                    logrecipes[v.name] = true
                     AddFuelLogDiscount(v, i)
                 end
             end
+        end
+    end
+end)
+
+AddClassPostConstruct("widgets/craftslot", function(self)
+    local _refresh = self._refresh
+    self.refresh = function(recipename, ...)
+        if self.owner.prefab == "gramfuel" and logrecipes[recipename] then
+            _refresh(recipename .. "_gramfuel", ...)
+        else
+            _refresh(recipename, ...)
         end
     end
 end)
@@ -56,7 +69,7 @@ AddCharacterRecipe("bigfuelaxe",
     TECH.SCIENCE_ONE,
     {
         product = "bigfuelaxe",
-        builder_tag = "GramFuel",
+        builder_tag = "gramfuel",
         numtogive = 1,
         image = "axe",
     },
@@ -69,7 +82,7 @@ AddCharacterRecipe("fuelcharcoalspear",
     TECH.NONE,
     {
         product = "fuelcharcoalspear",
-        builder_tag = "GramFuel",
+        builder_tag = "gramfuel",
         numtogive = 1,
         image = "spear"
     },
@@ -83,7 +96,7 @@ AddCharacterRecipe("fuelcharcoalpile",
     {
         placer = "fuelcharcoalpile_placer",
         product = "fuelcharcoalpile",
-        builder_tag = "GramFuel",
+        builder_tag = "gramfuel",
         numtogive = 1,
         --atlas = "cook_pot",
     },
