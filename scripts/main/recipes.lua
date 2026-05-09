@@ -53,13 +53,19 @@ AddSimPostInit(function()
     end
 end)
 
-AddClassPostConstruct("widgets/craftslot", function(self)
-    local _refresh = self._refresh
-    self.refresh = function(recipename, ...)
-        if self.owner.prefab == "gramfuel" and logrecipes[recipename] then
-            _refresh(recipename .. "_gramfuel", ...)
+AddClassPostConstruct("widgets/redux/craftingmenu_pinslot", function(self)
+    print("craftslot")
+    local _refresh = self.Refresh
+
+    if self.owner.prefab == "gramfuel" and self.recipe_name and logrecipes[self.recipe_name] then
+        self.recipe_name = self.recipe_name .. "_gramfuel"
+    end
+    
+    self.SetRecipe = function(recipe_name, skin_name, ...)
+        if self.owner.prefab == "gramfuel" and logrecipes[recipe_name] then
+            _setrecipe(recipe_name .. "_gramfuel", skin_name, ...)
         else
-            _refresh(recipename, ...)
+            _setrecipe(recipe_name, skin_name, ...)
         end
     end
 end)
