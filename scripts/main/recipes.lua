@@ -2,6 +2,7 @@ local Ingredient = GLOBAL.Ingredient
 local TECH = GLOBAL.TECH
 local logrecipes = {}
 local function AddFuelLogDiscount(recipe, sortkey)
+    GLOBAL.PREFAB_SKINS_IDS[recipe.name .. "_gramfuel"] = GLOBAL.PREFAB_SKINS_IDS[recipe.name]
     local ingredients = {}
     for _, v in pairs(recipe.ingredients) do
         table.insert(ingredients, Ingredient(v.type, v.type == "log" and v.amount-1 or v.amount, v.atlas, v.deconstruct, v.image))
@@ -29,6 +30,7 @@ local function AddFuelLogDiscount(recipe, sortkey)
         build_mode = recipe.build_mode, 
         build_distnace = recipe.build_distance,
         builder_tag = "gramfuel",
+        placer = recipe.placer,
     }, filters
     )
     r.sortkey = sortkey
