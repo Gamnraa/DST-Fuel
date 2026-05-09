@@ -55,6 +55,8 @@ local function OnGiveStumpLog(inst, giver, item)
     inst:AddTag("haslog")
 
     --Set art
+    inst.AnimState:PlayAnimation("stump_log")
+    inst.AnimState:OverrideSymbol("log", "evergreen_gramfuel", "log")
 end
 
 local function OnTakeLog(inst, taker, loot)
@@ -62,6 +64,7 @@ local function OnTakeLog(inst, taker, loot)
     inst:RemoveTag("haslog")
 
     --Set art
+    inst.AnimState:PlayAnimation("stump_tall")
 end
 
 local function Split(inst)
@@ -79,7 +82,7 @@ local function Split(inst)
 end
 
 local function MakeLogHolder(inst)
-     if inst and inst:HasTag("stump") then
+     if inst and inst:HasTag("stump") and (inst.prefab == "evergreen" and inst.components.growable.stage == 3) then
         inst:AddComponent("trader")
         inst.components.trader:SetAcceptTest(CanGiveStumpLog)
         inst.components.trader.deleteitemonaccept = false
@@ -391,3 +394,12 @@ AddComponentPostInit("burnable", function(self)
         end
     end)
 end)
+
+
+local oldRegisterPrefabsImpl = GLOBAL.RegisterPrefabsImpl
+GLOBAL.RegisterPrefabsImpl = function(prefab, ...)
+	if prefab.name == "evergreen" or prefab.name == "evergreen_sparse" then
+		table.insert(prefab.assets, Asset("ANIM", "anim/evergreen_gramfuel.zip"))
+	end
+	oldRegisterPrefabsImpl(prefab, ...)
+end
