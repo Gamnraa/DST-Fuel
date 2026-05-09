@@ -26,7 +26,7 @@ AddComponentPostInit("health", function(self)
         if self.inst:HasTag("slowhealer") and amount ~= 0 and self.redirect == nil and cause ~= "cold" and cause ~= "hunger" then
             if amount < 0 and math.random(100) + 5 < math.abs(amount) then
                 --Take away maxhealth
-                self.inst.components.talker:Say(GetString(inst, "ANNOUNCE_CRITICAL_INJURY"))
+                self.inst.components.talker:Say(GLOBAL.GetString(self.inst, "ANNOUNCE_CRITICAL_INJURY"))
                 self:DeltaPenalty((-amount * .25) / self.maxhealth)
                 self.inst.expectedhealth = math.ceil(math.max(0, (self.inst.expectedhealth or self.currenthealth) + (amount * .25)))
                 dohealingtask(self.inst, _dodelta)
