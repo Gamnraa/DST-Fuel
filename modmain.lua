@@ -7,6 +7,7 @@ PrefabFiles = {
     "bigfuelaxe",
     "charcoalspear",
     "livingcoal",
+    "fuelstakes",
 }
 
 Assets = {
@@ -36,6 +37,9 @@ Assets = {
 	
 	Asset( "IMAGE", "images/names_gold_gramfuel.tex" ),
     Asset( "ATLAS", "images/names_gold_gramfuel.xml" ),
+
+    Asset("SOUNDPACKAGE", "sound/gramfuel.fev"),
+	Asset("SOUND", "sound/gramfuel.fsb"),
 }
 
 AddMinimapAtlas("images/map_icons/gramfuel.xml")
@@ -66,6 +70,17 @@ TUNING.FUELSPEAR_DAMAGE = GetModConfigData("FUELSPEAR_DAMAGE")
 local speardata = GetModConfigData("FUELSPEAR_CONSUMPTION")
 TUNING.FUELSPEAR_FUEL = (speardata == 0 and 800) or (speardata == 1 and 500) or (speardata == 2 and 300)
 TUNING.FUELSPEAR_RATE = (speardata == 0 and 2.5) or (speardata == 1 and 4) or (speardata == 2 and 5) --not used by the fueled component, but for how much durability is lost on attacking
+
+RemapSoundEvent( "dontstarve/characters/gramfuel/death_voice", "gramfuel/characters/gramfuel/death_voice" )
+RemapSoundEvent( "dontstarve/characters/gramfuel/hurt", "gramfuel/characters/gramfuel/hurt" )
+RemapSoundEvent( "dontstarve/characters/gramfuel/emote", "gramfuel/characters/gramfuel/emote" )
+RemapSoundEvent( "dontstarve/characters/gramfuel/yawn", "gramfuel/characters/gramfuel/yawn" )
+RemapSoundEvent( "dontstarve/characters/gramfuel/pose", "gramfuel/characters/gramfuel/pose" )
+RemapSoundEvent( "dontstarve/characters/gramfuel/ghost_LP", "gramfuel/characters/gramfuel/ghost_LP" )
+RemapSoundEvent( "dontstarve/characters/gramfuel/talk_LP", "gramfuel/characters/gramfuel/talk_LP" )
+RemapSoundEvent( "dontstarve/characters/gramfuel/carol", "gramfuel/characters/gramfuel/carol" )
+RemapSoundEvent( "dontstarve/characters/gramfuel/eye_rub_vo", "gramfuel/characters/gramfuel/eye_rub_vo" )
+RemapSoundEvent( "dontstarve/characters/gramfuel/sinking", "gramfuel/characters//gramfuel/sinking" )
 
 -- The skins shown in the cycle view window on the character select screen.
 -- A good place to see what you can put in here is in skinutils.lua, in the function GetSkinModes
