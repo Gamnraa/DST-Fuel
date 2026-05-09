@@ -400,7 +400,7 @@ return {
             NOTMASTERCHEF = "My specialty is cooking charcoal, nothin' more.",
             NOTSOULJARHANDLER = "I'll leave it be.",
             RESTRICTED = "I wouldn't be any use.",
-			NOTAROBOT = "Ask Claus 'bout it.",
+
 		},
         TEACH =
         {
@@ -505,6 +505,7 @@ return {
 		SOAKIN =
 		{
 			NOSPACE = "Ain't gonna fit.",--there's someone in that space. there's no room there.
+        }
     },
 
 	ANNOUNCE_CANNOT_BUILD =
@@ -1328,7 +1329,7 @@ return {
         },
         LUCAS = 
         {
-            GENERIC = "Hey Luke. Alwayw good saying a familiar face!",
+            GENERIC = "Hey Luke. Always good saying a familiar face!",
             ATTACKER = "He's much more violent these days.",
             MURDERER = "You've changed, Lucas...",
             REVIVER = "Thanks, Luke. You've always been a good friend.",
@@ -1580,7 +1581,7 @@ return {
 		    DIRT = "Something's down there.",
 		    WORM = "Turns out I'm the snack!",
 		},
-        WORMLIGHT_PLANT = Ooh, I could use a snack!",
+        WORMLIGHT_PLANT = "Ooh, I could use a snack!",
 		MOLE =
 		{
 			HELD = "Howdy!",
