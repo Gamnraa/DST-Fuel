@@ -375,7 +375,6 @@ AddComponentPostInit("burnable", function(self)
         for _, v in pairs(ents) do
             if v:HasTag("livingspear") then
                 v.components.fueled:DoDelta(-0.15)
-                print("spear", v)
                 isspear = true
             else 
                 local handitem = v.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
