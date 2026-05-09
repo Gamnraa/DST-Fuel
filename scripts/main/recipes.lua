@@ -45,7 +45,7 @@ AddSimPostInit(function()
         if not (v.builder_tag or v.builder_skill or string.find(v.name, "gramfuel")) then
             for _, j in pairs(v.ingredients) do
                 if j.type == "log" and j.amount > 1 then
-                    v.forward_ingredients = v.name .. "_gramfuel"
+                    v.forward_ingredients = {v.name .. "_gramfuel"}
                     v.no_builder_tag = "gramfuel"
                     logrecipes[v.name] = true
                     AddFuelLogDiscount(v, i)
