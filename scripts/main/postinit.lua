@@ -364,10 +364,10 @@ end
 AddPrefabPostInit("pighouse", addrefurbishing)
 AddPrefabPostInit("rabbithouse", addrefurbishing)
 
-AddComponentnPostInit("burnable", function(self)
+AddComponentPostInit("burnable", function(self)
     self.inst.fuelspearcheck = self.inst:DoPeriodicTask(1, function(inst)
         if not self:IsBurning() then return end
-        local x,y,z = inst:GetWorldPosition()
+        local x,y,z = inst.Transform:GetWorldPosition()
         local ents = GLOBAL.TheSim:FindEntities(x,y,z, 8, nil, {"LIMBO", "playerghost"}, {"livingspear", "player"})
         local isspear = false 
         for _, v in pairs(ents) do
