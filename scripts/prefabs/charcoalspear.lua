@@ -188,4 +188,4 @@ local function fnlivingcoal()
 end
 
 return Prefab("fuelcharcoalspear", fn, assets),
-        Prefab("fuellivingcoalspear", fn, assets)
+        Prefab("fuellivingcoalspear", fnlivingcoal, assets)
