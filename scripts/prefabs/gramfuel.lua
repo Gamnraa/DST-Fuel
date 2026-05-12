@@ -103,7 +103,15 @@ local master_postinit = function(inst)
 	
 	inst.OnSave = onsave
 	inst.OnLoad = onload
-    inst.OnNewSpawn = onload
+    inst.OnNewSpawn = function()
+		for _, v in pairs(inst.components.inventory.itemslots) do
+			if v.prefab == "bigfuelaxe" then
+				v.components.finiteuses:SetUses(TUNING.FUELAXE_USES / 6)
+				--v:AddTag("startingfuelaxe")
+			end
+		end
+		onload()
+	end
 
 	inst.healtickrate = 0.5 --measured in seconds
 
