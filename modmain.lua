@@ -39,7 +39,7 @@ Assets = {
     Asset( "ATLAS", "images/names_gold_gramfuel.xml" ),
 
     Asset("SOUNDPACKAGE", "sound/gramfuel.fev"),
-	Asset("SOUND", "sound/gramfuel.fsb"),
+	Asset("SOUND", "sound/gramfuel.fsb"),   
 }
 
 AddMinimapAtlas("images/map_icons/gramfuel.xml")
@@ -48,7 +48,7 @@ local require = GLOBAL.require
 local STRINGS = GLOBAL.STRINGS
 
 -- The character select screen lines
-STRINGS.CHARACTER_TITLES.gramfuel = "The Sunshine Charcoal Burner"
+STRINGS.CHARACTER_TITLES.gramfuel = "The Charcoal Maker"
 STRINGS.CHARACTER_NAMES.gramfuel = "Fuel"
 STRINGS.CHARACTER_DESCRIPTIONS.gramfuel = "*Knows how to chop and char\n*Raised on Tazmilian Hospitality\n*Slow Healer"
 STRINGS.CHARACTER_QUOTES.gramfuel = "\"Well, I'm not all black with soot this time!\""
@@ -70,6 +70,11 @@ TUNING.FUELSPEAR_DAMAGE = GetModConfigData("FUELSPEAR_DAMAGE")
 local speardata = GetModConfigData("FUELSPEAR_CONSUMPTION")
 TUNING.FUELSPEAR_FUEL = (speardata == 0 and 800) or (speardata == 1 and 500) or (speardata == 2 and 300)
 TUNING.FUELSPEAR_RATE = (speardata == 0 and 2.5) or (speardata == 1 and 4) or (speardata == 2 and 5) --not used by the fueled component, but for how much durability is lost on attacking
+
+TUNING.LIVINGSPEAR_DAMAGE = GetModConfigData("LIVINGSPEAR_DAMAGE")
+local speardata = GetModConfigData("LIVINGSPEAR_CONSUMPTION")
+TUNING.LIVINGSPEAR_FUEL = (speardata == 0 and 1500) or (speardata == 1 and 1000) or (speardata == 2 and 700)
+TUNING.LIVINGSPEAR_RATE = (speardata == 0 and 2.5) or (speardata == 1 and 4) or (speardata == 2 and 5) 
 
 RemapSoundEvent( "dontstarve/characters/gramfuel/death_voice", "gramfuel/characters/gramfuel/death_voice" )
 RemapSoundEvent( "dontstarve/characters/gramfuel/hurt", "gramfuel/characters/gramfuel/hurt" )
