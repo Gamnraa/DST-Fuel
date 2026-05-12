@@ -35,7 +35,7 @@ configuration_options = {
         label = "Fuel's Health",
         options = {
             {description = "120", data = 120},
-            {description = "130", data = 130},
+            {description = "130 (Default)", data = 130},
             {description = "140", data = 140},
         },
         default = 130
@@ -45,7 +45,7 @@ configuration_options = {
         label = "Fuel's Sanity",
         options = {
             {description = "120", data = 120},
-            {description = "130", data = 130},
+            {description = "130 (Default)", data = 130},
             {description = "140", data = 140},
         },
         default = 130
@@ -55,17 +55,17 @@ configuration_options = {
         label = "Fuel's Hunger",
         options = {
             {description = "120", data = 120},
-            {description = "130", data = 130},
+            {description = "130 (Default)", data = 130},
             {description = "140", data = 140},
         },
-        default = 140
+        default = 130
     },
     {
         name = "FUELAXE_DAMAGE",
         label = "Big Ol' Axe Damage",
         options = {
             {description = "49", data = 49},
-            {description = "55", data = 55},
+            {description = "55 (Default)", data = 55},
             {description = "61", data = 61},
         },
         default = 55
@@ -75,7 +75,7 @@ configuration_options = {
         label = "Big Ol' Axe Durability",
         options = {
             {description = "250", data = 250},
-            {description = "300", data = 300},
+            {description = "300 (Default)", data = 300},
             {description = "350", data = 350},
         },
         default = 300
@@ -85,7 +85,7 @@ configuration_options = {
         label = "Charcoal Spear Damage",
         options = {
             {description = "17", data = 17},
-            {description = "21", data = 21},
+            {description = "21 (Default)", data = 21},
             {description = "25", data = 25},
         },
         default = 21
@@ -96,7 +96,28 @@ configuration_options = {
         hover = "The rate at which the Charcoal Spear depletes",
         options = {
             {description = "Low",   data = 0, hover = "low consumption (takes longer to deplete)"},
-            {description = "Medium",data = 1, hover = "medium consumption (default depletion time)"},
+            {description = "Medium (Default)",data = 1, hover = "medium consumption (default depletion time)"},
+            {description = "High",  data = 2, hover = "high consumption (depletes more quickly)"},
+        },
+        default = 1
+    },
+    {
+        name = "LIVINGSPEAR_DAMAGE",
+        label = "Charcoal Spear Damage",
+        options = {
+            {description = "34", data = 34},
+            {description = "42.5 (Default)", data = 42.5},
+            {description = "51", data = 51},
+        },
+        default = 42.5
+    },
+    {
+        name = "LIVINGSPEAR_CONSUMPTION",
+        label = "Charcoal Spear's Usage Rate",
+        hover = "The rate at which the Charcoal Spear depletes",
+        options = {
+            {description = "Low",   data = 0, hover = "low consumption (takes longer to deplete)"},
+            {description = "Medium (Default)",data = 1, hover = "medium consumption (default depletion time)"},
             {description = "High",  data = 2, hover = "high consumption (depletes more quickly)"},
         },
         default = 1
