@@ -1,0 +1,227 @@
+local temptickrate = 3
+local ashtickrate = nil
+local charcoaltickrate = nil
+
+local temptick = nil
+local ashtick = nil
+local charcoaltick = nil
+
+local mintemp = 150
+local maxtemp = 300
+
+local CharcoalMaker = Class(function(self, inst)
+    self.inst = inst
+    self.tileslot = inst.components.container.slots[1]
+    self.logslots = {inst.components.container.slots[2], inst.components.container.slots[3]}
+    self.numcharcoalproduced = nil
+    self.numlivingcoalproduced = nil
+    self.numashproduced = nil
+    self.logs = 0
+    self.livinglogs = 0
+    self.totallogs = 0
+    self.timeleft = nil
+    self.onharvest = nil
+    self.startfn = nil
+    self.finishfn = nil
+    self.temperature = mintemp
+end, nil, {})
+
+function CharcoalMaker:UpdateSlots()
+    self.tileslot = self.inst.components.container.slots[1]
+    self.logslots = {self.inst.components.container.slots[2], self.inst.components.container.slots[3]}
+end
+
+function CharcoalMaker:IsDone() return self.timeleft and self.timeleft <= 0 end
+
+function CharcoalMaker:IsTooHot()
+    if self.temperature > maxtemp - 45 then
+        self.inst:AddTag("wantswater")
+        return true
+    elseif self.temperature < maxtemp - 130 then
+        self.inst:RemoveTag("wantswater")
+    end
+    return false
+end
+
+function CharcoalMaker:Start()
+    if self.startfn then self.startfn(self.inst) end
+    self:UpdateSlots()
+    self.numcharcoalproduced = 0
+    self.numlivingcoalproduced = 0
+    self.numashproduced = 0
+    local slot1 = self.logslots[1]
+    local slot2 = self.logslots[2]
+    self.logs = ((slot1 and slot1.prefab == "log") and slot1.components.stackable.stacksize or 0) + ((slot2 and slot2.prefab == "log") and slot2.components.stackable.stacksize or 0)
+    self.livinglogs = ((slot1 and slot1.prefab == "livinglog") and slot1.components.stackable.stacksize or 0) + ((slot2 and slot2.prefab == "livinglog") and slot2.components.stackable.stacksize or 0)
+    if self.logs > 0 or self.livinglogs > 0 then 
+        self.logs =  math.ceil(self.logs * 1.5)
+        self.livinglogs = math.ceil(self.livinglogs * 1.5)
+        self.totallogs = self.logs + self.livinglogs
+    end
+    self.timeleft = (TUNING.CHARCOALPILE_CHAR_TIME or 8 * 2 * 60) + 1
+    --self.timeleft = 30
+    charcoaltickrate = self.timeleft / self.totallogs
+    charcoaltick = charcoaltickrate
+    ashtickrate = charcoaltickrate * 30
+    ashtick = ashtickrate
+    temptick = temptickrate
+
+    print(self.logs, self.livinglogs, self.totallogs, self.timeleft, charcoaltickrate)
+
+    self.inst:StartUpdatingComponent(self) 
+    self.inst.components.container:Close()
+    self.inst.components.container.canbeopened = false
+end
+
+function CharcoalMaker:Finish()
+    self.inst:StopUpdatingComponent(self)
+    if self.finishfn then self.finishfn(self.inst) end
+    self.inst:AddTag("readytoharvest")
+end
+
+
+function CharcoalMaker:Harvest(doer)
+    if self.onharvest then self.onharvest(self.inst) end
+    if self.numcharcoalproduced and self.numashproduced then
+       
+        local tileproduct = SpawnPrefab(self.tileslot:HasTag("charred") and "ash" or "turf_grass")
+        self.inst.components.container:DestroyContents()
+
+        for i = 1, self.numcharcoalproduced do
+            local product = SpawnPrefab("charcoal")
+            product.components.fuel.fuelvalue = TUNING.MED_LARGE_FUEL  
+            if doer and doer.components.inventory then
+                doer.components.inventory:GiveItem(product, nil, self.inst:GetPosition())
+            else
+                LaunchAt(product, self.inst, nil, 1, 1)
+            end
+        end
+
+        for i = 1, self.numlivingcoalproduced do
+            local product = SpawnPrefab("fuelivingcoal")
+            if doer and doer.components.inventory then
+                doer.components.inventory:GiveItem(product, nil, self.inst:GetPosition())
+            else
+                LaunchAt(product, self.inst, nil, 1, 1)
+            end
+        end
+
+        self.numcharcoalproduced = nil
+        self.numlivingcoalproduced = nil
+
+        for i = 1, self.numashproduced do
+            local product = SpawnPrefab("ash") 
+            if doer and doer.components.inventory then
+                doer.components.inventory:GiveItem(product, nil, self.inst:GetPosition())
+            else
+                LaunchAt(product, self.inst, nil, 1, 1)
+            end
+        end
+        self.numashproduced = nil
+        
+        self.inst.components.lootdropper:FlingItem(tileproduct)
+
+        if self.inst.components.container then
+            self.inst.components.container.canbeopened = true
+        end
+
+        self.timeleft = nil
+        self.logs = 0
+        charcoaltickrate = nil
+        charcoaltick = nil
+        temptick = nil
+        ashtickrate = nil
+        ashtick = nil
+
+        self.inst:RemoveTag("readytoharvest")
+
+        return true
+    end
+end
+
+function CharcoalMaker:OnSave()
+    return {
+        timeleft = self.timeleft,
+        logs = self.logs,
+        charcoaltickrate = charcoaltickrate,
+        charcoaltick = charcoaltick,
+        temptick = temptick,
+        ashtickrate = ashtickrate,
+        ashtick = ashtick,
+        numcharcoalproduced = self.numcharcoalproduced,
+        numlivingcoalproduced = self.numlivingcoalproduced,
+        numashproduced = self.numashproduced,
+        temperature = self.temperature
+    }
+end
+
+function CharcoalMaker:OnLoad(data)
+    self.inst:DoTaskInTime(0, function(inst) self:UpdateSlots() end)
+
+    self.timeleft = data.timeleft
+    self.logs = data.logs
+    charcoaltickrate = data.charcoaltickrate
+    charcoaltick = data.charcoaltick
+    temptick = data.temptick
+    ashtickrate = data.ashtickrate
+    ashtick = data.ashtick
+    self.numcharcoalproduced = data.numcharcoalproduced
+    self.numlivingcoalproduced = data.numlivingcoalproduced
+    self.numashproduced = data.numashproduced
+    self.temperature = data.temperature or mintemp
+
+    print(charcoaltick, charcoaltickrate, temptick, ashtick, ashtickrate, data.charcoaltick)
+
+    if self.timeleft then 
+        self.inst:DoTaskInTime(0, function(inst) inst:StartUpdatingComponent(self) end) 
+        self.inst.components.container:Close()
+        self.inst.components.container.canbeopened = false
+    end
+end
+
+function CharcoalMaker:OnUpdate(dt)
+    self.timeleft = self.timeleft - dt - (self.inst.components.moisture:GetMoisturePercent() >= .38 and FRAMES * 2 or 0)
+    if self:IsDone() then
+        self.numcharcoalproduced = self.numcharcoalproduced + self.logs
+        local item = self.inst.components.container:RemoveItem(self.inst.components.container:FindItem(function(inst) return inst.prefab == "log" end, true))
+        if item then item:Remove() end
+        self:UpdateSlots()
+        self:Finish()
+        return
+    end
+
+    if dt < charcoaltick then
+        charcoaltick = charcoaltick - dt
+    else
+        if self.logs > 0 then
+            self.numcharcoalproduced = self.numcharcoalproduced + 1
+            self.logs = self.logs - 1
+        else
+            self.numlivingcoalproduced = self.numlivingcoalproduced + 1
+            self.livinglogs = self.livinglogs - 1
+        end
+        charcoaltick = charcoaltickrate
+    end
+
+    if dt < ashtick then
+        ashtick = ashtick - dt - (self:IsTooHot() and 1 or 0)
+    else
+        self.numashproduced =  self.numashproduced + 1
+        if self.logs > 0 then
+            self.numcharcoalproduced =  math.max(1, self.numcharcoalproduced - 1)
+        else
+            self.numlivingcoalproduced = math.max(1, self.numlivingcoalproduced - 1)
+        end
+        ashtick = ashtickrate
+    end
+
+    if dt < temptick then
+        temptick = temptick - dt
+    else
+        self.temperature = math.clamp(self.temperature + 1, mintemp, maxtemp)
+        self.inst.components.moisture:DoDelta(-2)
+        temptick = temptickrate
+    end
+end
+
+return CharcoalMaker
