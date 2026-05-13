@@ -7,7 +7,7 @@ local assets = {
 -- Custom starting inventory
 TUNING.GAMEMODE_STARTING_ITEMS.DEFAULT.GRAMFUEL = {
 	"charcoal",
-	"axe"
+	"bigfuelaxe"
 }
 
 local start_inv = {}
