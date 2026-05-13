@@ -82,7 +82,7 @@ local function Split(inst)
 end
 
 local function MakeLogHolder(inst)
-     if inst and inst:HasTag("stump") and (inst.prefab == "evergreen" and inst.components.growable.stage == 3) then
+     if inst and inst:HasTag("stump") and (inst.prefab == "evergreen" and inst.components.growable and inst.components.growable.stage == 3) then
         inst:AddComponent("trader")
         inst.components.trader:SetAcceptTest(CanGiveStumpLog)
         inst.components.trader.deleteitemonaccept = false
