@@ -67,6 +67,8 @@ local function OnTakeLog(inst, taker, loot)
     inst.AnimState:PlayAnimation("stump_tall")
 end
 
+AddClientModRPCHandler("fuellogsplitter", "fuelsplitlog", function(inst) print(inst) inst:AddTag("split") end)
+
 local function Split(inst)
     inst.components.pickable:MakeEmpty()
     local log1 = GLOBAL.SpawnPrefab("log")
@@ -78,6 +80,15 @@ local function Split(inst)
     log2.skinname = "fuellog"
     inst.components.lootdropper:FlingItem(log1)
     inst.components.lootdropper:FlingItem(log2)
+    local ids = {}
+	for _, player in pairs(GLOBAL.AllPlayers) do
+		table.insert(ids, player.userid)
+	end
+
+    inst:DoTaskInTime(GLOBAL.FRAMES, function() 
+        SendModRPCToClient(GetClientModRPC("fuellogsplitter", "fuelsplitlog"), ids, log1)
+        SendModRPCToClient(GetClientModRPC("fuellogsplitter", "fuelsplitlog"), ids, log2)
+    end)
     OnTakeLog(inst)
 end
 
@@ -110,7 +121,19 @@ AddPrefabPostInit("log", function(inst)
     --If your mod adds an OnSave and OnLoad to the log we have beef
     if not mastersim() then return end
     inst.OnSave = function(inst, data) data.skinname = inst.skinname end
-    inst.OnLoad = function(inst, data) inst.skinname = data and data.skinname if inst.skinname then inst:AddTag("split") end end
+    inst.OnLoad = function(inst, data) 
+        inst.skinname = data and data.skinname
+
+        local ids = {}
+	    for _, player in pairs(GLOBAL.AllPlayers) do
+		    table.insert(ids, player.userid)
+	    end 
+
+        inst:DoTaskInTime(GLOBAL.FRAMES, function() 
+            SendModRPCToClient(GetClientModRPC("fuellogsplitter", "fuelsplitlog"), ids, inst)
+        end)
+        if inst.skinname then inst:AddTag("split") end 
+    end
 end)
 
 
@@ -121,6 +144,17 @@ AddGlobalClassPostConstruct("entityscript", "EntityScript", function(self)
             return self:HasTag("split") == target:HasTag("split")
         end
         return _stackableskinhack(self, target, ...)
+    end
+end)
+
+AddGlobalClassPostConstruct("components/stackable_replica", "Stackable", function(self)
+    local _canstackwith = self.CanStackWith
+    function self:CanStackWith(item, ...)
+        if item.prefab == "log" and self.inst.prefab == item.prefab then
+            return self.inst:HasTag("split") == item:HasTag("split")
+        else
+            return _canstackwith(self, item, ...)
+        end
     end
 end)
 
