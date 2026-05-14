@@ -93,7 +93,7 @@ local function Split(inst)
 end
 
 local function MakeLogHolder(inst)
-     if inst and inst:HasTag("stump") and (inst.prefab == "evergreen" and inst.components.growable and inst.components.growable.stage == 3) then
+     if inst and inst:HasTag("stump") and ((inst.prefab == "evergreen" or inst.prefab == "evergreen_sparse") and inst.components.growable and inst.components.growable.stage == 3) then
         inst:AddComponent("trader")
         inst.components.trader:SetAcceptTest(CanGiveStumpLog)
         inst.components.trader.deleteitemonaccept = false
@@ -109,6 +109,15 @@ local function MakeLogHolder(inst)
 end
 
 AddPrefabPostInit("evergreen", function(inst)
+    if not mastersim() then return end
+    inst:DoTaskInTime(0, function(inst) if inst:HasTag("stump") then MakeLogHolder(inst) end end)
+
+    inst:ListenForEvent("workfinished", function(inst)
+        inst:DoTaskInTime(0, MakeLogHolder)
+    end)
+end)
+
+AddPrefabPostInit("evergreen_sparse", function(inst)
     if not mastersim() then return end
     inst:DoTaskInTime(0, function(inst) if inst:HasTag("stump") then MakeLogHolder(inst) end end)
 
