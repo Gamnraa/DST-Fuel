@@ -110,7 +110,7 @@ local master_postinit = function(inst)
 				--v:AddTag("startingfuelaxe")
 			end
 		end
-		onload()
+		onload(inst)
 	end
 
 	inst.healtickrate = 0.5 --measured in seconds
