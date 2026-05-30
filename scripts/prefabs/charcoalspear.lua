@@ -1,7 +1,9 @@
 local assets =
 {
-    Asset("ANIM", "anim/spear.zip"),
-    Asset("ANIM", "anim/swap_spear.zip"),
+    Asset("ANIM", "anim/charcoal_spear.zip"),
+    Asset("ANIM", "anim/swap_charcoal_spear.zip"),
+    Asset("ANIM", "anim/livingcoal_spear.zip"),
+    Asset("ANIM", "anim/swap_livingcoal_spear.zip")
 }
 local function onattack(inst, attacker, target)
     inst.components.fueled:DoDelta(-TUNING.FUELSPEAR_RATE)
@@ -24,9 +26,9 @@ local function onequip(inst, owner)
     local skin_build = inst:GetSkinBuild()
     if skin_build ~= nil then
         owner:PushEvent("equipskinneditem", inst:GetSkinName())
-        owner.AnimState:OverrideItemSkinSymbol("swap_object", skin_build, "swap_spear", inst.GUID, "swap_spear")
+        owner.AnimState:OverrideItemSkinSymbol("swap_object", skin_build, "swap_" .. inst.prefab, inst.GUID, "swap_" .. inst.prefab)
     else
-        owner.AnimState:OverrideSymbol("swap_object", "swap_spear", "swap_spear")
+        owner.AnimState:OverrideSymbol("swap_object", "swap_" .. inst.prefab, "swap_object")
     end
     owner.AnimState:Show("ARM_carry")
     owner.AnimState:Hide("ARM_normal")
@@ -47,9 +49,9 @@ local function onignite(inst, source, doer)
     inst.SoundEmitter:PlaySound("dontstarve/wilson/torch_swing")
     inst.SoundEmitter:SetParameter( "torch", "intensity", 1 )
 
-    inst.fire = SpawnPrefab( "torchfire" )
+    inst.fire = SpawnPrefab( "spearfire" )
     local follower = inst.fire.entity:AddFollower()
-    follower:FollowSymbol( doer.GUID, "swap_object", 0, -110, 1 ) 
+    follower:FollowSymbol( doer.GUID, "swap_object", 0, -110, 4 ) 
 end
 
 local function onextinguish(inst)
@@ -75,8 +77,8 @@ local function fn()
 
     MakeInventoryPhysics(inst)
 
-    inst.AnimState:SetBank("spear")
-    inst.AnimState:SetBuild("swap_spear")
+    inst.AnimState:SetBank("charcoal_spear")
+    inst.AnimState:SetBuild("charcoal_spear")
     inst.AnimState:PlayAnimation("idle")
 
     inst:AddTag("sharp")
@@ -136,8 +138,8 @@ local function fnlivingcoal()
 
     MakeInventoryPhysics(inst)
 
-    inst.AnimState:SetBank("spear")
-    inst.AnimState:SetBuild("swap_spear")
+    inst.AnimState:SetBank("livingcoal_spear")
+    inst.AnimState:SetBuild("livngcoal_spear")
     inst.AnimState:PlayAnimation("idle")
 
     inst:AddTag("sharp")
@@ -187,5 +189,5 @@ local function fnlivingcoal()
     return inst
 end
 
-return Prefab("fuelcharcoalspear", fn, assets),
-        Prefab("fuellivingcoalspear", fnlivingcoal, assets)
+return Prefab("charcoal_spear", fn, assets),
+        Prefab("livingcoal_spear", fnlivingcoal, assets)

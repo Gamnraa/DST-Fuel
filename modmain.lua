@@ -8,6 +8,7 @@ PrefabFiles = {
     "charcoalspear",
     "livingcoal",
     "fuelstakes",
+    "spearfire_fx",
 }
 
 Assets = {
