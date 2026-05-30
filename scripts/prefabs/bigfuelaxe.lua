@@ -1,7 +1,7 @@
 local assets =
 {
-    Asset("ANIM", "anim/axe.zip"),
-    Asset("ANIM", "anim/swap_axe.zip"),
+    Asset("ANIM", "anim/fuel_axe.zip"),
+    Asset("ANIM", "anim/swap_fuel_axe.zip"),
 }
 
 local function onequip(inst, owner)
@@ -10,9 +10,9 @@ local function onequip(inst, owner)
     local skin_build = inst:GetSkinBuild()
     if skin_build ~= nil then
         owner:PushEvent("equipskinneditem", inst:GetSkinName())
-        owner.AnimState:OverrideItemSkinSymbol("swap_object", skin_build, "swap_axe", inst.GUID, "swap_axe")
+        owner.AnimState:OverrideItemSkinSymbol("swap_object", skin_build, "swap_fuel_axe", inst.GUID, "swap_fuel_axe")
     else
-        owner.AnimState:OverrideSymbol("swap_object", "swap_axe", "swap_axe")
+        owner.AnimState:OverrideSymbol("swap_object", "swap_fuel_axe", "swap_object")
     end
     owner.AnimState:Show("ARM_carry")
     owner.AnimState:Hide("ARM_normal")
@@ -46,8 +46,8 @@ local function fn()
 
     MakeInventoryPhysics(inst)
 
-    inst.AnimState:SetBank("axe")
-    inst.AnimState:SetBuild("axe")
+    inst.AnimState:SetBank("fuel_axe")
+    inst.AnimState:SetBuild("fuel_axe")
     inst.AnimState:PlayAnimation("idle")
 
     inst:AddTag("sharp")
