@@ -11,6 +11,8 @@ local split = AddAction("SPLIT", "Split Log", function(act)
 end)
 
 split.invalid_hold_action = true
+split.priority = 10
+split.canforce = true
 
 AddComponentAction("EQUIPPED", "tool", function(inst, doer, target, actions, right)
     if not target:HasTag("INLIMBO") and not (inst.replica.equippable ~= nil and inst.replica.equippable:IsRestricted(doer)) then
@@ -106,3 +108,6 @@ AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.LIGHTSPEAR, "c
 AddComponentAction("SCENE", "constructionsite", function(inst, doer, actions, right)
     if inst:HasTag("fuelupgradeable") then inst.replica.constructionsite:SetEnabled(doer:HasTag("GramFuel")) end
 end)
+
+
+
