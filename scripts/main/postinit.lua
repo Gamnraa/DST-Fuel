@@ -448,9 +448,13 @@ GLOBAL.RegisterPrefabsImpl = function(prefab, ...)
 end
 
 
-local function cancelaction_rpc(inst)
+local function cancelaction_rpc(inst, target)
     inst.sg:GoToState("idle")
     inst:ClearBufferedAction()
+    inst:DoTaskInTime(1, function() print(inst.sg) end)
+    local weapon = inst.replica.combat:GetWeapon()
+    local act = GLOBAL.BufferedAction(inst, target, GLOBAL.ACTIONS.SPLIT, weapon, inst:GetPosition())
+    inst:DoTaskInTime(0, function() inst.components.playercontroller:DoAction(act) end)
 end
 AddModRPCHandler("GramCancelAction", "GramCancelAction", cancelaction_rpc)
 
@@ -468,15 +472,16 @@ AddSimPostInit(function()
             if stump then
                 --b:Cancel()
                 if player:GetBufferedAction() and player:GetBufferedAction().action ~= GLOBAL.ACTIONS.SPLIT then
+                    print("cancel")
                     player.sg:GoToState("idle")
                     if not mastersim() then
-                        GLOBAL.SendModRPCToServer(GLOBAL.GetModRPC("GramCancelAction", "GramCancelAction"))
+                        GLOBAL.SendModRPCToServer(GLOBAL.GetModRPC("GramCancelAction", "GramCancelAction"), stump)
                     end
                     player:ClearBufferedAction()
                 else
                     return
                 end
-                player:DoTaskInTime(GLOBAL.FRAMES, function()
+                player:DoTaskInTime(0, function()
                     local x,y,z = player.Transform:GetWorldPosition()
                     local pc = player.components.playercontroller
                     local act = GLOBAL.BufferedAction(player, stump, GLOBAL.ACTIONS.SPLIT, weapon, player:GetPosition())
@@ -486,16 +491,17 @@ AddSimPostInit(function()
                             if act.action.pre_action_cb then
                                 act.action.pre_action_cb(act)
                             end
+                            print("send rpc to server")
                             GLOBAL.SendRPCToServer(GLOBAL.RPC.RightClick, act.action.code, x, z, stump, player.Transform:GetRotation(), nil, act.action.canforce, false, act.action.mod_name)
                         elseif player.components.playercontroller:CanLocomote() then
                             act.preview_cb = function()
                                 player.components.playercontroller.remote_controls[GLOBAL.CONTROL_ACTION] = 0
                                 local isreleased = not GLOBAL.TheInput:IsControlPressed(GLOBAL.CONTROL_ACTION)
+                                print("send rpc to server")
                                 GLOBAL.SendRPCToServer(GLOBAL.RPC.RightClick, act.action.code, x, z, stump, player.Transform:GetRotation(), isreleased, nil, false, act.action.mod_name)
                             end
                         end
                     end
-                    print("act", act, "doer", act.doer)
                     player.components.playercontroller:DoAction(act)
                 end)
             end
