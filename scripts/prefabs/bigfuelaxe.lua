@@ -71,6 +71,8 @@ local function fn()
     end
 
     inst:AddComponent("inventoryitem")
+    inst.components.inventoryitem.imagename = "fuel_axe"
+    inst.components.inventoryitem.atlasname = "images/inventoryimages/fuel_axe.xml"
     -----
     inst:AddComponent("tool")
     inst.components.tool:SetAction(ACTIONS.CHOP, 5)

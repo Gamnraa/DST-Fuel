@@ -39,6 +39,18 @@ Assets = {
 	Asset( "IMAGE", "images/names_gold_gramfuel.tex" ),
     Asset( "ATLAS", "images/names_gold_gramfuel.xml" ),
 
+    Asset( "IMAGE", "images/inventoryimages/fuel_axe.tex" ),
+    Asset( "ATLAS", "images/inventoryimages/fuel_axe.xml" ),
+
+	Asset( "IMAGE", "images/inventoryimages/livingcoal.tex" ),
+    Asset( "ATLAS", "images/inventoryimages/livingcoal.xml" ),
+
+	Asset( "IMAGE", "images/inventoryimages/livingcoal_spear.tex" ),
+    Asset( "ATLAS", "images/inventoryimages/livingcoal_spear.xml" ),
+
+	Asset( "IMAGE", "images/inventoryimages/charcoal_spear.tex" ),
+    Asset( "ATLAS", "images/inventoryimages/charcoal_spear.xml" ),
+
     Asset("SOUNDPACKAGE", "sound/gramfuel.fev"),
 	Asset("SOUND", "sound/gramfuel.fsb"),   
 }
@@ -99,6 +111,11 @@ local skin_modes = {
         offset = { 0, -25 } 
     },
 }
+
+RegisterInventoryItemAtlas(GLOBAL.resolvefilepath("images/inventoryimages/fuel_axe.xml"), "fuel_axe.tex")
+RegisterInventoryItemAtlas(GLOBAL.resolvefilepath("images/inventoryimages/charcoal_spear.xml"), "charcoal_spear.tex")
+RegisterInventoryItemAtlas(GLOBAL.resolvefilepath("images/inventoryimages/livingcoal.xml"), "livingcoal.tex")
+RegisterInventoryItemAtlas(GLOBAL.resolvefilepath("images/inventoryimages/livingcoal_spear.xml"), "livingcoal_spear.tex")
 
 -- Add mod character to mod character list. Also specify a gender. Possible genders are MALE, FEMALE, ROBOT, NEUTRAL, and PLURAL.
 AddModCharacter("gramfuel", "MALE", skin_modes)
