@@ -26,6 +26,12 @@ Assets = {
 	
 	Asset( "IMAGE", "images/map_icons/gramfuel.tex" ),
 	Asset( "ATLAS", "images/map_icons/gramfuel.xml" ),
+
+    Asset( "IMAGE", "images/map_icons/charcoal_pile.tex" ),
+	Asset( "ATLAS", "images/map_icons/charcoal_pile.xml" ),
+
+    Asset( "IMAGE", "images/map_icons/rabbithouse_refurbished.tex" ),
+	Asset( "ATLAS", "images/map_icons/rabbithouse_refurbished.xml" ),
 	
 	Asset( "IMAGE", "images/avatars/avatar_gramfuel.tex" ),
     Asset( "ATLAS", "images/avatars/avatar_gramfuel.xml" ),
@@ -35,12 +41,15 @@ Assets = {
 	
 	Asset( "IMAGE", "images/avatars/self_inspect_gramfuel.tex" ),
     Asset( "ATLAS", "images/avatars/self_inspect_gramfuel.xml" ),
+
+    Asset( "IMAGE", "images/crafting_menu_avatars/avatar_gramfuel.tex" ),
+    Asset( "ATLAS", "images/crafting_menu_avatars/avatar_gramfuel.xml" ),
 	
 	Asset( "IMAGE", "images/names_gold_gramfuel.tex" ),
     Asset( "ATLAS", "images/names_gold_gramfuel.xml" ),
 
-    Asset( "IMAGE", "images/inventoryimages/fuel_axe.tex" ),
-    Asset( "ATLAS", "images/inventoryimages/fuel_axe.xml" ),
+    Asset( "IMAGE", "images/inventoryimages/bigfuelaxe.tex" ),
+    Asset( "ATLAS", "images/inventoryimages/bigfuelaxe.xml" ),
 
 	Asset( "IMAGE", "images/inventoryimages/livingcoal.tex" ),
     Asset( "ATLAS", "images/inventoryimages/livingcoal.xml" ),
@@ -66,6 +75,16 @@ STRINGS.CHARACTER_NAMES.gramfuel = "Fuel"
 STRINGS.CHARACTER_DESCRIPTIONS.gramfuel = "*Knows how to chop and char\n*Raised on Tazmilian Hospitality\n*Slow Healer"
 STRINGS.CHARACTER_QUOTES.gramfuel = "\"Well, I'm not all black with soot this time!\""
 STRINGS.CHARACTER_SURVIVABILITY.gramfuel = "Slim"
+
+STRINGS.SKIN_DESCRIPTIONS.gramfuel_none = "Fuel's typical outfit."
+
+STRINGS.SKIN_NAMES.ms_gramfuel_merrymaker = "The Merrymaker"
+STRINGS.SKIN_DESCRIPTIONS.ms_gramfuel_merrymaker = "A comfortable Soot Dumpling sweater that would make any charcoal burner relish the spirit of Winters Feast."
+STRINGS.SKIN_QUOTES.ms_gramfuel_merrymaker = "\"We never had much, Dad and I. I'll always cherish those moments we treated ourselves with the holidays.\""
+
+STRINGS.SKIN_NAME.ms_gramfuel_hallowed = "Baked Yammonster Costume"
+STRINGS.SKIN_DESCRIPTIONS.ms_gramfuel_hallowed = "A ghoulish and yummy costume, perfect for Hallowed Nights."
+STRINGS.SKIN_QUOTES.ms_gramfuel_hallowed = "\"I might be a little too old for this sorta getup.\""
 
 -- Custom speech strings
 STRINGS.CHARACTERS.GRAMFUEL = require "speech_gramfuel"
@@ -112,7 +131,7 @@ local skin_modes = {
     },
 }
 
-RegisterInventoryItemAtlas(GLOBAL.resolvefilepath("images/inventoryimages/fuel_axe.xml"), "fuel_axe.tex")
+RegisterInventoryItemAtlas(GLOBAL.resolvefilepath("images/inventoryimages/bigfuelaxe.xml"), "bigfuelaxe.tex")
 RegisterInventoryItemAtlas(GLOBAL.resolvefilepath("images/inventoryimages/charcoal_spear.xml"), "charcoal_spear.tex")
 RegisterInventoryItemAtlas(GLOBAL.resolvefilepath("images/inventoryimages/livingcoal.xml"), "livingcoal.tex")
 RegisterInventoryItemAtlas(GLOBAL.resolvefilepath("images/inventoryimages/livingcoal_spear.xml"), "livingcoal_spear.tex")

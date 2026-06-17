@@ -72,14 +72,15 @@ AddClassPostConstruct("widgets/redux/craftingmenu_pinslot", function(self)
     end
 end)
 
-AddCharacterRecipe("bigfuelaxe",
+AddCharacterRecipe("fuel_axe",
     {Ingredient("flint", 5), Ingredient("twigs", 2)},
     TECH.SCIENCE_ONE,
     {
         product = "bigfuelaxe",
         builder_tag = "gramfuel",
         numtogive = 1,
-        image = "axe",
+        image = "bigfuelaxe.tex",
+        atlas = "images/inventoryimages/bigfuelaxe.xml",
     },
     {
         "TOOLS",
@@ -92,7 +93,8 @@ AddCharacterRecipe("fuelcharcoalspear",
         product = "fuelcharcoalspear",
         builder_tag = "gramfuel",
         numtogive = 1,
-        image = "spear"
+        image = "charcoal_spear.tex",
+        atlas = "images/inventoryimages/charcoal_spear.xml",
     },
     {
         "WEAPONS",
@@ -106,7 +108,8 @@ AddCharacterRecipe("fuelcharcoalpile",
         product = "fuelcharcoalpile",
         builder_tag = "gramfuel",
         numtogive = 1,
-        --atlas = "cook_pot",
+        image = "charcoal_pile.tex",
+        atlas = "images/map_icons/charcoal_pile.xml",
     },
     {
         "STRUCTURES",
