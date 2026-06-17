@@ -451,60 +451,68 @@ end
 local function cancelaction_rpc(inst, target)
     inst.sg:GoToState("idle")
     inst:ClearBufferedAction()
-    inst:DoTaskInTime(1, function() print(inst.sg) end)
+    inst:DoTaskInTime(.1, function() print(inst.sg) end)
     local weapon = inst.replica.combat:GetWeapon()
     local act = GLOBAL.BufferedAction(inst, target, GLOBAL.ACTIONS.SPLIT, weapon, inst:GetPosition())
-    inst:DoTaskInTime(0, function() inst.components.playercontroller:DoAction(act) end)
+    act.instant = true
+    print(act, act.doer:IsValid(), act.target:IsValid(), act.invobject:IsValid(), act.doer.components.playercontroller:IsBusy())
+    --inst:DoTaskInTime(0, function() inst.components.playercontroller:DoAction(act) end)
+    inst.components.playercontroller:DoAction(act)
+    print(inst.sg, inst:GetBufferedAction())
 end
 AddModRPCHandler("GramCancelAction", "GramCancelAction", cancelaction_rpc)
 
-AddSimPostInit(function() 
-    GLOBAL.TheInput:AddKeyHandler(function(key, down)
-        if down and key == GLOBAL.KEY_SPACE and not GLOBAL.IsPaused() then
+
+
+    GLOBAL.TheInput:AddKeyUpHandler(GLOBAL.KEY_SPACE, function()
+        if not GLOBAL.IsPaused() then
             local player = GLOBAL.ThePlayer
             if not player:HasTag("gramfuel") then return end
 
             local weapon = player.replica.combat:GetWeapon()
+            print(weapon)
             if not weapon then return end
             if not weapon:HasTag("CHOP_tool") then return end
 
             local stump = GLOBAL.FindEntity(player, 2, function(target) return target:HasTag("haslog") end)
+            print(stump)
             if stump then
                 --b:Cancel()
+                print(player:GetBufferedAction())
                 if player:GetBufferedAction() and player:GetBufferedAction().action ~= GLOBAL.ACTIONS.SPLIT then
-                    print("cancel")
+                    print("cancel", player:GetBufferedAction().action, GLOBAL.ACTIONS.SPLIT, GLOBAL.ACTIONS.PICK)
                     player.sg:GoToState("idle")
+                    player:ClearBufferedAction()
                     if not mastersim() then
                         GLOBAL.SendModRPCToServer(GLOBAL.GetModRPC("GramCancelAction", "GramCancelAction"), stump)
                     end
-                    player:ClearBufferedAction()
+                    
                 else
                     return
                 end
-                player:DoTaskInTime(0, function()
+                --player:DoTaskInTime(0, function()
                     local x,y,z = player.Transform:GetWorldPosition()
                     local pc = player.components.playercontroller
                     local act = GLOBAL.BufferedAction(player, stump, GLOBAL.ACTIONS.SPLIT, weapon, player:GetPosition())
+                    act.instant = true
 
                     if not mastersim() then
                         if not player.components.playercontroller.locomotor then
                             if act.action.pre_action_cb then
                                 act.action.pre_action_cb(act)
                             end
-                            print("send rpc to server")
-                            GLOBAL.SendRPCToServer(GLOBAL.RPC.RightClick, act.action.code, x, z, stump, player.Transform:GetRotation(), nil, act.action.canforce, false, act.action.mod_name)
+                            GLOBAL.SendRPCToServer(GLOBAL.RPC.ActionButton, act.action.code, stump, player.Transform:GetRotation(), nil, act.action.canforce, true, act.action.mod_name)
                         elseif player.components.playercontroller:CanLocomote() then
                             act.preview_cb = function()
                                 player.components.playercontroller.remote_controls[GLOBAL.CONTROL_ACTION] = 0
                                 local isreleased = not GLOBAL.TheInput:IsControlPressed(GLOBAL.CONTROL_ACTION)
-                                print("send rpc to server")
-                                GLOBAL.SendRPCToServer(GLOBAL.RPC.RightClick, act.action.code, x, z, stump, player.Transform:GetRotation(), isreleased, nil, false, act.action.mod_name)
+                                GLOBAL.SendRPCToServer(GLOBAL.RPC.ActionButton, act.action.code, stump, player.Transform:GetRotation(), isreleased, nil, true, act.action.mod_name)
                             end
                         end
                     end
+                    print(mastersim(), "doaction")
                     player.components.playercontroller:DoAction(act)
-                end)
+                --end)
             end
         end
     end)
-end)
