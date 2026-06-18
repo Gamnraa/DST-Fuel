@@ -9,6 +9,23 @@ local charcoaltick = nil
 local mintemp = 150
 local maxtemp = 300
 
+--If we just call SetColourEnvelope, that'll affect the current smoke immediately
+--Removing the prefab and spawning a new one does not
+local function UpdateSmokeFx(self, name)
+    if not self.inst.smoke then return end
+    self.inst.smoke:Remove()
+    self.inst.smoke = nil
+
+    local ids = {}
+    for _, player in pairs(AllPlayers) do
+		table.insert(ids, player.userid)
+	end
+    self.inst.smoke = SpawnPrefab("charcoalsmoke" .. name)
+    local follower = self.inst.smoke.entity:AddFollower()
+    follower:FollowSymbol(self.inst.GUID, "object", 0, -350, 0 )
+end
+    
+
 local CharcoalMaker = Class(function(self, inst)
     self.inst = inst
     self.tileslot = inst.components.container.slots[1]
@@ -34,17 +51,13 @@ end
 function CharcoalMaker:IsDone() return self.timeleft and self.timeleft <= 0 end
 
 function CharcoalMaker:IsTooHot()
-    local ids = {}
-    for _, player in pairs(AllPlayers) do
-		table.insert(ids, player.userid)
-	end
-    if self.temperature > maxtemp - 45 then
+    if self.temperature > maxtemp - 45 and not self.inst:HasTag("wantswater") then
         self.inst:AddTag("wantswater")
-        SendModRPCToClient(GetClientModRPC("fuelcharcoalsmoke", "fuelchangesmoke"), ids, self.inst.smoke, "c2")
+        UpdateSmokeFx(self, "c2")
         return true
-    elseif self.temperature < maxtemp - 130 then
+    elseif self.temperature < maxtemp - 130 and self.inst:HasTag("wantswater") then
         self.inst:RemoveTag("wantswater")
-        SendModRPCToClient(GetClientModRPC("fuelcharcoalsmoke", "fuelchangesmoke"), ids, self.inst.smoke, "c1")
+        UpdateSmokeFx(self, "c1")
     end
     return false
 end
@@ -67,7 +80,7 @@ function CharcoalMaker:Start()
     end
 
     self.timeleft = (TUNING.CHARCOALPILE_CHAR_TIME or 8 * 2 * 60) + 1
-    self.timeleft = 30
+    self.timeleft = 20
     
     charcoaltickrate = self.timeleft / self.totallogs
     charcoaltick = charcoaltickrate
@@ -199,8 +212,7 @@ function CharcoalMaker:OnUpdate(dt)
         for _, player in pairs(AllPlayers) do
             table.insert(ids, player.userid)
         end
-        SendModRPCToClient(GetClientModRPC("fuelcharcoalsmoke", "fuelchangesmoke"), ids, self.inst.smoke, "c3")
-        return
+        UpdateSmokeFx(self, "c3")
     end
 
     if dt < charcoaltick then

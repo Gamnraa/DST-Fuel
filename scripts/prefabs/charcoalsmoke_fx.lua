@@ -40,27 +40,27 @@ local function InitEnvelope()
         EnvelopeManager:AddColourEnvelope(
         COLOUR_ENVELOPE_NAME_SMOKE_2,
         {
-            { 0,    IntColour(40, 40, 40, 240) },
-            { .3,   IntColour(20, 20, 20, 220) },
-            { .55,  IntColour(30, 30, 30, 200) },
-            { .66,    IntColour(35, 35, 35, 180) },
-            { .77,    IntColour(40, 40, 40, 100) },
-            { .95,    IntColour(45, 45, 45, 50) },
-            { 1,    IntColour(50, 50, 50, 15) },
+            { 0,    IntColour(8, 8, 8, 240) },
+            { .3,   IntColour(12, 12, 12, 220) },
+            { .55,  IntColour(16, 16, 16, 200) },
+            { .66,    IntColour(20, 20, 20, 180) },
+            { .77,    IntColour(25, 25, 25, 100) },
+            { .95,    IntColour(30, 30, 30, 50) },
+            { 1,    IntColour(40, 40, 40, 15) },
         }
     )
 
         EnvelopeManager:AddColourEnvelope(
         COLOUR_ENVELOPE_NAME_SMOKE_3,
         {
-            { 0,    IntColour(145, 200, 225, 50) },
-            { .55,  IntColour(145, 200, 215, 40) },
-            { .95,    IntColour(145, 195, 215, 20) },
-            { 1,    IntColour(145, 192, 212, 5) },
+            { 0,    IntColour(90, 200, 245, 10) },
+            { .55,  IntColour(90, 200, 235, 8) },
+            { .95,    IntColour(90, 195, 235, 5) },
+            { 1,    IntColour(90, 192, 212, 3) },
         }
     )
 
-    local smoke_max_scale = 8
+    local smoke_max_scale = 12
     EnvelopeManager:AddVector2Envelope(
         SCALE_ENVELOPE_NAME_SMOKE,
         {
@@ -112,7 +112,7 @@ end
 
 --------------------------------------------------------------------------
 
-local function common_postinit(inst)
+local function common_postinit(inst, name)
     --Dedicated server does not need to spawn local particle fx
 
 
@@ -131,7 +131,7 @@ local function common_postinit(inst)
     effect:SetRenderResources(0, SMOKE_TEXTURE, SHADER)
     effect:SetMaxNumParticles(0, 350)
     effect:SetMaxLifetime(0, SMOKE_MAX_LIFETIME)
-    effect:SetColourEnvelope(0, COLOUR_ENVELOPE_NAME_SMOKE_1)
+    effect:SetColourEnvelope(0, name)
     effect:SetScaleEnvelope(0, SCALE_ENVELOPE_NAME_SMOKE)
     effect:SetBlendMode(0, BLENDMODE.Premultiplied)
     effect:EnableBloomPass(0, true)
@@ -144,7 +144,7 @@ local function common_postinit(inst)
 
     local tick_time = TheSim:GetTickTime()
 
-    local smoke_desired_pps = 50
+    local smoke_desired_pps = 10
     local smoke_particles_per_tick = smoke_desired_pps * tick_time
     local smoke_num_particles_to_emit = -10 --start delay
 
@@ -164,7 +164,7 @@ local function master_postinit(inst)
     inst.fx_offset = -400
 end
 
-local function fn()
+local function fn(name)
     local inst = CreateEntity()
 
     inst.entity:AddTransform()
@@ -179,7 +179,7 @@ local function fn()
 
 
     if common_postinit ~= nil then
-        common_postinit(inst)
+        common_postinit(inst, name)
     end
 
     inst.entity:SetPristine()
@@ -197,4 +197,6 @@ local function fn()
     return inst
 end
 
-return Prefab("charcoalsmoke", fn, assets, prefabs)
+return Prefab("charcoalsmokec1", fn("c1"), assets),
+        Prefab("charcoalsmokec2", fn("c2"), assets),
+        Prefab("charcoalsmokec3", fn("c3"), assets)

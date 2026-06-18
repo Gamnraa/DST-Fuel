@@ -63,9 +63,9 @@ local function startcharring(inst)
     inst.AnimState:PushAnimation("idle_full")
     inst.Light:Enable(true)
     inst:RemoveTag("ready")
-    inst.smoke = SpawnPrefab("charcoalsmoke")
+    inst.smoke = SpawnPrefab("charcoalsmokec1")
     local follower = inst.smoke.entity:AddFollower()
-    follower:FollowSymbol( inst.GUID, "object", 0, -600, 0 ) 
+    follower:FollowSymbol( inst.GUID, "object", 0, -350, 0 ) 
 end
 
 local function donecharring(inst) 
@@ -78,6 +78,8 @@ local function harvest(inst)
     inst.AnimState:PushAnimation("idle_partial")
     inst:RemoveTag("finished")
     inst:AddTag("waiting")
+    inst.smoke:Remove()
+    inst.fire = nil
 end
 
 local function getstatus(inst, viewer)
@@ -106,6 +108,11 @@ end
 local function onload(inst)
     local state = ischarring(inst) and "_full" or "_partial" 
     inst.AnimState:PlayAnimation("idle" .. state, false)
+    if state == "_full" then
+        inst.smoke = SpawnPrefab("charcoalsmokec3")
+        local follower = inst.smoke.entity:AddFollower()
+        follower:FollowSymbol( inst.GUID, "object", 0, -350, 0 )
+    end
 end
 
 local function onloadpostpass(inst, newents, data)
