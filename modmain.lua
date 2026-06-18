@@ -9,6 +9,7 @@ PrefabFiles = {
     "livingcoal",
     "fuelstakes",
     "spearfire_fx",
+    "charcoalsmoke_fx",
 }
 
 Assets = {
@@ -23,6 +24,15 @@ Assets = {
 
     Asset( "IMAGE", "bigportraits/gramfuel.tex" ),
     Asset( "ATLAS", "bigportraits/gramfuel.xml" ),
+
+    Asset( "IMAGE", "bigportraits/gramfuel_none.tex" ),
+    Asset( "ATLAS", "bigportraits/gramfuel_none.xml" ),
+
+    Asset( "IMAGE", "bigportraits/ms_gramfuel_merrymaker.tex" ),
+    Asset( "ATLAS", "bigportraits/ms_gramfuel_merrymaker.xml" ),
+    
+    Asset( "IMAGE", "bigportraits/ms_gramfuel_hallowed.tex" ),
+    Asset( "ATLAS", "bigportraits/ms_gramfuel_hallowed.xml" ),
 	
 	Asset( "IMAGE", "images/map_icons/gramfuel.tex" ),
 	Asset( "ATLAS", "images/map_icons/gramfuel.xml" ),
