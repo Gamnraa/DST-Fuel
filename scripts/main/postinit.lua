@@ -67,6 +67,7 @@ local function OnTakeLog(inst, taker, loot)
     inst.AnimState:PlayAnimation("stump_tall")
 end
 
+AddClientModRPCHandler("fuelcharcoalsmoke", "fuelchangesmoke", function(inst, name) inst.VFXEffect:SetColourEnvelope(0, name) end)
 AddClientModRPCHandler("fuellogsplitter", "fuelsplitlog", function(inst) print(inst) inst:AddTag("split") end)
 
 local function Split(inst)

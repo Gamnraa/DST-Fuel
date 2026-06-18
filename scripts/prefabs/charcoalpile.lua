@@ -63,6 +63,9 @@ local function startcharring(inst)
     inst.AnimState:PushAnimation("idle_full")
     inst.Light:Enable(true)
     inst:RemoveTag("ready")
+    inst.smoke = SpawnPrefab("charcoalsmoke")
+    local follower = inst.smoke.entity:AddFollower()
+    follower:FollowSymbol( inst.GUID, "object", 0, -600, 0 ) 
 end
 
 local function donecharring(inst) 
