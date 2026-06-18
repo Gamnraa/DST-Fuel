@@ -4,7 +4,9 @@ local TEXTURE = "fx/torchfire.tex"
 
 local SHADER = "shaders/vfx_particle.ksh"
 
-local COLOUR_ENVELOPE_NAME_SMOKE = "firesmokecolourenvelope"
+local COLOUR_ENVELOPE_NAME_SMOKE_1 = "c1"
+local COLOUR_ENVELOPE_NAME_SMOKE_2 = "c2"
+local COLOUR_ENVELOPE_NAME_SMOKE_3 = "c3"
 local SCALE_ENVELOPE_NAME_SMOKE = "firesmokescaleenvelope"
 local COLOUR_ENVELOPE_NAME = "firecolourenvelope"
 local SCALE_ENVELOPE_NAME = "firescaleenvelope"
@@ -23,23 +25,49 @@ end
 
 local function InitEnvelope()
     EnvelopeManager:AddColourEnvelope(
-        COLOUR_ENVELOPE_NAME_SMOKE,
+        COLOUR_ENVELOPE_NAME_SMOKE_1,
         {
-            { 0,    IntColour(230, 230, 230, 230) },
-            { .3,   IntColour(255, 242, 255, 255) },
-            { .55,  IntColour(210, 210, 222, 230) },
-            { 1,    IntColour(200, 255, 242, 220) },
+            { 0,    IntColour(210, 210, 210, 240) },
+            { .3,   IntColour(200, 200, 200, 220) },
+            { .55,  IntColour(180, 180, 190, 200) },
+            { .66,    IntColour(160, 170, 180, 180) },
+            { .77,    IntColour(160, 165, 170, 100) },
+            { .95,    IntColour(160, 165, 170, 50) },
+            { 1,    IntColour(160, 165, 170, 25) },
         }
     )
 
-    local smoke_max_scale = 1.25
+        EnvelopeManager:AddColourEnvelope(
+        COLOUR_ENVELOPE_NAME_SMOKE_2,
+        {
+            { 0,    IntColour(40, 40, 40, 240) },
+            { .3,   IntColour(20, 20, 20, 220) },
+            { .55,  IntColour(30, 30, 30, 200) },
+            { .66,    IntColour(35, 35, 35, 180) },
+            { .77,    IntColour(40, 40, 40, 100) },
+            { .95,    IntColour(45, 45, 45, 50) },
+            { 1,    IntColour(50, 50, 50, 15) },
+        }
+    )
+
+        EnvelopeManager:AddColourEnvelope(
+        COLOUR_ENVELOPE_NAME_SMOKE_3,
+        {
+            { 0,    IntColour(145, 200, 225, 50) },
+            { .55,  IntColour(145, 200, 215, 40) },
+            { .95,    IntColour(145, 195, 215, 20) },
+            { 1,    IntColour(145, 192, 212, 5) },
+        }
+    )
+
+    local smoke_max_scale = 8
     EnvelopeManager:AddVector2Envelope(
         SCALE_ENVELOPE_NAME_SMOKE,
         {
-            { 0,    { smoke_max_scale * .4, smoke_max_scale * .4} },
-            { .50,  { smoke_max_scale * .6, smoke_max_scale * .6} },
-            { .65,  { smoke_max_scale * .9, smoke_max_scale * .9} },
-            { 1,    { smoke_max_scale, smoke_max_scale} },
+            { 0,    { smoke_max_scale * .22, smoke_max_scale * .4} },
+            { .50,  { smoke_max_scale * .55, smoke_max_scale * .6} },
+            { .65,  { smoke_max_scale * .77, smoke_max_scale * .9} },
+            { 1,    { smoke_max_scale, smoke_max_scale / 1.5} },
         }
     )
 
@@ -50,10 +78,10 @@ end
 --------------------------------------------------------------------------
 
 local FIRE_MAX_LIFETIME = .4
-local SMOKE_MAX_LIFETIME = 1.8
+local SMOKE_MAX_LIFETIME = 8
 
 local function emit_smoke_fn(effect, sphere_emitter)
-    local vx, vy, vz = .01 * UnitRand(), .07, .01 * UnitRand()
+    local vx, vy, vz = math.abs(.024 * UnitRand()) + .016, math.random(1, 2) == 1 and 0.055 or 0.065, .005 * UnitRand()
     local lifetime = SMOKE_MAX_LIFETIME * (.9 + UnitRand() * .1)
     local px, py, pz = sphere_emitter()
     local uv_offset = math.random(0, 3) * .25
@@ -101,9 +129,9 @@ local function common_postinit(inst)
 
     --SMOKE
     effect:SetRenderResources(0, SMOKE_TEXTURE, SHADER)
-    effect:SetMaxNumParticles(0, 64)
+    effect:SetMaxNumParticles(0, 350)
     effect:SetMaxLifetime(0, SMOKE_MAX_LIFETIME)
-    effect:SetColourEnvelope(0, COLOUR_ENVELOPE_NAME_SMOKE)
+    effect:SetColourEnvelope(0, COLOUR_ENVELOPE_NAME_SMOKE_1)
     effect:SetScaleEnvelope(0, SCALE_ENVELOPE_NAME_SMOKE)
     effect:SetBlendMode(0, BLENDMODE.Premultiplied)
     effect:EnableBloomPass(0, true)
@@ -116,9 +144,9 @@ local function common_postinit(inst)
 
     local tick_time = TheSim:GetTickTime()
 
-    local smoke_desired_pps = 120
+    local smoke_desired_pps = 50
     local smoke_particles_per_tick = smoke_desired_pps * tick_time
-    local smoke_num_particles_to_emit = -50 --start delay
+    local smoke_num_particles_to_emit = -10 --start delay
 
     local sphere_emitter = CreateSphereEmitter(.08)
 
@@ -147,7 +175,7 @@ local function fn()
     inst:AddTag("FX")
 
     inst.SoundEmitter:PlaySound("dontstarve/wilson/torch_LP", "torch")
-    inst.SoundEmitter:SetParameter("torch", "intensity", 1)
+    inst.SoundEmitter:SetParameter("torch", "intensity", .25)
 
 
     if common_postinit ~= nil then
