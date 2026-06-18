@@ -82,7 +82,7 @@ STRINGS.SKIN_NAMES.ms_gramfuel_merrymaker = "The Merrymaker"
 STRINGS.SKIN_DESCRIPTIONS.ms_gramfuel_merrymaker = "A comfortable Soot Dumpling sweater that would make any charcoal burner relish the spirit of Winters Feast."
 STRINGS.SKIN_QUOTES.ms_gramfuel_merrymaker = "\"We never had much, Dad and I. I'll always cherish those moments we treated ourselves with the holidays.\""
 
-STRINGS.SKIN_NAME.ms_gramfuel_hallowed = "Baked Yammonster Costume"
+STRINGS.SKIN_NAMES.ms_gramfuel_hallowed = "Baked Yammonster Costume"
 STRINGS.SKIN_DESCRIPTIONS.ms_gramfuel_hallowed = "A ghoulish and yummy costume, perfect for Hallowed Nights."
 STRINGS.SKIN_QUOTES.ms_gramfuel_hallowed = "\"I might be a little too old for this sorta getup.\""
 
