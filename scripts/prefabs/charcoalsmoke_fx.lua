@@ -111,92 +111,94 @@ local function emit_fire_fn(effect, sphere_emitter)
 end
 
 --------------------------------------------------------------------------
+local function makefx(name)
+    local function common_postinit(inst, fx)
+        --Dedicated server does not need to spawn local particle fx
 
-local function common_postinit(inst, name)
-    --Dedicated server does not need to spawn local particle fx
 
-
-    if TheNet:IsDedicated() then        
-        return
-    elseif InitEnvelope ~= nil then
-        InitEnvelope()
-    end
-
-    -----------------------------------------------------
-
-    local effect = inst.entity:AddVFXEffect()
-    effect:InitEmitters(1)
-
-    --SMOKE
-    effect:SetRenderResources(0, SMOKE_TEXTURE, SHADER)
-    effect:SetMaxNumParticles(0, 350)
-    effect:SetMaxLifetime(0, SMOKE_MAX_LIFETIME)
-    effect:SetColourEnvelope(0, name)
-    effect:SetScaleEnvelope(0, SCALE_ENVELOPE_NAME_SMOKE)
-    effect:SetBlendMode(0, BLENDMODE.Premultiplied)
-    effect:EnableBloomPass(0, true)
-    effect:SetUVFrameSize(0, .25, 1)
-    effect:SetSortOrder(0, 0)
-    effect:SetSortOffset(0, 1)
-    effect:SetRadius(0, 2) --only needed on a single emitter
-
-    -----------------------------------------------------
-
-    local tick_time = TheSim:GetTickTime()
-
-    local smoke_desired_pps = 10
-    local smoke_particles_per_tick = smoke_desired_pps * tick_time
-    local smoke_num_particles_to_emit = -10 --start delay
-
-    local sphere_emitter = CreateSphereEmitter(.08)
-
-    EmitterManager:AddEmitter(inst, nil, function()
-        --SMOKE
-        while smoke_num_particles_to_emit > 1 do
-            emit_smoke_fn(effect, sphere_emitter)
-            smoke_num_particles_to_emit = smoke_num_particles_to_emit - 1
+        if TheNet:IsDedicated() then        
+            return
+        elseif InitEnvelope ~= nil then
+            InitEnvelope()
         end
-        smoke_num_particles_to_emit = smoke_num_particles_to_emit + smoke_particles_per_tick
-    end)
-end
 
-local function master_postinit(inst)
-    inst.fx_offset = -400
-end
+        -----------------------------------------------------
 
-local function fn(name)
-    local inst = CreateEntity()
+        local effect = inst.entity:AddVFXEffect()
+        effect:InitEmitters(1)
 
-    inst.entity:AddTransform()
-    inst.entity:AddAnimState()
-    inst.entity:AddSoundEmitter()
-    inst.entity:AddNetwork()
+        --SMOKE
+        effect:SetRenderResources(0, SMOKE_TEXTURE, SHADER)
+        effect:SetMaxNumParticles(0, 350)
+        effect:SetMaxLifetime(0, SMOKE_MAX_LIFETIME)
+        effect:SetColourEnvelope(0, string.gsub(name, "charcoalsmoke", ""))
+        effect:SetScaleEnvelope(0, SCALE_ENVELOPE_NAME_SMOKE)
+        effect:SetBlendMode(0, BLENDMODE.Premultiplied)
+        effect:EnableBloomPass(0, true)
+        effect:SetUVFrameSize(0, .25, 1)
+        effect:SetSortOrder(0, 0)
+        effect:SetSortOffset(0, 1)
+        effect:SetRadius(0, 2) --only needed on a single emitter
 
-    inst:AddTag("FX")
+        -----------------------------------------------------
 
-    inst.SoundEmitter:PlaySound("dontstarve/wilson/torch_LP", "torch")
-    inst.SoundEmitter:SetParameter("torch", "intensity", .25)
+        local tick_time = TheSim:GetTickTime()
 
+        local smoke_desired_pps = 10
+        local smoke_particles_per_tick = smoke_desired_pps * tick_time
+        local smoke_num_particles_to_emit = -10 --start delay
 
-    if common_postinit ~= nil then
-        common_postinit(inst, name)
+        local sphere_emitter = CreateSphereEmitter(.08)
+
+        EmitterManager:AddEmitter(inst, nil, function()
+            --SMOKE
+            while smoke_num_particles_to_emit > 1 do
+                emit_smoke_fn(effect, sphere_emitter)
+                smoke_num_particles_to_emit = smoke_num_particles_to_emit - 1
+            end
+            smoke_num_particles_to_emit = smoke_num_particles_to_emit + smoke_particles_per_tick
+        end)
     end
 
-    inst.entity:SetPristine()
+    local function master_postinit(inst)
+        inst.fx_offset = -400
+    end
 
-    if not TheWorld.ismastersim then
+    local function fn()
+        local inst = CreateEntity()
+
+        inst.entity:AddTransform()
+        inst.entity:AddAnimState()
+        inst.entity:AddSoundEmitter()
+        inst.entity:AddNetwork()
+
+        inst:AddTag("FX")
+
+        inst.SoundEmitter:PlaySound("dontstarve/wilson/torch_LP", "torch")
+        inst.SoundEmitter:SetParameter("torch", "intensity", .25)
+
+
+        if common_postinit ~= nil then
+            common_postinit(inst, name)
+        end
+
+        inst.entity:SetPristine()
+
+        if not TheWorld.ismastersim then
+            return inst
+        end
+
+        inst.persists = false
+
+        if master_postinit ~= nil then
+            master_postinit(inst)
+        end
+
         return inst
     end
-
-    inst.persists = false
-
-    if master_postinit ~= nil then
-        master_postinit(inst)
-    end
-
-    return inst
+    return Prefab(name, fn, assets)
 end
 
-return Prefab("charcoalsmokec1", fn("c1"), assets),
-        Prefab("charcoalsmokec2", fn("c2"), assets),
-        Prefab("charcoalsmokec3", fn("c3"), assets)
+return makefx("charcoalsmokec1"),
+        makefx("charcoalsmokec2"),
+        makefx("charcoalsmokec3")
