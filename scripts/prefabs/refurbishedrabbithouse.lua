@@ -3,8 +3,8 @@ require "prefabutil"
 
 local assets =
 {
-    Asset("ANIM", "anim/rabbit_house.zip"),
-    Asset("MINIMAP_IMAGE", "rabbit_house"),
+    Asset("ANIM", "anim/rabbithouse_refurbished.zip"),
+    Asset("MINIMAP_IMAGE", "rabbithouse_refurbished"),
 }
 
 local prefabs =
@@ -214,7 +214,7 @@ local function fn()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("rabbit_house.png")
+    inst.MiniMapEntity:SetIcon("rabbithouse_refurbished.png")
 --{anim="level1", sound="dontstarve/common/campfire", radius=2, intensity=.75, falloff=.33, colour = {197/255,197/255,170/255}},
     inst.Light:SetFalloff(1)
     inst.Light:SetIntensity(.5)
@@ -223,7 +223,7 @@ local function fn()
     inst.Light:SetColour(180/255, 195/255, 50/255)
 
     inst.AnimState:SetBank("rabbithouse")
-    inst.AnimState:SetBuild("rabbit_house")
+    inst.AnimState:SetBuild("rabbithouse_refurbished")
     inst.AnimState:PlayAnimation("idle", true)
 
     inst:AddTag("cavedweller")
