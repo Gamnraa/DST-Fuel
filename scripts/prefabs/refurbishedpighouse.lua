@@ -4,7 +4,6 @@ require "prefabutil"
 local assets =
 {
     Asset("ANIM", "anim/pighouse_refurbished.zip"),
-    Asset("MINIMAP_IMAGE", "pighouse_refurbished"),
     Asset("SOUND", "sound/pig.fsb"),
 }
 
@@ -411,9 +410,9 @@ local function fn()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
-    MakeObstaclePhysics(inst, 1)
+    MakeObstaclePhysics(inst, 1.4)
 
-    inst.MiniMapEntity:SetIcon("pighouse_refurbished.png")
+    inst.MiniMapEntity:SetIcon("pighouse_refurbished.tex")
 --{anim="level1", sound="dontstarve/common/campfire", radius=2, intensity=.75, falloff=.33, colour = {197/255,197/255,170/255}},
     inst.Light:SetFalloff(1)
     inst.Light:SetIntensity(.5)

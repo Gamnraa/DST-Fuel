@@ -129,7 +129,7 @@ local function fn()
     inst.entity:AddTransform()
     inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
-    --inst.entity:AddMiniMapEntity()
+    inst.entity:AddMiniMapEntity()
     inst.entity:AddLight()
     inst.entity:AddNetwork()
 
@@ -150,7 +150,7 @@ local function fn()
     inst.AnimState:SetBuild("charcoal_pile")
     inst.AnimState:PlayAnimation("idle_partial", false)
     inst.scrapbook_anim = "idle_full"
-    --inst.MiniMapEntity:SetIcon("cookpot.png")
+    inst.MiniMapEntity:SetIcon("charcoal_pile.tex")
 
     inst.entity:SetPristine()
     if not TheWorld.ismastersim then

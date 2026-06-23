@@ -40,6 +40,9 @@ Assets = {
     Asset( "IMAGE", "images/map_icons/charcoal_pile.tex" ),
 	Asset( "ATLAS", "images/map_icons/charcoal_pile.xml" ),
 
+    Asset( "IMAGE", "images/map_icons/pighouse_refurbished.tex" ),
+	Asset( "ATLAS", "images/map_icons/pighouse_refurbished.xml" ),
+
     Asset( "IMAGE", "images/map_icons/rabbithouse_refurbished.tex" ),
 	Asset( "ATLAS", "images/map_icons/rabbithouse_refurbished.xml" ),
 	
@@ -75,6 +78,9 @@ Assets = {
 }
 
 AddMinimapAtlas("images/map_icons/gramfuel.xml")
+AddMinimapAtlas("images/map_icons/charcoal_pile.xml")
+AddMinimapAtlas("images/map_icons/pighouse_refurbished.xml")
+AddMinimapAtlas("images/map_icons/rabbithouse_refurbished.xml")
 
 local require = GLOBAL.require
 local STRINGS = GLOBAL.STRINGS

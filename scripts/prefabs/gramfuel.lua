@@ -73,7 +73,7 @@ end
 -- This initializes for both the server and client. Tags can be added here.
 local common_postinit = function(inst) 
 	-- Minimap icon
-	inst.MiniMapEntity:SetIcon( "gramninten.tex" )
+	inst.MiniMapEntity:SetIcon( "gramfuel.tex" )
 
 	inst:AddTag("slowhealer")
 	inst:AddTag("gramfuel")

@@ -4,7 +4,6 @@ require "prefabutil"
 local assets =
 {
     Asset("ANIM", "anim/rabbithouse_refurbished.zip"),
-    Asset("MINIMAP_IMAGE", "rabbithouse_refurbished"),
 }
 
 local prefabs =
@@ -214,7 +213,7 @@ local function fn()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("rabbithouse_refurbished.png")
+    inst.MiniMapEntity:SetIcon("rabbithouse_refurbished.tex")
 --{anim="level1", sound="dontstarve/common/campfire", radius=2, intensity=.75, falloff=.33, colour = {197/255,197/255,170/255}},
     inst.Light:SetFalloff(1)
     inst.Light:SetIntensity(.5)
