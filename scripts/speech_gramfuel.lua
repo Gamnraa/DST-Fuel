@@ -6153,6 +6153,4 @@ return {
     },
 
     WENDY_SKILLTREE_EASTEREGG = "only_used_by_wendy",
-
-
 }

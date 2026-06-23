@@ -28,8 +28,8 @@ end
 
 local CharcoalMaker = Class(function(self, inst)
     self.inst = inst
-    self.tileslot = inst.components.container.slots[1]
-    self.logslots = {inst.components.container.slots[2], inst.components.container.slots[3]}
+   -- self.tileslot = inst.components.container.slots[1]
+   -- self.logslots = {inst.components.container.slots[2], inst.components.container.slots[3]}
     self.numcharcoalproduced = nil
     self.numlivingcoalproduced = nil
     self.numashproduced = nil

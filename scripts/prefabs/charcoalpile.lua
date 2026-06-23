@@ -68,6 +68,41 @@ local function startcharring(inst)
     follower:FollowSymbol( inst.GUID, "object", 0, -350, 0 ) 
 end
 
+local validturfs = {
+    {type = "turf_grass",       amount = 1},
+    {type = "turf_forest",      amount = 1},
+    {type = "turf_savanna",     amount = 1},
+    {type = "turf_deciduous",   amount = 1},
+}
+local validlogs = {
+    {type = "log",      amount = 20},
+    {type = "livinglog",amount = 20},
+}
+
+local function oncompletecontrustction(inst, doer)
+    local canconstruct = false
+    for _, v in pairs(validturfs) do
+        if inst.components.constructionsite:GetMaterialCount(v.type) == v.amount then
+            for _, j in pairs(validlogs) do 
+                if inst.components.constructionsite:GetMaterialCount(j.type) == j.amount then
+                    for _, k in pairs(validlogs) do 
+                        if inst.components.constructionsite:GetMaterialCount(k.type) == k.amount then
+                            canconstruct = true
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    if not canconstruct then return end
+    print("construction", inst.components.constructionsite.materials["turf_grass"].slot)
+
+    inst.SoundEmitter:PlaySound("hookline_2/characters/hermit/house/stage2_place")
+
+    --startcharring(inst)
+end
+
 local function donecharring(inst) 
     inst:AddTag("finished")
     inst.Light:Enable(false)
@@ -144,6 +179,7 @@ local function fn()
 
     inst:AddTag("structure")
     inst:AddTag("fuelcharcoalmaker")
+    inst:AddTag("constructionsite")
     inst:AddTag("HASHEATER")
 
     inst.AnimState:SetBank("charcoal_pile")
@@ -162,6 +198,10 @@ local function fn()
     inst.components.container:WidgetSetup("charpile")
     inst.components.container.skipclosesnd = true
     inst.components.container.skipopensnd = true
+
+    --local con = inst:AddComponent("constructionsite")
+    --con:SetConstructionPrefab("construction_container")
+    --con:SetOnConstructedFn(oncompletecontrustction)
 
     inst:AddComponent("inspectable")
     inst.components.inspectable.getstatus = getstatus

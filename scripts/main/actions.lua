@@ -22,6 +22,7 @@ AddComponentAction("EQUIPPED", "tool", function(inst, doer, target, actions, rig
     end
 end)
 
+
 AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.SPLIT, "hammer_start"))
 AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.SPLIT, "hammer_start"))
 
