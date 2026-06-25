@@ -79,9 +79,11 @@ function CharcoalMaker:Start()
     self.logs = ((slot1 and slot1.prefab == "log") and slot1.components.stackable.stacksize or 0) + ((slot2 and slot2.prefab == "log") and slot2.components.stackable.stacksize or 0)
     self.livinglogs = ((slot1 and slot1.prefab == "livinglog") and slot1.components.stackable.stacksize or 0) + ((slot2 and slot2.prefab == "livinglog") and slot2.components.stackable.stacksize or 0)
 
+    print(self.logs, self.livinglogs)
+
     if self.logs > 0 or self.livinglogs > 0 then 
-        self.logs =  math.ceil(self.logs * 1.5)
-        self.livinglogs = math.ceil(self.livinglogs * 1.5)
+        self.logs = math.floor(self.logs * 1.5)
+        self.livinglogs = math.floor(self.livinglogs * 1.5)
         self.totallogs = self.logs + self.livinglogs
     end
 
@@ -114,6 +116,8 @@ function CharcoalMaker:Harvest(doer)
         local tileproduct = SpawnPrefab(self.tileslot:HasTag("charred") and "ash" or "turf_grass")
         self.inst.components.container:DestroyContents()
 
+        print(self.numcharcoalproduced, self.numlivingcoalproduced)
+
         for i = 1, self.numcharcoalproduced do
             local product = SpawnPrefab("charcoal")
             product.components.fuel.fuelvalue = TUNING.MED_LARGE_FUEL  
@@ -135,7 +139,7 @@ function CharcoalMaker:Harvest(doer)
 
         self.numcharcoalproduced = nil
         self.numlivingcoalproduced = nil
-
+        
         for i = 1, self.numashproduced do
             local product = SpawnPrefab("ash") 
             if doer and doer.components.inventory then
@@ -154,6 +158,7 @@ function CharcoalMaker:Harvest(doer)
 
         self.timeleft = nil
         self.logs = 0
+        self.livinglogs = 0
         charcoaltickrate = nil
         charcoaltick = nil
         temptick = nil
@@ -227,7 +232,7 @@ function CharcoalMaker:OnUpdate(dt)
         if self.logs > 0 then
             self.numcharcoalproduced = self.numcharcoalproduced + 1
             self.logs = self.logs - 1
-        else
+        elseif self.livinglogs > 0 then
             self.numlivingcoalproduced = self.numlivingcoalproduced + 1
             self.livinglogs = self.livinglogs - 1
         end
