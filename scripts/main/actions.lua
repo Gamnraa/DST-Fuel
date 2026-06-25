@@ -27,7 +27,6 @@ AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.SPLIT, "hammer_start"
 AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.SPLIT, "hammer_start"))
 
 local char = AddAction("CHAR", "Char Logs", function(act)
-    print("char action")
     if act.doer and act.target then
         act.target.components.charcoalmaker:Start()
         return true

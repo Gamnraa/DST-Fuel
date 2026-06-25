@@ -24,12 +24,13 @@ local function UpdateSmokeFx(self, name)
     local follower = self.inst.smoke.entity:AddFollower()
     follower:FollowSymbol(self.inst.GUID, "object", 0, -350, 0 )
 end
+
     
 
 local CharcoalMaker = Class(function(self, inst)
     self.inst = inst
-   -- self.tileslot = inst.components.container.slots[1]
-   -- self.logslots = {inst.components.container.slots[2], inst.components.container.slots[3]}
+    self.tileslot = nil
+    self.logslots = {}
     self.numcharcoalproduced = nil
     self.numlivingcoalproduced = nil
     self.numashproduced = nil
@@ -44,8 +45,13 @@ local CharcoalMaker = Class(function(self, inst)
 end, nil, {})
 
 function CharcoalMaker:UpdateSlots()
-    self.tileslot = self.inst.components.container.slots[1]
-    self.logslots = {self.inst.components.container.slots[2], self.inst.components.container.slots[3]}
+    for _, v in pairs(self.inst.components.container.slots) do
+        if v.prefab == "log" or v.prefab == "livinglog" then
+            table.insert(self.logslots, v)
+        elseif v:HasTag("charcoalburnerturf") then
+            self.tileslot = v
+        end
+    end
 end
 
 function CharcoalMaker:IsDone() return self.timeleft and self.timeleft <= 0 end

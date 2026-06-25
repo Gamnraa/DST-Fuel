@@ -114,7 +114,7 @@ local function harvest(inst)
     inst:RemoveTag("finished")
     inst:AddTag("waiting")
     inst.smoke:Remove()
-    inst.fire = nil
+    inst.smoke = nil
 end
 
 local function getstatus(inst, viewer)
@@ -129,9 +129,12 @@ local function onbuilt(inst)
     inst.AnimState:PushAnimation("idle_partial") 
 end
 
-local function onupdatecontainer(inst, data)
+local function onupdatecontainer(inst)
     if inst.components.charcoalmaker.timeleft then return end
-    if inst.components.container:Has("log", 1) and inst.components.container:HasItemWithTag("charcoalburnerturf", 1) then
+
+    if ((inst.replica.container:Has("log", 20) and inst.replica.container:Has("livinglog", 20)) 
+    or inst.replica.container:Has("log", 40) or inst.replica.container:Has("livinglog", 40))
+    and inst.components.container:HasItemWithTag("charcoalburnerturf", 1) then
         inst:AddTag("ready")
         inst:RemoveTag("waiting")
     else 
@@ -198,10 +201,6 @@ local function fn()
     inst.components.container:WidgetSetup("charpile")
     inst.components.container.skipclosesnd = true
     inst.components.container.skipopensnd = true
-
-    --local con = inst:AddComponent("constructionsite")
-    --con:SetConstructionPrefab("construction_container")
-    --con:SetOnConstructedFn(oncompletecontrustction)
 
     inst:AddComponent("inspectable")
     inst.components.inspectable.getstatus = getstatus
