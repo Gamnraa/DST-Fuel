@@ -14,8 +14,8 @@ local function DoSpawnFX(inst, x, y, z, rot, radius, burst, prefab, anim, theta)
 	fx.Transform:SetRotation(rot)
 	fx.Transform:SetPosition(x,y,z)		
 
-	if inst.fx then
-		table.insert(inst.fx, fx)
+	if inst.rocks then
+		table.insert(inst.rocks, fx)
 	end
 	
 end
@@ -43,6 +43,16 @@ local function onhammered(inst, worker)
     local fx = SpawnPrefab("collapse_big")
     fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
     fx:SetMaterial("wood")
+
+    if ischarring(inst) then
+        inst.components.charcoalmaker:Harvest()
+    end
+
+    for _, v in pairs(inst.rocks) do v:Remove() end
+    inst.ground:Remove()
+    if inst.smoke then
+        inst.smoke:Remove()
+    end
     inst:Remove()
 end
 
@@ -223,9 +233,11 @@ local function fn()
     inst:ListenForEvent("itemlose", onupdatecontainer)
     inst.OnLoad = onload
     inst.OnLoadPostPass = onloadpostpass
+    inst.rocks = {}
 
     inst:DoTaskInTime(.1, function()
-	SpawnPrefab("fuelcharcoalpile_ground").Transform:SetPosition(inst.Transform:GetWorldPosition())
+	inst.ground = SpawnPrefab("fuelcharcoalpile_ground")
+    inst.ground.Transform:SetPosition(inst.Transform:GetWorldPosition())
 	SpawnFX(inst, 25, 3.3, "fuelcharcoalpile_rocks", false)
 		
 	end)

@@ -133,7 +133,7 @@ function CharcoalMaker:Harvest(doer)
             if doer and doer.components.inventory then
                 doer.components.inventory:GiveItem(product, nil, self.inst:GetPosition())
             else
-                LaunchAt(product, self.inst, nil, 1, 1)
+                LaunchAt(product, self.inst, 1.5, 10, 1)
             end
         end
 
@@ -232,9 +232,19 @@ function CharcoalMaker:OnUpdate(dt)
         if self.logs > 0 then
             self.numcharcoalproduced = self.numcharcoalproduced + 1
             self.logs = self.logs - 1
+            for _, v in pairs(self.logslots) do
+                if v.prefab == "log" then
+                    v.components.stackable:SetStackSize(v.components.stackable.stacksize - 1)
+                end
+            end
         elseif self.livinglogs > 0 then
             self.numlivingcoalproduced = self.numlivingcoalproduced + 1
             self.livinglogs = self.livinglogs - 1
+            for _, v in pairs(self.logslots) do
+                if v.prefab == "livinglog" then
+                    v.components.stackable:SetStackSize(v.components.stackable.stacksize - 1)
+                end
+            end
         end
         charcoaltick = charcoaltickrate
     end
