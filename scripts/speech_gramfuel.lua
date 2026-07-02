@@ -1728,7 +1728,7 @@ return {
         BATCAVE = "Home to bats.",
         BEDROLL_FURRY = "I'd never wanna get up if I had this back home!",
         BUNNYMAN = "Cuddly fella.",
-        FLOWER_CAVE = "Science makes it glow.",
+        FLOWER_CAVE = "It looks like it came straight outta fairytale.",
         GUANO = "Bat shit. Dunno how else to put it.",
         LANTERN = "It's mighty useful out here.",
         LIGHTBULB = "A real bright light!",
