@@ -27,16 +27,20 @@ AddComponentPostInit("health", function(self)
             if amount < 0 and math.random(100) + 5 < math.abs(amount) then
                 --Take away maxhealth
                 self.inst.components.talker:Say(GLOBAL.GetString(self.inst, "ANNOUNCE_CRITICAL_INJURY"))
-                self:DeltaPenalty((-amount * .25) / self.maxhealth)
-                self.inst.expectedhealth = math.ceil(math.max(0, (self.inst.expectedhealth or self.currenthealth) + (amount * .25)))
-                dohealingtask(self.inst, _dodelta)
-                amount = 0
+                self:DeltaPenalty((-amount * .5) / self.maxhealth)
+                if self.inst.slowhealtask then
+                    self.inst.slowhealtask:Cancel()
+                end
+                --self.inst.expectedhealth = math.floor(math.max(0, (self.inst.expectedhealth or self.currenthealth) + (amount * .5)))
+                --dohealingtask(self.inst, _dodelta)
+                amount = amount * .5
             else
                 --This should work in both directions simultaneously
-                self.inst.expectedhealth = math.ceil(math.max(0, (self.inst.expectedhealth or self.currenthealth) + amount))
-                print("init",self.inst.expectedhealth)
+                self.inst.expectedhealth = math.min(math.floor(math.max(0, (self.inst.expectedhealth or self.currenthealth) + amount)), self:GetMaxWithPenalty())
+                --if self.inst.expectedhealth > self:GetMaxWithPenalty() then self.inst.expectedhealth = self:GetMaxWithPenalty() end
+                print("init",self.inst.expectedhealth, self:GetMaxWithPenalty())
                 dohealingtask(self.inst, _dodelta)
-                amount = amount * .25
+                amount = (amount > 0 and 0) or (amount * .15)
             end
         end
         _dodelta(self, amount, overtime, cause, ignore_invincible, afflicter, ignore_absorb, ...)
