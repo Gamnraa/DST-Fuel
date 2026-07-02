@@ -87,8 +87,8 @@ function CharcoalMaker:Start()
         self.totallogs = self.logs + self.livinglogs
     end
 
-    self.timeleft = (TUNING.CHARCOALPILE_CHAR_TIME or 8 * 2 * 60) + 1
-    self.timeleft = 20
+    self.timeleft = (TUNING.CHARCOALPILE_CHAR_TIME or 8 * 1.67 * 60) + 1
+    --self.timeleft = 20
     
     charcoaltickrate = self.timeleft / self.totallogs
     charcoaltick = charcoaltickrate
@@ -212,7 +212,7 @@ function CharcoalMaker:OnLoad(data)
 end
 
 function CharcoalMaker:OnUpdate(dt)
-    self.timeleft = self.timeleft - dt - (self.inst.components.moisture:GetMoisturePercent() >= .38 and FRAMES * 2 or 0)
+    self.timeleft = self.timeleft - dt - (self.inst.components.moisture:GetMoisturePercent() >= .38 and FRAMES * 1.1 or 0)
     if self:IsDone() then
         self.numcharcoalproduced = self.numcharcoalproduced + self.logs
         local item = self.inst.components.container:RemoveItem(self.inst.components.container:FindItem(function(inst) return inst.prefab == "log" end, true))
