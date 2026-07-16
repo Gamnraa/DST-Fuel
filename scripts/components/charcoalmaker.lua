@@ -2,10 +2,6 @@ local temptickrate = 3
 local ashtickrate = nil
 local charcoaltickrate = nil
 
-local temptick = nil
-local ashtick = nil
-local charcoaltick = nil
-
 local mintemp = 150
 local maxtemp = 300
 
@@ -42,6 +38,9 @@ local CharcoalMaker = Class(function(self, inst)
     self.startfn = nil
     self.finishfn = nil
     self.temperature = mintemp
+    self.temptick = nil
+    self.ashtick = nil
+    self.charcoaltick = nil
 end, nil, {})
 
 function CharcoalMaker:UpdateSlots()
@@ -57,13 +56,17 @@ end
 function CharcoalMaker:IsDone() return self.timeleft and self.timeleft <= 0 end
 
 function CharcoalMaker:IsTooHot()
-    if self.temperature > maxtemp - 45 and not self.inst:HasTag("wantswater") then
-        self.inst:AddTag("wantswater")
-        UpdateSmokeFx(self, "c2")
+    if self.temperature > maxtemp - 45 then
+        if not self.inst:HasTag("wantswater") then
+            self.inst:AddTag("wantswater")
+            UpdateSmokeFx(self, "c2")
+        end
         return true
-    elseif self.temperature < maxtemp - 130 and self.inst:HasTag("wantswater") then
-        self.inst:RemoveTag("wantswater")
-        UpdateSmokeFx(self, "c1")
+    elseif self.temperature < maxtemp - 130 then
+        if self.inst:HasTag("wantswater") then
+            self.inst:RemoveTag("wantswater")
+            UpdateSmokeFx(self, "c1")
+        end
     end
     return false
 end
@@ -91,10 +94,10 @@ function CharcoalMaker:Start()
     --self.timeleft = 20
     
     charcoaltickrate = self.timeleft / self.totallogs
-    charcoaltick = charcoaltickrate
+    self.charcoaltick = charcoaltickrate
     ashtickrate = charcoaltickrate * 30
-    ashtick = ashtickrate
-    temptick = temptickrate
+    self.ashtick = ashtickrate
+    self.temptick = temptickrate
 
    
     self.inst:StartUpdatingComponent(self) 
@@ -160,10 +163,10 @@ function CharcoalMaker:Harvest(doer)
         self.logs = 0
         self.livinglogs = 0
         charcoaltickrate = nil
-        charcoaltick = nil
-        temptick = nil
+        self.charcoaltick = nil
+        self.temptick = nil
         ashtickrate = nil
-        ashtick = nil
+        self.ashtick = nil
 
         self.inst:RemoveTag("readytoharvest")
 
@@ -176,10 +179,10 @@ function CharcoalMaker:OnSave()
         timeleft = self.timeleft,
         logs = self.logs,
         charcoaltickrate = charcoaltickrate,
-        charcoaltick = charcoaltick,
-        temptick = temptick,
+        charcoaltick = self.charcoaltick,
+        temptick = self.temptick,
         ashtickrate = ashtickrate,
-        ashtick = ashtick,
+        ashtick = self.ashtick,
         numcharcoalproduced = self.numcharcoalproduced,
         numlivingcoalproduced = self.numlivingcoalproduced,
         numashproduced = self.numashproduced,
@@ -193,21 +196,23 @@ function CharcoalMaker:OnLoad(data)
     self.timeleft = data.timeleft
     self.logs = data.logs
     charcoaltickrate = data.charcoaltickrate
-    charcoaltick = data.charcoaltick
-    temptick = data.temptick
+    self.charcoaltick = data.charcoaltick
+    self.temptick = data.temptick
     ashtickrate = data.ashtickrate
-    ashtick = data.ashtick
+    self.ashtick = data.ashtick
     self.numcharcoalproduced = data.numcharcoalproduced
     self.numlivingcoalproduced = data.numlivingcoalproduced
     self.numashproduced = data.numashproduced
     self.temperature = data.temperature or mintemp
 
-    print(charcoaltick, charcoaltickrate, temptick, ashtick, ashtickrate, data.charcoaltick)
+    --print(charcoaltick, charcoaltickrate, temptick, ashtick, ashtickrate, data.charcoaltick)
 
     if self.timeleft then 
         self.inst:DoTaskInTime(0, function(inst) inst:StartUpdatingComponent(self) end) 
         self.inst.components.container:Close()
         self.inst.components.container.canbeopened = false
+        self.inst.smoke = SpawnPrefab("charcoalsmokec1")
+        UpdateSmokeFx(self, self:IsTooHot() and "c2" or "c1")
     end
 end
 
@@ -226,8 +231,8 @@ function CharcoalMaker:OnUpdate(dt)
         UpdateSmokeFx(self, "c3")
     end
 
-    if dt < charcoaltick then
-        charcoaltick = charcoaltick - dt
+    if dt < self.charcoaltick then
+        self.charcoaltick = self.charcoaltick - dt
     else
         if self.logs > 0 then
             self.numcharcoalproduced = self.numcharcoalproduced + 1
@@ -246,11 +251,11 @@ function CharcoalMaker:OnUpdate(dt)
                 end
             end
         end
-        charcoaltick = charcoaltickrate
+        self.charcoaltick = charcoaltickrate
     end
 
-    if dt < ashtick then
-        ashtick = ashtick - dt - (self:IsTooHot() and 1 or 0)
+    if dt < self.ashtick then
+        self.ashtick = self.ashtick - dt - (self:IsTooHot() and 1 or 0)
     else
         self.numashproduced =  self.numashproduced + 1
         if self.logs > 0 then
@@ -258,15 +263,16 @@ function CharcoalMaker:OnUpdate(dt)
         else
             self.numlivingcoalproduced = math.max(1, self.numlivingcoalproduced - 1)
         end
-        ashtick = ashtickrate
+        self.ashtick = ashtickrate
     end
 
-    if dt < temptick then
-        temptick = temptick - dt
+    if dt < self.temptick then
+        self.temptick = self.temptick - dt
     else
         self.temperature = math.clamp(self.temperature + 1, mintemp, maxtemp)
         self.inst.components.moisture:DoDelta(-2)
-        temptick = temptickrate
+        self.temptick = temptickrate
+        print(self.inst.GUID, "temperature rising to " .. self.temperature, self:IsTooHot())
     end
 end
 

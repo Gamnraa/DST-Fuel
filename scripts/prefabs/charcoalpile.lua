@@ -156,7 +156,7 @@ end
 local function onload(inst)
     local state = ischarring(inst) and "_full" or "_partial" 
     inst.AnimState:PlayAnimation("idle" .. state, false)
-    if state == "_full" then
+    if state == "_full" and inst:HasTag("readytoharvest") then
         inst.smoke = SpawnPrefab("charcoalsmokec3")
         local follower = inst.smoke.entity:AddFollower()
         follower:FollowSymbol( inst.GUID, "object", 0, -350, 0 )
