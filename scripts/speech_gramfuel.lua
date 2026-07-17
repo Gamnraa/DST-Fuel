@@ -5012,7 +5012,7 @@ return {
 
         -- The Terrorarium
         TERRARIUM = {
-            GENERIC = "What kinda glove is this?",
+            GENERIC = "What kinda globe is this?",
             CRIMSON = "It's much more red in there.",
             ENABLED = "Whoa!",
 			WAITING_FOR_DARK = "I touched it and now it's all glowy!",

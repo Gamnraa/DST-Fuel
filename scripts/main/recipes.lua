@@ -90,7 +90,7 @@ AddCharacterRecipe("fuelcharcoalspear",
     {Ingredient("charcoal", 1), Ingredient("rope", 1), Ingredient("twigs", 2)},
     TECH.NONE,
     {
-        product = "fuelcharcoalspear",
+        product = "charcoal_spear",
         builder_tag = "gramfuel",
         numtogive = 1,
         image = "charcoal_spear.tex",
@@ -100,6 +100,23 @@ AddCharacterRecipe("fuelcharcoalspear",
         "WEAPONS",
     }
 )
+
+AddCharacterRecipe("fuellivingcoalspear",
+    {Ingredient("livingcoal", 1), Ingredient("livinglog", 1), Ingredient("nightmarefuel", 4)},
+    TECH.MAGIC_TWO,
+    {
+        product = "livingcoal_spear",
+        builder_tag = "gramfuel",
+        numtogive = 1,
+        image = "livingcoal_spear.tex",
+        atlas = "images/inventoryimages/livingcoal_spear.xml",
+    },
+    {
+        "WEAPONS", "MAGIC"
+    }
+)
+
+
 AddCharacterRecipe("fuelcharcoalpile",
     {Ingredient("rocks", 24), Ingredient("twigs", 12), Ingredient("cutgrass", 6)},
     TECH.SCIENCE_TWO,

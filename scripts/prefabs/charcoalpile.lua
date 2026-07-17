@@ -298,6 +298,6 @@ local function groundfn() --ground
 end
 
 return Prefab("fuelcharcoalpile", fn, assets, prefabs),
-    MakePlacer("fuelcharcoalpile_placer", "fuelcharcoalpile", "cookpot", "idle"),
+    MakePlacer("fuelcharcoalpile_placer", "charcoal_pile", "charcoal_pile", "idle_partial"),
     Prefab("fuelcharcoalpile_rocks", rocksfn, assets),
     Prefab("fuelcharcoalpile_ground", groundfn, assets)

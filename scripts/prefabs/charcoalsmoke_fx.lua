@@ -144,7 +144,7 @@ local function makefx(name)
 
         local tick_time = TheSim:GetTickTime()
 
-        local smoke_desired_pps = 10
+        local smoke_desired_pps = 30
         local smoke_particles_per_tick = smoke_desired_pps * tick_time
         local smoke_num_particles_to_emit = -10 --start delay
 
