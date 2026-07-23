@@ -7,7 +7,7 @@ local SHADER = "shaders/vfx_particle.ksh"
 local COLOUR_ENVELOPE_NAME_SMOKE_1 = "c1"
 local COLOUR_ENVELOPE_NAME_SMOKE_2 = "c2"
 local COLOUR_ENVELOPE_NAME_SMOKE_3 = "c3"
-local SCALE_ENVELOPE_NAME_SMOKE = "firesmokescaleenvelope"
+local SCALE_ENVELOPE_NAME_SMOKE_CHAR = "firecharcoalsmokescaleenvelope"
 local COLOUR_ENVELOPE_NAME = "firecolourenvelope"
 local SCALE_ENVELOPE_NAME = "firescaleenvelope"
 
@@ -62,7 +62,7 @@ local function InitEnvelope()
 
     local smoke_max_scale = 12
     EnvelopeManager:AddVector2Envelope(
-        SCALE_ENVELOPE_NAME_SMOKE,
+        SCALE_ENVELOPE_NAME_SMOKE_CHAR,
         {
             { 0,    { smoke_max_scale * .22, smoke_max_scale * .4} },
             { .50,  { smoke_max_scale * .55, smoke_max_scale * .6} },
@@ -132,7 +132,7 @@ local function makefx(name)
         effect:SetMaxNumParticles(0, 350)
         effect:SetMaxLifetime(0, SMOKE_MAX_LIFETIME)
         effect:SetColourEnvelope(0, string.gsub(name, "charcoalsmoke", ""))
-        effect:SetScaleEnvelope(0, SCALE_ENVELOPE_NAME_SMOKE)
+        effect:SetScaleEnvelope(0, SCALE_ENVELOPE_NAME_SMOKE_CHAR)
         effect:SetBlendMode(0, BLENDMODE.Premultiplied)
         effect:EnableBloomPass(0, true)
         effect:SetUVFrameSize(0, .25, 1)
