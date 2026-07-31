@@ -153,7 +153,7 @@ function CharcoalMaker:Harvest(doer)
         end
         self.numashproduced = nil
         
-        self.inst.components.lootdropper:FlingItem(tileproduct)
+        --self.inst.components.lootdropper:FlingItem(tileproduct)
 
         if self.inst.components.container then
             self.inst.components.container.canbeopened = true
