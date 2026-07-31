@@ -335,7 +335,7 @@ function MakeWallType(data)
 
     return Prefab("wall_fuelstakes", fn, assets, prefabs),
         Prefab("wall_fuelstakes_item", itemfn, assets, { "wall_fuelstakes", "wall_fuelstakes_item_placer" }),
-		MakePlacer("wall_wall_fuelstakes_item_placer", bank, "wall_fuelstakes", "half", false, false, true, nil, nil, "eight")
+		MakePlacer("wall_fuelstakes_item_placer", bank, "wall_fuelstakes", "half", false, false, true, nil, nil, "eight")
 end
 
 return MakeWallType()
