@@ -100,7 +100,6 @@ AddCharacterRecipe("fuelcharcoalspear",
         "WEAPONS",
     }
 )
-
 AddCharacterRecipe("fuellivingcoalspear",
     {Ingredient("livingcoal", 1), Ingredient("livinglog", 1), Ingredient("nightmarefuel", 4)},
     TECH.MAGIC_TWO,
@@ -115,8 +114,20 @@ AddCharacterRecipe("fuellivingcoalspear",
         "WEAPONS", "MAGIC"
     }
 )
-
-
+AddCharacterRecipe("fuelstakes",
+    {Ingredient("log", 1), Ingredient("twigs", 8)},
+    TECH.SCIENCE_ONE,
+    {
+        product = "wall_fuelstakes_item",
+        builder_tag = "gramfuel",
+        numtogive = 1,
+        image = "wood_stakes.tex",
+        atlas = "images/inventoryimages/wood_stakes.xml",
+    },
+    {
+        "STRUCTURES"
+    }
+)
 AddCharacterRecipe("fuelcharcoalpile",
     {Ingredient("rocks", 24), Ingredient("twigs", 12), Ingredient("cutgrass", 6)},
     TECH.SCIENCE_TWO,
