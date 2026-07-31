@@ -11,7 +11,7 @@ local function onattack(inst, attacker, target)
         target.components.hauntable:Panic(math.random(5, 10))
     end
 
-    if target.components.burnable then
+    if target.components.burnable and inst.components.burnable:IsBurning() then
         if math.random() < TUNING.TORCH_ATTACK_IGNITE_PERCENT*target.components.burnable.flammability then
             target.components.burnable:Ignite()
         end
@@ -52,6 +52,7 @@ local function onignite(inst, source, doer)
     inst.fire = SpawnPrefab( "spearfire" )
     local follower = inst.fire.entity:AddFollower()
     follower:FollowSymbol( doer.GUID, "swap_object", 0, -110, 4 ) 
+    inst:AddComponent("lighter")
 end
 
 local function onextinguish(inst)
@@ -59,6 +60,7 @@ local function onextinguish(inst)
     inst.fire = nil
     inst.SoundEmitter:KillSound("torch")
     inst.SoundEmitter:PlaySound("dontstarve/common/fireOut")
+    inst:RemoveComponent("lighter")
 end
 
 local function onload(inst)
@@ -118,7 +120,7 @@ local function fn()
     inst.components.burnable.onignite = onignite
 	inst.components.burnable:SetOnExtinguishFn(onextinguish)
 
-    inst:AddComponent("lighter") --fuel
+   -- inst:AddComponent("lighter") --fuel
 
     inst.OnLoad = onload
 
@@ -180,7 +182,7 @@ local function fnlivingcoal()
     inst.components.burnable.onignite = onignite
 	inst.components.burnable:SetOnExtinguishFn(onextinguish)
 
-    inst:AddComponent("lighter") --fuel
+    --inst:AddComponent("lighter") --fuel
 
     inst.OnLoad = onload
 
