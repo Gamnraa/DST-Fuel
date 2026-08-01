@@ -6028,10 +6028,10 @@ return {
 
         HERMITCRAB_TEASHOP =
         {
-            GENERIC = "The shop is emp-tea.", -- Inactive state, no Pearl inside.
-            ACTIVE = "Tea time!", -- Active, Pearl is inside, can buy from her
-            BREWING = "I paid a steep price.", -- A trade just happened and she's brewing the tea!|
-            BURNT = "Her shop is toast.", -- burnt strings.
+            GENERIC = "It's closed.", -- Inactive state, no Pearl inside.
+            ACTIVE = "Tea, huh?", -- Active, Pearl is inside, can buy from her
+            BREWING = "Take yer time, Mrs. Pearl!", -- A trade just happened and she's brewing the tea!|
+            BURNT = "I can relate.", -- burnt strings.
         },
 
         FISHMEAT_DRIED = "Dried fish? Don't mind if I do!",
@@ -6039,10 +6039,10 @@ return {
 
         HERMITCRAB_LIGHTPOST = -- Similar to YOTS_LANTERN_POST
         {
-            GENERIC = "They really lighten the mood.",
-            ABANDONED = "It's so sad, I can't stand it.",
+            GENERIC = "Makes it feel more homely around here.",
+            ABANDONED = "So long as we're together, it don't matter...",
         },
-        HERMITCRAB_LIGHTPOST_ITEM = "Let's string together some ambiance.",
+        HERMITCRAB_LIGHTPOST_ITEM = "I should place this.",
 
         -- Year of the Clockwork Knight
 
@@ -6082,53 +6082,53 @@ return {
 
 		-- Meta 6
 
-		WX78_DRONE_SCOUT = "So far, so good.",
-		WX78_DRONE_DELIVERY = "A freight it will get lost!",
-		WX78_DRONE_ZAP = "It uses current technology.",
+		WX78_DRONE_SCOUT = "Ah! A flying machine!",
+		WX78_DRONE_DELIVERY = "The future, er, past, sure is weird.",
+		WX78_DRONE_ZAP = "Don't be getting any bright ideas.",
 		WX78_DRONE_ZAP_REMOTE =
 		{
-			GENERIC = "It controls remotely? It's a.... Detached Telecommand Apparatus!",
+			GENERIC = "It's some sorta controller.",
 			CANUSE = "only_used_by_wx78",
 		},
 
         -- All other characters but Wx-78 share one quote.
-        WX78MODULE_RADAR = "So much science packed into one tiny gizmo.",
-        WX78MODULE_STACKSIZE = "So much science packed into one tiny gizmo.",
-        WX78MODULE_DIGESTION = "So much science packed into one tiny gizmo.",
-        WX78MODULE_SCREECH = "So much science packed into one tiny gizmo.",
-        WX78MODULE_LIGHT2 = "So much science packed into one tiny gizmo.",
-        WX78MODULE_SHIELDING = "So much science packed into one tiny gizmo.",
-        WX78MODULE_SPIN = "So much science packed into one tiny gizmo.",
-		WX78MODULE_CHESS = "So much science packed into one tiny gizmo.",
+        WX78MODULE_RADAR = "That's a doodad. I know a doodad when I see it.",
+        WX78MODULE_STACKSIZE = "That's a doodad. I know a doodad when I see it.",
+        WX78MODULE_DIGESTION = "That's a doodad. I know a doodad when I see it.",
+        WX78MODULE_SCREECH = "That's a doodad. I know a doodad when I see it.",
+        WX78MODULE_LIGHT2 = "That's a doodad. I know a doodad when I see it.",
+        WX78MODULE_SHIELDING = "That's a doodad. I know a doodad when I see it.",
+        WX78MODULE_SPIN = "That's a doodad. I know a doodad when I see it.",
+		WX78MODULE_CHESS = "That's a doodad. I know a doodad when I see it.",
 
         WX78_INVENTORYCONTAINER =
         {
             HELD = "only_used_by_wx78", -- Held, and working as a container
 			NOPOWER = "only_used_by_wx78", -- Held but can't open due to wx charge level too low
-            GENERIC = "Finite like that.", -- It was dropped, treat it as if its broken down, and is rummagable
+            GENERIC = "Piecea junk if ya ask me.", -- It was dropped, treat it as if its broken down, and is rummagable
         },
 
         WX78_FOODBRICK =
         {
-            WET = "It's a moist try!",
-            GENERIC = "It's too hard to eat.",
+            WET = "Uh, no thank you.",
+            GENERIC = "That ain't even edible.",
         },
 
         WX78_BACKUPBODY =
         {
-            GENERIC = "Practical immortality through engineering!", -- We are examining a claimed body belonging to a WX. We can use their display name if we want to.
+            GENERIC = "That seems too unnaturally.", -- We are examining a claimed body belonging to a WX. We can use their display name if we want to.
             UNCLAIMED = "only_used_by_wx78", -- We are examining an unclaimed body.
             VIEWERS_BODY = "only_used_by_wx78", -- We (WX) are examining our own body.
         },
 
-        WX78_POSSESSEDBODY = "You're not yourself lately!",
+        WX78_POSSESSEDBODY = "It's acting weirder than normal!",
 
-        WX78_GESTALTTRAPPER = "What possessed WX to do this?",
+        WX78_GESTALTTRAPPER = "What in the heck?",
 
-        SHADOW_HEART_VEIN = "A vein attempt to be useful.",
+        SHADOW_HEART_VEIN = "Yuck.",
 
-        WX78_SHADOWDRONE_DEBUFFER = "It's a keen observer.",
-        WX78_SHADOWDRONE_HARVESTER = "A collector in WX's collection.",
+        WX78_SHADOWDRONE_DEBUFFER = "Keep yer distance, ya hear?",
+        WX78_SHADOWDRONE_HARVESTER = "A flying machine!",
     },
 
     DESCRIBE_GENERIC = "Some thing.",
@@ -6138,7 +6138,7 @@ return {
     DESCRIBE_PLANTHAPPY = "It's doing all right!",
     DESCRIBE_PLANTVERYSTRESSED = "It's real upset.",
     DESCRIBE_PLANTSTRESSED = "Ain't in too good a mood, huh?",
-    DESCRIBE_PLANTSTRESSORKILLJOYS = "I gotta take care of those weeds.",
+    DESCRIBE_PLANTSTRESSORKILLJOYS = "I gotta take care of those weeds.",	
     DESCRIBE_PLANTSTRESSORFAMILY = "We all need family.",
     DESCRIBE_PLANTSTRESSOROVERCROWDING = "There ain't enough room in this garden!",
     DESCRIBE_PLANTSTRESSORSEASON = "That plant don't grow in this season.",
