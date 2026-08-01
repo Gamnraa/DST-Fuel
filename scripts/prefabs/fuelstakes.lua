@@ -220,7 +220,7 @@ function MakeWallType(data)
 
     local function onhit(inst, attacker)
         if attacker and attacker.components.combat then
-            attacker.components.combat:GetAttacked(inst, 10)
+            attacker.components.combat:GetAttacked(inst, 34)
         end
 
         inst.SoundEmitter:PlaySound("dontstarve/common/destroy_wood")
@@ -297,8 +297,8 @@ function MakeWallType(data)
         inst.components.combat.onhitfn = onhit
 
         inst:AddComponent("health")
-        inst.components.health:SetMaxHealth(100)
-        inst.components.health:SetCurrentHealth(100)
+        inst.components.health:SetMaxHealth(150)
+        inst.components.health:SetCurrentHealth(150)
         inst.components.health.ondelta = onhealthchange
         inst.components.health.nofadeout = true
         inst.components.health.canheal = false
