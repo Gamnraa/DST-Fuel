@@ -2381,7 +2381,7 @@ return {
 		{
 			BURNING = "Not again!!",
 			BURNT = "What a shame.",
-			CHOPPED = "Nothing Fuel couldn't handle",
+			CHOPPED = "Nothing Fuel couldn't handle!",
 			GENERIC = "Lumber's lumber.",
 		},
 		TWIGGYTREE =
