@@ -124,6 +124,7 @@ AddStategraphPostInit("wilson", function(sg)
         _onenter(inst,...)
         local weapon = inst.components.inventory and inst.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
         if weapon and weapon:HasTag("bigolaxe") then
+            inst.bigaxechop = true
             local speed = inst:HasTag("GramFuel") and 0.85 or 0.75
             inst.sg:SetTimeout(inst.sg.timeout/speed) --override timeout
             inst.components.combat:SetAttackPeriod(TUNING.WILSON_ATTACK_PERIOD / speed) --attack cooldown
@@ -136,13 +137,14 @@ AddStategraphPostInit("wilson", function(sg)
     local _onexit = _attack.onexit
 	_attack.onexit = function(inst,...)
 		local weapon = inst.components.inventory and inst.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
-        if weapon and weapon:HasTag("bigolaxe") then
+        if inst.bigaxechop then
 			local speed = inst:HasTag("GramFuel") and 0.85 or 0.75
 
 			inst.AnimState:SetDeltaTimeMultiplier(1)			
 			for k, v in pairs(_attack.timeline) do
 				v.time = v.time*speed
 			end
+            inst.bigaxechop = false
 		end
 		return _onexit(inst,...)
 	end
@@ -153,6 +155,7 @@ AddStategraphPostInit("wilson", function(sg)
         _chopsonenter(inst,...)
         local weapon = inst.components.inventory and inst.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
         if weapon and weapon:HasTag("bigolaxe") then
+            inst.bigaxechop = true
             local speed = inst:HasTag("GramFuel") and 0.75 or 0.5
             --inst.sg:SetTimeout(inst.sg.timeout/speed) --override timeout
             inst.AnimState:SetDeltaTimeMultiplier(speed) -- time multiplier
@@ -170,18 +173,20 @@ AddStategraphPostInit("wilson", function(sg)
 			for k, v in pairs(_chops.timeline) do
 				v.time = v.time * speed
 			end
+            inst.bigaxechop = false
         end
     end
     local _choponexit = sg.states.chop.onexit
 	sg.states.chop.onexit = function(inst,...)
         local weapon = inst.components.inventory and inst.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
-        if weapon and weapon:HasTag("bigolaxe") then
+        if inst.bigaxechop then
             inst:RemoveTag("fuelchop")
             local speed = inst:HasTag("GramFuel") and 0.75 or 0.5
 			inst.AnimState:SetDeltaTimeMultiplier(1)			
 			for k, v in pairs(sg.states.chop.timeline) do
 				v.time = v.time*speed
 			end
+            inst.bigaxechop = false
 		end
 		return _choponexit(inst,...)
 	end
@@ -200,6 +205,7 @@ AddStategraphPostInit("wilson", function(sg)
                 end
             end
             inst:AddTag("fuelchop")
+            inst.bigaxechop = true
         end
     end
 end)
@@ -213,6 +219,7 @@ AddStategraphPostInit("wilson_client", function(sg)
 		local weapon = inst.components.inventory and inst.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
         if weapon and weapon:HasTag("bigolaxe") then
 			local speed = inst:HasTag("GramFuel") and 0.85 or 0.75
+            inst.bigaxechop = true
 					
 			inst.sg:SetTimeout(inst.sg.timeout/speed)
 			inst.AnimState:SetDeltaTimeMultiplier(speed)				
@@ -230,7 +237,8 @@ AddStategraphPostInit("wilson_client", function(sg)
 			inst.AnimState:SetDeltaTimeMultiplier(1)			
 			for k, v in pairs(_attack.timeline) do
 				v.time = v.time*speed
-			end		
+			end	
+            inst.bigaxechop = false	
 		end
 		return _onexit(inst,...)
 	end
@@ -258,6 +266,7 @@ AddStategraphPostInit("wilson_client", function(sg)
 			for k, v in pairs(_chop.timeline) do
 				v.time = v.time * speed
 			end
+            inst.bigaxechop = false
         end
     end
 end)
