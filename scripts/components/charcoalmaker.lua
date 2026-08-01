@@ -72,6 +72,7 @@ function CharcoalMaker:IsTooHot()
 end
 
 function CharcoalMaker:Start()
+    self.temperature = mintemp
     if self.startfn then self.startfn(self.inst) end
     self:UpdateSlots()
     self.numcharcoalproduced = 0
@@ -113,6 +114,7 @@ end
 
 
 function CharcoalMaker:Harvest(doer)
+    self.temperature = mintemp
     if self.onharvest then self.onharvest(self.inst) end
     if self.numcharcoalproduced and self.numashproduced then
        
@@ -236,7 +238,7 @@ function CharcoalMaker:OnUpdate(dt)
     else
         if self.logs > 0 then
             self.numcharcoalproduced = self.numcharcoalproduced + 1
-            self.logs = self.logs - 1
+            self.logs = math.max(0, self.logs - 1)
             for _, v in pairs(self.logslots) do
                 if v.prefab == "log" then
                     v.components.stackable:SetStackSize(v.components.stackable.stacksize - 1)
@@ -244,7 +246,7 @@ function CharcoalMaker:OnUpdate(dt)
             end
         elseif self.livinglogs > 0 then
             self.numlivingcoalproduced = self.numlivingcoalproduced + 1
-            self.livinglogs = self.livinglogs - 1
+            self.livinglogs = math.max(0, self.livinglogs - 1)
             for _, v in pairs(self.logslots) do
                 if v.prefab == "livinglog" then
                     v.components.stackable:SetStackSize(v.components.stackable.stacksize - 1)
