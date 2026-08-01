@@ -120,7 +120,7 @@ AddCharacterRecipe("fuelstakes",
     {
         product = "wall_fuelstakes_item",
         builder_tag = "gramfuel",
-        numtogive = 1,
+        numtogive = 2,
         image = "wood_stakes.tex",
         atlas = "images/inventoryimages/wood_stakes.xml",
     },
