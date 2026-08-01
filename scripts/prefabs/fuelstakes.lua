@@ -176,6 +176,7 @@ function MakeWallType(data)
 		inst.AnimState:SetBank("wood_stakes")
         inst.AnimState:SetBuild("wood_stakes")
         inst.AnimState:PlayAnimation("idle")
+		inst.Transform:SetScale(0.5,0.5,0.5)
 
         MakeInventoryFloatable(inst)
 
@@ -250,7 +251,7 @@ function MakeWallType(data)
 
 		inst:SetDeploySmartRadius(0.5) --DEPLOYMODE.WALL assumes spacing of 1
 
-        MakeObstaclePhysics(inst, .5)
+        MakeObstaclePhysics(inst, .75)
         inst.Physics:SetDontRemoveOnSleep(true)
 
         --inst.Transform:SetScale(1.3,1.3,1.3)
