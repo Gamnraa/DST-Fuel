@@ -1,11 +1,12 @@
 local STRINGS = GLOBAL.STRINGS
 STRINGS.NAMES.BIGFUELAXE = "Big Ol' Axe"
-STRINGS.NAMES.FUELCHARCOALSPEAR = "Charcoal Spear"
+STRINGS.NAMES.CHARCOAL_SPEAR = "Charcoal Spear"
 STRINGS.NAMES.FUELCHARCOALPILE = "Charcoal Pile"
 STRINGS.NAMES.PIGHOUSE_FUELREFURBISHED = "Refurbished Pighouse"
 STRINGS.NAMES.RABBITHOUSE_FUELREFURBISHED = "Refurbished Rabbit Hutch"
 STRINGS.NAMES.FUELIVINGCOAL = "Livingcoal"
-STRINGS.NAMES.FUELIVINGCOALSPEAR = "Livingcoal Spear"
+STRINGS.NAMES.LIVINGCOAL_SPEAR = "Livingcoal Spear"
+STRINGS.NAMES.WALL_FUELSTAKES = "Wood Stakes"
 
 STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.BIGFUELAXE = "It's hefty, but with the right form, it makes short work of any tree."
 STRINGS.CHARACTERS.GRAMFUEL.ANNOUNCE_OTHER_PICKUP_FUELAXE = {
@@ -34,7 +35,8 @@ STRINGS.CHARACTERS.GRAMFUEL.ANNOUNCE_OTHER_PICKUP_FUELAXE = {
         "You're not gonna go cryin' about missin' your mama over a heavy axe, right, %s?"
     }
 }
-STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.FUELCHARCOALSPEAR = "It won't do much, but charcoal is real irratatin' if it gets in your eyes!"
+STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.CHARCOAL_SPEAR = "It won't do much, but charcoal is real irratatin' if it gets in your eyes!"
+STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.LIVINGCOAL_SPEAR = "It's fair from anythin' I've messed with before."
 STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.FUELCHARCOALPILE = {
     NEEDSMATERIALS = "Just needs some turf and wood, and I can do my magic!",
     CHARRING = "The smoke is how you tell when it's ready.",

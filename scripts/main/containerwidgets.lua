@@ -27,16 +27,19 @@ local charpile = {
         pos = Vector3(200,0,0),
         side_align_tip = 100,
         buttoninfo = {
-            text = GLOBAL.STRINGS.ACTIONS.COOK,
+            text = GLOBAL.STRINGS.ACTIONS.APPLYCONSTRUCTION.GENERIC,
             position = Vector3(0, 64, 0)
         }
     },
-    type = "cooker"
+    --usespecificslotsforitems = true, --This is too annoying
+    type = "cooker",
 }
 charpile.itemtestfn = function(container, item, slot)
+    print(container.inst.logpos, slot)
     return (slot == 1 and validturfs[item.prefab])
-        or ((slot == 2 or slot == 3) and (item.prefab == "log" or item.prefab == "livinglog"))
-        or (slot == nil and ((item.prefab == "log" or item.prefab == "livinglog") or validturfs[item.prefab]))
+        or (slot == 2 and (item.prefab == "log" or item.prefab == "livinglog"))
+        or (slot == 3 and (item.prefab == "log" or item.prefab == "livinglog"))
+        or (slot == nil and (item.prefab == "log" or item.prefab == "livinglog" or validturfs[item.prefab]))
 end
 
 charpile.widget.buttoninfo.fn = function(inst, doer)
@@ -48,6 +51,6 @@ charpile.widget.buttoninfo.fn = function(inst, doer)
 end
 
 charpile.widget.buttoninfo.validfn = function(inst)
-    return (inst.replica.container:Has("log", 20) or inst.replica.container:Has("livinglog", 20)) and inst.replica.container:HasItemWithTag("charcoalburnerturf", 1)
+    return ((inst.replica.container:Has("log", 20) and inst.replica.container:Has("livinglog", 20)) or inst.replica.container:Has("log", 40) or inst.replica.container:Has("livinglog", 40)) and inst.replica.container:HasItemWithTag("charcoalburnerturf", 1)
 end
 c.params.charpile = charpile

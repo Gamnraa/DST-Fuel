@@ -8,6 +8,8 @@ PrefabFiles = {
     "charcoalspear",
     "livingcoal",
     "fuelstakes",
+    "spearfire_fx",
+    "charcoalsmoke_fx",
 }
 
 Assets = {
@@ -22,9 +24,27 @@ Assets = {
 
     Asset( "IMAGE", "bigportraits/gramfuel.tex" ),
     Asset( "ATLAS", "bigportraits/gramfuel.xml" ),
+
+    Asset( "IMAGE", "bigportraits/gramfuel_none.tex" ),
+    Asset( "ATLAS", "bigportraits/gramfuel_none.xml" ),
+
+    Asset( "IMAGE", "bigportraits/ms_gramfuel_merrymaker.tex" ),
+    Asset( "ATLAS", "bigportraits/ms_gramfuel_merrymaker.xml" ),
+    
+    Asset( "IMAGE", "bigportraits/ms_gramfuel_hallowed.tex" ),
+    Asset( "ATLAS", "bigportraits/ms_gramfuel_hallowed.xml" ),
 	
 	Asset( "IMAGE", "images/map_icons/gramfuel.tex" ),
 	Asset( "ATLAS", "images/map_icons/gramfuel.xml" ),
+
+    Asset( "IMAGE", "images/map_icons/charcoal_pile.tex" ),
+	Asset( "ATLAS", "images/map_icons/charcoal_pile.xml" ),
+
+    Asset( "IMAGE", "images/map_icons/pighouse_refurbished.tex" ),
+	Asset( "ATLAS", "images/map_icons/pighouse_refurbished.xml" ),
+
+    Asset( "IMAGE", "images/map_icons/rabbithouse_refurbished.tex" ),
+	Asset( "ATLAS", "images/map_icons/rabbithouse_refurbished.xml" ),
 	
 	Asset( "IMAGE", "images/avatars/avatar_gramfuel.tex" ),
     Asset( "ATLAS", "images/avatars/avatar_gramfuel.xml" ),
@@ -34,15 +54,37 @@ Assets = {
 	
 	Asset( "IMAGE", "images/avatars/self_inspect_gramfuel.tex" ),
     Asset( "ATLAS", "images/avatars/self_inspect_gramfuel.xml" ),
+
+    Asset( "IMAGE", "images/crafting_menu_avatars/avatar_gramfuel.tex" ),
+    Asset( "ATLAS", "images/crafting_menu_avatars/avatar_gramfuel.xml" ),
 	
 	Asset( "IMAGE", "images/names_gold_gramfuel.tex" ),
     Asset( "ATLAS", "images/names_gold_gramfuel.xml" ),
+
+    Asset( "IMAGE", "images/inventoryimages/bigfuelaxe.tex" ),
+    Asset( "ATLAS", "images/inventoryimages/bigfuelaxe.xml" ),
+
+	Asset( "IMAGE", "images/inventoryimages/livingcoal.tex" ),
+    Asset( "ATLAS", "images/inventoryimages/livingcoal.xml" ),
+
+	Asset( "IMAGE", "images/inventoryimages/livingcoal_spear.tex" ),
+    Asset( "ATLAS", "images/inventoryimages/livingcoal_spear.xml" ),
+
+	Asset( "IMAGE", "images/inventoryimages/charcoal_spear.tex" ),
+    Asset( "ATLAS", "images/inventoryimages/charcoal_spear.xml" ),
+
+    Asset( "IMAGE", "images/inventoryimages/wood_stakes.tex" ),
+	Asset( "ATLAS", "images/inventoryimages/wood_stakes.xml" ),
+
 
     Asset("SOUNDPACKAGE", "sound/gramfuel.fev"),
 	Asset("SOUND", "sound/gramfuel.fsb"),   
 }
 
 AddMinimapAtlas("images/map_icons/gramfuel.xml")
+AddMinimapAtlas("images/map_icons/charcoal_pile.xml")
+AddMinimapAtlas("images/map_icons/pighouse_refurbished.xml")
+AddMinimapAtlas("images/map_icons/rabbithouse_refurbished.xml")
 
 local require = GLOBAL.require
 local STRINGS = GLOBAL.STRINGS
@@ -53,6 +95,16 @@ STRINGS.CHARACTER_NAMES.gramfuel = "Fuel"
 STRINGS.CHARACTER_DESCRIPTIONS.gramfuel = "*Knows how to chop and char\n*Raised on Tazmilian Hospitality\n*Slow Healer"
 STRINGS.CHARACTER_QUOTES.gramfuel = "\"Well, I'm not all black with soot this time!\""
 STRINGS.CHARACTER_SURVIVABILITY.gramfuel = "Slim"
+
+STRINGS.SKIN_DESCRIPTIONS.gramfuel_none = "Fuel's typical outfit."
+
+STRINGS.SKIN_NAMES.ms_gramfuel_merrymaker = "The Merrymaker"
+STRINGS.SKIN_DESCRIPTIONS.ms_gramfuel_merrymaker = "A comfortable Soot Dumpling sweater that would make any charcoal burner relish the spirit of Winters Feast."
+STRINGS.SKIN_QUOTES.ms_gramfuel_merrymaker = "\"We never had much, Dad and I. I'll always cherish those moments treating ourselves with the holidays.\""
+
+STRINGS.SKIN_NAMES.ms_gramfuel_hallowed = "Baked Yammonster Costume"
+STRINGS.SKIN_DESCRIPTIONS.ms_gramfuel_hallowed = "A ghoulish and yummy costume, perfect for Hallowed Nights."
+STRINGS.SKIN_QUOTES.ms_gramfuel_hallowed = "\"I might be a little too old for this sorta getup.\""
 
 -- Custom speech strings
 STRINGS.CHARACTERS.GRAMFUEL = require "speech_gramfuel"
@@ -98,6 +150,12 @@ local skin_modes = {
         offset = { 0, -25 } 
     },
 }
+
+RegisterInventoryItemAtlas(GLOBAL.resolvefilepath("images/inventoryimages/bigfuelaxe.xml"), "bigfuelaxe.tex")
+RegisterInventoryItemAtlas(GLOBAL.resolvefilepath("images/inventoryimages/charcoal_spear.xml"), "charcoal_spear.tex")
+RegisterInventoryItemAtlas(GLOBAL.resolvefilepath("images/inventoryimages/livingcoal.xml"), "livingcoal.tex")
+RegisterInventoryItemAtlas(GLOBAL.resolvefilepath("images/inventoryimages/livingcoal_spear.xml"), "livingcoal_spear.tex")
+RegisterInventoryItemAtlas(GLOBAL.resolvefilepath("images/inventoryimages/wood_stakes.xml"), "wood_stakes.tex")
 
 -- Add mod character to mod character list. Also specify a gender. Possible genders are MALE, FEMALE, ROBOT, NEUTRAL, and PLURAL.
 AddModCharacter("gramfuel", "MALE", skin_modes)

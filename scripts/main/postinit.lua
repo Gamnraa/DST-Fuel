@@ -27,100 +27,23 @@ AddComponentPostInit("health", function(self)
             if amount < 0 and math.random(100) + 5 < math.abs(amount) then
                 --Take away maxhealth
                 self.inst.components.talker:Say(GLOBAL.GetString(self.inst, "ANNOUNCE_CRITICAL_INJURY"))
-                self:DeltaPenalty((-amount * .25) / self.maxhealth)
-                self.inst.expectedhealth = math.ceil(math.max(0, (self.inst.expectedhealth or self.currenthealth) + (amount * .25)))
-                dohealingtask(self.inst, _dodelta)
-                amount = 0
+                self:DeltaPenalty((-amount * .5) / self.maxhealth)
+                if self.inst.slowhealtask then
+                    self.inst.slowhealtask:Cancel()
+                end
+                --self.inst.expectedhealth = math.floor(math.max(0, (self.inst.expectedhealth or self.currenthealth) + (amount * .5)))
+                --dohealingtask(self.inst, _dodelta)
+                amount = amount * .5
             else
                 --This should work in both directions simultaneously
-                self.inst.expectedhealth = math.ceil(math.max(0, (self.inst.expectedhealth or self.currenthealth) + amount))
-                print("init",self.inst.expectedhealth)
+                self.inst.expectedhealth = math.min(math.floor(math.max(0, (self.inst.expectedhealth or self.currenthealth) + amount)), self:GetMaxWithPenalty())
+                --if self.inst.expectedhealth > self:GetMaxWithPenalty() then self.inst.expectedhealth = self:GetMaxWithPenalty() end
+                print("init",self.inst.expectedhealth, self:GetMaxWithPenalty())
                 dohealingtask(self.inst, _dodelta)
-                amount = amount * .25
+                amount = (amount > 0 and 0) or (amount * .15)
             end
         end
         _dodelta(self, amount, overtime, cause, ignore_invincible, afflicter, ignore_absorb, ...)
-    end
-end)
-
-local function CanGiveStumpLog(inst, item, giver)
-    return item.prefab == "log" and not item:HasTag("split") and (giver:HasTag("gramfuel") or giver:HasTag("gramfuelally"))
-end
-
-local function OnGiveStumpLog(inst, giver, item)
-    inst.components.trader:Disable()
-    inst.components.pickable:SetUp("log", 1000000)
-    inst.components.pickable:Pause()
-    inst.components.pickable.caninteractwith = true
-    inst:AddTag("haslog")
-
-    --Set art
-    inst.AnimState:PlayAnimation("stump_log")
-    inst.AnimState:OverrideSymbol("log", "evergreen_gramfuel", "log")
-end
-
-local function OnTakeLog(inst, taker, loot)
-    inst.components.trader:Enable()
-    inst:RemoveTag("haslog")
-
-    --Set art
-    inst.AnimState:PlayAnimation("stump_tall")
-end
-
-local function Split(inst)
-    inst.components.pickable:MakeEmpty()
-    local log1 = GLOBAL.SpawnPrefab("log")
-    log1:AddTag("split")
-    log1.skinname = "fuellog"
-    --art
-    local log2 = GLOBAL.SpawnPrefab("log")
-    log2:AddTag("split")
-    log2.skinname = "fuellog"
-    inst.components.lootdropper:FlingItem(log1)
-    inst.components.lootdropper:FlingItem(log2)
-    OnTakeLog(inst)
-end
-
-local function MakeLogHolder(inst)
-     if inst and inst:HasTag("stump") and (inst.prefab == "evergreen" and inst.components.growable.stage == 3) then
-        inst:AddComponent("trader")
-        inst.components.trader:SetAcceptTest(CanGiveStumpLog)
-        inst.components.trader.deleteitemonaccept = false
-        inst.components.trader.onaccept = OnGiveStumpLog
-
-        inst:AddComponent("pickable")
-        inst.components.pickable.caninteractwith = false
-        inst.components.pickable.quickpick = true
-        inst.components.pickable.onpickedfn = OnTakeLog
-
-        inst:ListenForEvent("splitlog", Split)
-    end
-end
-
-AddPrefabPostInit("evergreen", function(inst)
-    if not mastersim() then return end
-    inst:DoTaskInTime(0, function(inst) if inst:HasTag("stump") then MakeLogHolder(inst) end end)
-
-    inst:ListenForEvent("workfinished", function(inst)
-        inst:DoTaskInTime(0, MakeLogHolder)
-    end)
-end)
-
-AddPrefabPostInit("log", function(inst)
-    --If your mod adds an OnSave and OnLoad to the log we have beef
-    if not mastersim() then return end
-    inst.OnSave = function(inst, data) data.skinname = inst.skinname end
-    inst.OnLoad = function(inst, data) inst.skinname = data and data.skinname if inst.skinname then inst:AddTag("split") end end
-end)
-
-
-AddGlobalClassPostConstruct("entityscript", "EntityScript", function(self)
-    local _stackableskinhack = self.StackableSkinHack
-    function self:StackableSkinHack(target, ...)
-        if self.prefab == "log" then
-            return self:HasTag("split") == target:HasTag("split")
-        end
-        return _stackableskinhack(self, target, ...)
     end
 end)
 
@@ -201,7 +124,7 @@ AddStategraphPostInit("wilson", function(sg)
         _onenter(inst,...)
         local weapon = inst.components.inventory and inst.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
         if weapon and weapon:HasTag("bigolaxe") then
-            local speed = 0.8
+            local speed = inst:HasTag("GramFuel") and 0.85 or 0.75
             inst.sg:SetTimeout(inst.sg.timeout/speed) --override timeout
             inst.components.combat:SetAttackPeriod(TUNING.WILSON_ATTACK_PERIOD / speed) --attack cooldown
             inst.AnimState:SetDeltaTimeMultiplier(speed) -- time multiplier
@@ -214,7 +137,7 @@ AddStategraphPostInit("wilson", function(sg)
 	_attack.onexit = function(inst,...)
 		local weapon = inst.components.inventory and inst.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
         if weapon and weapon:HasTag("bigolaxe") then
-			local speed = 0.8
+			local speed = inst:HasTag("GramFuel") and 0.85 or 0.75
 
 			inst.AnimState:SetDeltaTimeMultiplier(1)			
 			for k, v in pairs(_attack.timeline) do
@@ -230,7 +153,7 @@ AddStategraphPostInit("wilson", function(sg)
         _chopsonenter(inst,...)
         local weapon = inst.components.inventory and inst.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
         if weapon and weapon:HasTag("bigolaxe") then
-            local speed = 0.6
+            local speed = inst:HasTag("GramFuel") and 0.75 or 0.5
             --inst.sg:SetTimeout(inst.sg.timeout/speed) --override timeout
             inst.AnimState:SetDeltaTimeMultiplier(speed) -- time multiplier
             for k, v in pairs(_chops.timeline) do --override timeline
@@ -238,12 +161,23 @@ AddStategraphPostInit("wilson", function(sg)
             end
         end
     end
+    local _chopsexit = _chops.onexit
+    _chops.onexit = function(inst,...)
+        _chopsexit(inst,...)
+        if inst.bigaxechop then
+            local speed = inst:HasTag("GramFuel") and 0.75 or 0.5
+            inst.AnimState:SetDeltaTimeMultiplier(1)			
+			for k, v in pairs(_chops.timeline) do
+				v.time = v.time * speed
+			end
+        end
+    end
     local _choponexit = sg.states.chop.onexit
 	sg.states.chop.onexit = function(inst,...)
         local weapon = inst.components.inventory and inst.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
         if weapon and weapon:HasTag("bigolaxe") then
             inst:RemoveTag("fuelchop")
-            local speed = 0.75
+            local speed = inst:HasTag("GramFuel") and 0.75 or 0.5
 			inst.AnimState:SetDeltaTimeMultiplier(1)			
 			for k, v in pairs(sg.states.chop.timeline) do
 				v.time = v.time*speed
@@ -259,7 +193,7 @@ AddStategraphPostInit("wilson", function(sg)
         local weapon = inst.components.inventory and inst.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
         if weapon and weapon:HasTag("bigolaxe") then
             if not inst:HasTag("fuelchop") then
-                local speed = 0.8
+                local speed = inst:HasTag("GramFuel") and 0.75 or 0.5
                 inst.AnimState:SetDeltaTimeMultiplier(speed)
                 for k, v in pairs(_chop.timeline) do
                     v.time = v.time/speed
@@ -291,7 +225,7 @@ AddStategraphPostInit("wilson_client", function(sg)
 	local _onexit = _attack.onexit
 	_attack.onexit = function(inst,...)
 		local weapon = inst.components.inventory and inst.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
-        if weapon and weapon:HasTag("bigolaxe") then
+        if inst.bigaxechop then
 			local speed = inst:HasTag("GramFuel") and 0.85 or 0.75
 			inst.AnimState:SetDeltaTimeMultiplier(1)			
 			for k, v in pairs(_attack.timeline) do
@@ -308,6 +242,7 @@ AddStategraphPostInit("wilson_client", function(sg)
         local weapon = inst.components.inventory and inst.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
         if weapon and weapon:HasTag("bigolaxe") then
             --inst.sg:SetTimeout(inst.sg.timeout * 2)
+            inst.bigaxechop = true
             local speed = inst:HasTag("GramFuel") and 0.75 or 0.5
             inst.AnimState:SetDeltaTimeMultiplier(speed)
             for k, v in pairs(_chop.timeline) do
@@ -317,7 +252,7 @@ AddStategraphPostInit("wilson_client", function(sg)
     end
     _chop.onexit = function(inst,...)
         local weapon = inst.components.inventory and inst.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
-        if weapon and weapon:HasTag("bigolaxe") then
+        if inst.bigaxechop then
             local speed = inst:HasTag("GramFuel") and 0.75 or 0.5
             inst.AnimState:SetDeltaTimeMultiplier(1)			
 			for k, v in pairs(_chop.timeline) do

@@ -3,7 +3,7 @@ require "prefabutil"
 
 local assets =
 {
-    Asset("ANIM", "anim/pig_house.zip"),
+    Asset("ANIM", "anim/pighouse_refurbished.zip"),
     Asset("SOUND", "sound/pig.fsb"),
 }
 
@@ -29,7 +29,7 @@ local function OnUpdateWindow(window, inst, snow)
                 snow.AnimState:SetSkin(build_name)
             else
                 window.AnimState:SetBuild("pig_house")
-                snow.AnimState:SetBuild("pig_house")
+                snow.AnimState:SetBuild("pighouse_refurbished")
             end
         end
 
@@ -326,7 +326,7 @@ local function MakeWindow()
     inst.persists = false
 
     inst.AnimState:SetBank("pig_house")
-    inst.AnimState:SetBuild("pig_house")
+    inst.AnimState:SetBuild("pighouse_refurbished")
     inst.AnimState:PlayAnimation("windowlight_idle")
     inst.AnimState:SetLightOverride(.6)
     inst.AnimState:SetBloomEffectHandle("shaders/anim.ksh")
@@ -349,7 +349,7 @@ local function MakeWindowSnow()
     inst.persists = false
 
     inst.AnimState:SetBank("pig_house")
-    inst.AnimState:SetBuild("pig_house")
+    inst.AnimState:SetBuild("pighouse_refurbished")
     inst.AnimState:PlayAnimation("windowsnow_idle")
     inst.AnimState:SetFinalOffset(2)
 
@@ -410,9 +410,9 @@ local function fn()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
-    MakeObstaclePhysics(inst, 1)
+    MakeObstaclePhysics(inst, 1.4)
 
-    inst.MiniMapEntity:SetIcon("pighouse.png")
+    inst.MiniMapEntity:SetIcon("pighouse_refurbished.tex")
 --{anim="level1", sound="dontstarve/common/campfire", radius=2, intensity=.75, falloff=.33, colour = {197/255,197/255,170/255}},
     inst.Light:SetFalloff(1)
     inst.Light:SetIntensity(.5)
@@ -421,7 +421,7 @@ local function fn()
     inst.Light:SetColour(180/255, 195/255, 50/255)
 
     inst.AnimState:SetBank("pig_house")
-    inst.AnimState:SetBuild("pig_house")
+    inst.AnimState:SetBuild("pighouse_refurbished")
     inst.AnimState:PlayAnimation("idle", true)
 
     inst:AddTag("structure")

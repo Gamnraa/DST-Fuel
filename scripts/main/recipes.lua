@@ -72,14 +72,15 @@ AddClassPostConstruct("widgets/redux/craftingmenu_pinslot", function(self)
     end
 end)
 
-AddCharacterRecipe("bigfuelaxe",
+AddCharacterRecipe("fuel_axe",
     {Ingredient("flint", 5), Ingredient("twigs", 2)},
     TECH.SCIENCE_ONE,
     {
         product = "bigfuelaxe",
         builder_tag = "gramfuel",
         numtogive = 1,
-        image = "axe",
+        image = "bigfuelaxe.tex",
+        atlas = "images/inventoryimages/bigfuelaxe.xml",
     },
     {
         "TOOLS",
@@ -89,13 +90,42 @@ AddCharacterRecipe("fuelcharcoalspear",
     {Ingredient("charcoal", 1), Ingredient("rope", 1), Ingredient("twigs", 2)},
     TECH.NONE,
     {
-        product = "fuelcharcoalspear",
+        product = "charcoal_spear",
         builder_tag = "gramfuel",
         numtogive = 1,
-        image = "spear"
+        image = "charcoal_spear.tex",
+        atlas = "images/inventoryimages/charcoal_spear.xml",
     },
     {
         "WEAPONS",
+    }
+)
+AddCharacterRecipe("fuellivingcoalspear",
+    {Ingredient("livingcoal", 1), Ingredient("livinglog", 1), Ingredient("nightmarefuel", 4)},
+    TECH.MAGIC_TWO,
+    {
+        product = "livingcoal_spear",
+        builder_tag = "gramfuel",
+        numtogive = 1,
+        image = "livingcoal_spear.tex",
+        atlas = "images/inventoryimages/livingcoal_spear.xml",
+    },
+    {
+        "WEAPONS", "MAGIC"
+    }
+)
+AddCharacterRecipe("fuelstakes",
+    {Ingredient("log", 1), Ingredient("twigs", 8)},
+    TECH.SCIENCE_ONE,
+    {
+        product = "wall_fuelstakes_item",
+        builder_tag = "gramfuel",
+        numtogive = 1,
+        image = "wood_stakes.tex",
+        atlas = "images/inventoryimages/wood_stakes.xml",
+    },
+    {
+        "STRUCTURES"
     }
 )
 AddCharacterRecipe("fuelcharcoalpile",
@@ -106,7 +136,8 @@ AddCharacterRecipe("fuelcharcoalpile",
         product = "fuelcharcoalpile",
         builder_tag = "gramfuel",
         numtogive = 1,
-        --atlas = "cook_pot",
+        image = "charcoal_pile.tex",
+        atlas = "images/map_icons/charcoal_pile.xml",
     },
     {
         "STRUCTURES",
@@ -115,3 +146,5 @@ AddCharacterRecipe("fuelcharcoalpile",
 
 GLOBAL.CONSTRUCTION_PLANS["pighouse"] = {Ingredient("boards", 6), Ingredient("cutstone", 5), Ingredient("goldnugget", 2)}
 GLOBAL.CONSTRUCTION_PLANS["rabbithouse"] = {Ingredient("boards", 6), Ingredient("cutstone", 3), Ingredient("goldnugget", 2)}
+
+GLOBAL.CONSTRUCTION_PLANS["fuelcharcoalpile"] = {Ingredient("turf_grass", 1), Ingredient("log", 20), Ingredient("log", 20)}

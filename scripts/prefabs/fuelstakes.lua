@@ -1,5 +1,4 @@
 require "prefabutil"
-
 local function OnIsPathFindingDirty(inst)
     if inst._ispathfinding:value() then
         if inst._pfpos == nil and inst:GetCurrentPlatform() == nil then
@@ -56,19 +55,8 @@ local function resolveanimtoplay(inst, percent)
 end
 
 local function onhealthchange(inst, old_percent, new_percent)
-    local anim_to_play = resolveanimtoplay(inst, new_percent)
-    if new_percent > 0 then
-        if old_percent <= 0 then
-            makeobstacle(inst)
-        end
-        inst.AnimState:PlayAnimation(anim_to_play.."_hit")
-        inst.AnimState:PushAnimation(anim_to_play, false)
-    else
-        if old_percent > 0 then
-            clearobstacle(inst)
-        end
-        inst.AnimState:PlayAnimation(anim_to_play)
-    end
+    inst.AnimState:PlayAnimation("hit")
+    inst.AnimState:PushAnimation("idle")
 end
 
 local function keeptargetfn()
@@ -133,10 +121,9 @@ local function ValidRepairFn(inst)
 end
 
 function MakeWallType(data)
-    local assets =
+    local assets = 
     {
-        Asset("ANIM", "anim/wall.zip"),
-        Asset("ANIM", "anim/wall_wood.zip"),
+        Asset("ANIM", "anim/wood_stakes.zip"),
     }
 
     local prefabs =
@@ -186,8 +173,8 @@ function MakeWallType(data)
 
         inst:AddTag("wallbuilder")
 
-		inst.AnimState:SetBank(bank)
-        inst.AnimState:SetBuild("wall_wood")
+		inst.AnimState:SetBank("wood_stakes")
+        inst.AnimState:SetBuild("wood_stakes")
         inst.AnimState:PlayAnimation("idle")
 
         MakeInventoryFloatable(inst)
@@ -204,9 +191,11 @@ function MakeWallType(data)
 
         inst:AddComponent("inspectable")
         inst:AddComponent("inventoryitem")
-        if not item_floats then
+        inst.components.inventoryitem.imagename = "wood_stakes"
+        inst.components.inventoryitem.atlasname = "images/inventoryimages/wood_stakes.xml"
+        --if not item_floats then
             inst.components.inventoryitem:SetSinks(true)
-        end
+        --end
 
         inst:AddComponent("repairer")
         inst.components.repairer.repairmaterial = MATERIALS.WOOD
@@ -239,8 +228,8 @@ function MakeWallType(data)
         local healthpercent = inst.components.health:GetPercent()
         if healthpercent > 0 then
             local anim_to_play = resolveanimtoplay(inst, healthpercent)
-            inst.AnimState:PlayAnimation(anim_to_play.."_hit")
-            inst.AnimState:PushAnimation(anim_to_play, false)
+            inst.AnimState:PlayAnimation("hit")
+            inst.AnimState:PushAnimation("idle")
         end
     end
 
@@ -270,9 +259,9 @@ function MakeWallType(data)
         inst:AddTag("noauradamage")
 		inst:AddTag("electricdamageimmune")
 
-		inst.AnimState:SetBank(bank)
-        inst.AnimState:SetBuild("wall_wood")
-        inst.AnimState:PlayAnimation("half")
+		inst.AnimState:SetBank("wood_stakes")
+        inst.AnimState:SetBuild("wood_stakes")
+        inst.AnimState:PlayAnimation("idle")
 
         inst:AddTag("wood")
 
@@ -292,7 +281,7 @@ function MakeWallType(data)
         end
 
         inst.scrapbook_specialinfo = "WALLS"
-        inst.scrapbook_anim = "half"
+        inst.scrapbook_anim = "idle"
 
         inst:AddComponent("inspectable")
         inst:AddComponent("lootdropper")
@@ -335,7 +324,7 @@ function MakeWallType(data)
 
     return Prefab("wall_fuelstakes", fn, assets, prefabs),
         Prefab("wall_fuelstakes_item", itemfn, assets, { "wall_fuelstakes", "wall_fuelstakes_item_placer" }),
-		MakePlacer("wall_wall_fuelstakes_item_placer", bank, "wall_fuelstakes", "half", false, false, true, nil, nil, "eight")
+		MakePlacer("wall_fuelstakes_item_placer", "wood_stakes", "wood_stakes", "idle", false, false, true, nil, nil, "eight")
 end
 
 return MakeWallType()

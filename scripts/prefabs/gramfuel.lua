@@ -7,7 +7,6 @@ local assets = {
 -- Custom starting inventory
 TUNING.GAMEMODE_STARTING_ITEMS.DEFAULT.GRAMFUEL = {
 	"charcoal",
-	"axe"
 }
 
 local start_inv = {}
@@ -15,6 +14,7 @@ for k, v in pairs(TUNING.GAMEMODE_STARTING_ITEMS) do
     start_inv[string.lower(k)] = v.GRAMFUEL
 end
 local prefabs = FlattenTree(start_inv, true)
+
 
 local function ontimerdone(inst, data)
 	if data.name == "fuelslowheal" then
@@ -73,7 +73,7 @@ end
 -- This initializes for both the server and client. Tags can be added here.
 local common_postinit = function(inst) 
 	-- Minimap icon
-	inst.MiniMapEntity:SetIcon( "gramninten.tex" )
+	inst.MiniMapEntity:SetIcon( "gramfuel.tex" )
 
 	inst:AddTag("slowhealer")
 	inst:AddTag("gramfuel")
@@ -104,13 +104,7 @@ local master_postinit = function(inst)
 	inst.OnSave = onsave
 	inst.OnLoad = onload
     inst.OnNewSpawn = function()
-		for _, v in pairs(inst.components.inventory.itemslots) do
-			if v.prefab == "bigfuelaxe" then
-				v.components.finiteuses:SetUses(TUNING.FUELAXE_USES / 6)
-				--v:AddTag("startingfuelaxe")
-			end
-		end
-		onload()
+		onload(inst)
 	end
 
 	inst.healtickrate = 0.5 --measured in seconds

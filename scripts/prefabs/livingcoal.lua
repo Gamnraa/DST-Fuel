@@ -1,6 +1,6 @@
 local assets =
 {
-    Asset("ANIM", "anim/charcoal.zip"),
+    Asset("ANIM", "anim/livingcoal.zip"),
 }
 
 local function fn()
@@ -12,8 +12,8 @@ local function fn()
 
     MakeInventoryPhysics(inst)
 
-    inst.AnimState:SetBank("charcoal")
-    inst.AnimState:SetBuild("charcoal")
+    inst.AnimState:SetBank("livingcoal")
+    inst.AnimState:SetBuild("livingcoal")
     inst.AnimState:PlayAnimation("idle")
 
     inst.pickupsound = "wood"
@@ -54,6 +54,9 @@ local function fn()
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
+    inst.components.inventoryitem.imagename = "livingcoal"
+    inst.components.inventoryitem.atlasname = "images/inventoryimages/livingcoal.xml"
+
 
 	--inst:AddComponent("snowmandecor")
 

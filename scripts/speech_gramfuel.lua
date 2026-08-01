@@ -1728,7 +1728,7 @@ return {
         BATCAVE = "Home to bats.",
         BEDROLL_FURRY = "I'd never wanna get up if I had this back home!",
         BUNNYMAN = "Cuddly fella.",
-        FLOWER_CAVE = "Science makes it glow.",
+        FLOWER_CAVE = "It looks like it came straight outta fairytale.",
         GUANO = "Bat shit. Dunno how else to put it.",
         LANTERN = "It's mighty useful out here.",
         LIGHTBULB = "A real bright light!",
@@ -5012,7 +5012,7 @@ return {
 
         -- The Terrorarium
         TERRARIUM = {
-            GENERIC = "What kinda glove is this?",
+            GENERIC = "What kinda globe is this?",
             CRIMSON = "It's much more red in there.",
             ENABLED = "Whoa!",
 			WAITING_FOR_DARK = "I touched it and now it's all glowy!",
@@ -6153,6 +6153,4 @@ return {
     },
 
     WENDY_SKILLTREE_EASTEREGG = "only_used_by_wendy",
-
-
 }
