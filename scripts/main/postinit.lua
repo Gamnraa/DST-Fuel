@@ -339,6 +339,28 @@ AddComponentPostInit("burnable", function(self)
     end)
 end)
 
+AddPrefabPostInit("charcoal", function(inst)
+    --inst:AddTag("purecharcoal")
+    if not mastersim() then return end
+    local _save = inst.OnSave
+    inst.OnSave = function(inst, data)
+        print("save", inst, inst:HasTag("purecharcoal"))
+        data.bettercharcoal = inst:HasTag("purecharcoal")
+        if _save then _save(inst, data) end
+    end
+
+    local _load = inst.OnLoad
+    inst.OnLoad = function(inst, data)
+        --print(inst, data)
+        if data and data.bettercharcoal then
+            print(inst, "made by Fuel")
+            inst:AddTag("purecharcoal")
+            inst.components.fuel.fuelvalue = TUNING.MED_LARGE_FUEL  
+        end
+        if _load then _load(inst, data) end
+    end
+end)
+
 
 local oldRegisterPrefabsImpl = GLOBAL.RegisterPrefabsImpl
 GLOBAL.RegisterPrefabsImpl = function(prefab, ...)

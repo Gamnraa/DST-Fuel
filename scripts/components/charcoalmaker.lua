@@ -125,6 +125,7 @@ function CharcoalMaker:Harvest(doer)
 
         for i = 1, self.numcharcoalproduced do
             local product = SpawnPrefab("charcoal")
+            product:AddTag("purecharcoal")
             product.components.fuel.fuelvalue = TUNING.MED_LARGE_FUEL  
             if doer and doer.components.inventory then
                 doer.components.inventory:GiveItem(product, nil, self.inst:GetPosition())
