@@ -355,7 +355,7 @@ AddPrefabPostInit("charcoal", function(inst)
         if data and data.bettercharcoal then
             print(inst, "made by Fuel")
             inst:AddTag("purecharcoal")
-            inst.components.fuel.fuelvalue = TUNING.MED_LARGE_FUEL  
+            inst.components.fuel.fuelvalue = TUNING.LARGE_FUEL  
         end
         if _load then _load(inst, data) end
     end
