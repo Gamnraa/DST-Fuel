@@ -93,7 +93,7 @@ local STRINGS = GLOBAL.STRINGS
 STRINGS.CHARACTER_TITLES.gramfuel = "The Charcoal Maker"
 STRINGS.CHARACTER_NAMES.gramfuel = "Fuel"
 STRINGS.CHARACTER_DESCRIPTIONS.gramfuel = "*Knows how to chop and char\n*Raised on Tazmilian Hospitality\n*Slow Healer"
-STRINGS.CHARACTER_QUOTES.gramfuel = "\"Well, I'm not all black with soot this time!\""
+STRINGS.CHARACTER_QUOTES.gramfuel = "\"Well, I'm not all black and covered with soot this time!\""
 STRINGS.CHARACTER_SURVIVABILITY.gramfuel = "Slim"
 
 STRINGS.SKIN_DESCRIPTIONS.gramfuel_none = "Fuel's typical outfit."
@@ -184,7 +184,7 @@ local taunt = State({
     end,
     timeline =
     {
-        GLOBAL.TimeEvent(.5, function(inst)
+        GLOBAL.TimeEvent(.7, function(inst)
             inst.sg:RemoveStateTag("busy")
             inst.sg:RemoveStateTag("pausepredict")
         end),

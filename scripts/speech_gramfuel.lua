@@ -5131,7 +5131,7 @@ return {
 
 		-- QOL 2022
 		JUSTEGGS = "Lucas and Claus will be your best friends forever if ya know how to whip 'em out.'",
-		VEGGIEOMLET = "Omelets never hurt anyone.",
+		VEGGIEOMLET = "Mmmm, if it's gonna be a long day, at least start it right.",
 		TALLEGGS = "Looks like a mouthful!",
 		BEEFALOFEED = "They're not bad to knaw on.",
 		BEEFALOTREAT = "It's not too bad tasting, actually!",
@@ -5186,7 +5186,7 @@ return {
         POWDER_MONKEY = "You look like you're up to no good!",
         PRIME_MATE = "He's bossing 'em around.",
 		LIGHTCRAB = "Well that's pretty cool!",
-        CUTLESS = "Kid's toy? Psh, Dad got me my first axe when I was 6!",
+        CUTLESS = "Kid's toy? Psh, Dad got me my first axe when I was 8!",
         CURSED_MONKEY_TOKEN = "H-hey, it won't come off my wrist!!",
         OAR_MONKEY = "You row your boat, you beat people on the head. What's not to understand?",
         BANANABUSH = "It's a banana bush.",

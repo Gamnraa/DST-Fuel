@@ -34,7 +34,20 @@ STRINGS.CHARACTERS.GRAMFUEL.ANNOUNCE_OTHER_PICKUP_FUELAXE = {
         "Good luck with that one, city boy!",
         "Swinging that axe ain't like swinging your little stick you keep around, %s.",
         "You're not gonna go cryin' about missin' your mama over a heavy axe, right, %s?"
-    }
+    },
+    GRAMNINTEN = {
+        "Careful, %s. Last thing we need is your asthma actin' up terrible."
+    },
+    LUCAS = {
+        "Leave the woodwork to me, I'll leave saving the day to you, Luke.",
+        "Strength comes in many different forms, %s.",
+        "Put your back into it, %s!"
+    },
+    CLAUS = {
+        "Not as strong as you thought, huh, Claus?",
+        "I thought I taught you better, %s.",
+        "Not quite right, %s.",
+    },
 }
 STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.CHARCOAL_SPEAR = "It won't do much, but charcoal is real irratatin' if it gets in your eyes!"
 STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.LIVINGCOAL_SPEAR = "It's fair from anythin' I've messed with before."
