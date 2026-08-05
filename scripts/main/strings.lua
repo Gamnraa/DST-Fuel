@@ -57,8 +57,19 @@ STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.FUELCHARCOALPILE = {
     NEEDSWATER = "It's getting too hot! Some water will hit the spot.",
     DONE = "Would you look at that! Dad taught me well.",
 }
-STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.PIGHOUSE_FUELREFURBISHED = "I made it nice and homely. Stove included!"
-STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.RABBITHOUSE_FUELREFURBISHED = "I made it nice and homely. Stove included!"
+STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.PIGHOUSE_FUELREFURBISHED = {
+    GENERIC = "I made it nice and homely. Stove included!",
+    BURNT = "Dang nabbit, again?!",
+    COZY = "Life doesn't get better than relaxing by the ol' wood burner.",
+    OCCUPIED = "Tucked in for the night.",
+    LIGHTSOUT = "Guess they don't appreciate me quite enough."
+}
+STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.RABBITHOUSE_FUELREFURBISHED = {
+    GENERIC = "I made it nice and homely. Stove included!",
+    BURNT = "Nang dabbit, again?!",
+    COZY = "Bein' indoors with a nice wood stove going would make me too homesick.",
+    FULL = "Tucked in for the night",
+}
 STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.FUELIVINGCOAL = "It's... different from normal charcoal."
 STRINGS.CHARACTERS.GRAMFUEL.ANNOUNCE_TAZMILIAN_CHARITY = {
     "Here ya go!",
