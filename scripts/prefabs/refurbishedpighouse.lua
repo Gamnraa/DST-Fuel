@@ -20,7 +20,7 @@ local function OnUpdateWindow(window, inst, snow)
         inst._window = nil
         snow:Remove()
         window:Remove()
-    elseif inst.Light:IsEnabled() and inst.AnimState:IsCurrentAnimation("lit") then
+    elseif inst.Light:IsEnabled() and inst.AnimState:IsCurrentAnimation("on") then
         local build_name = inst.AnimState:GetSkinBuild()
         if build_name ~= inst._last_skin_build then
             inst._last_skin_build = build_name
@@ -49,7 +49,8 @@ end
 local function LightsOn(inst)
     if not inst:HasTag("burnt") and not inst.lightson then
         inst.Light:Enable(true)
-        inst.AnimState:PlayAnimation("lit", true)
+        inst.AnimState:PlayAnimation("on", true)
+        inst.AnimState:OverrideSymbol("pig_house01", "pighouse_refurbished", "pig_house01")
         inst.SoundEmitter:PlaySound("dontstarve/pig/pighut_lighton")
         inst.lightson = true
 
@@ -72,7 +73,7 @@ local function LightsOn(inst)
 end
 
 local function LightsOff(inst)
-    if not inst:HasTag("burnt") and inst.lightson and inst.components.fueled:IsEmpty() then
+    if inst.components.fueled:IsEmpty() and not inst:HasTag("burnt") and inst.lightson then
         inst.Light:Enable(false)
         inst.AnimState:PlayAnimation("idle", true)
         inst.SoundEmitter:PlaySound("dontstarve/pig/pighut_lightoff")
@@ -199,7 +200,7 @@ local function onhit(inst, worker)
     if not inst:HasTag("burnt") then
         inst.AnimState:PlayAnimation("hit")
         if inst.lightson then
-            inst.AnimState:PushAnimation("lit")
+            inst.AnimState:PushAnimation("on")
             if inst._window ~= nil then
                 inst._window.AnimState:PlayAnimation("windowlight_hit")
                 inst._window.AnimState:PushAnimation("windowlight_idle")
@@ -386,6 +387,9 @@ local function OnAccept(inst, giver, item)
             v.components.workmultiplier:AddMultiplier(ACTIONS.CHOP, v.components.workmultiplier:GetMultiplier(ACTIONS.CHOP) + .15, v)
         end
     end
+    inst.smoke = SpawnPrefab( "stovesmoke" )
+    local follower = inst.smoke.entity:AddFollower()
+    follower:FollowSymbol( inst.GUID, "pig_shop_build", 50, -100, 0 ) 
 end
 
 local function OnFuelEmpty(inst)
@@ -394,6 +398,8 @@ local function OnFuelEmpty(inst)
     for _, v in pairs(inst.components.childspawner.childrenoutside) do
         v.components.workmultiplier:AddMultiplier(ACTIONS.CHOP, math.max(1, v.components.workmultiplier:GetMultiplier(ACTIONS.CHOP) - .15), v)
     end
+    inst.smoke:Remove()
+    inst.smoke = nil
 end
 
 local function OnPreLoad(inst, data)
@@ -430,13 +436,13 @@ local function fn()
     MakeSnowCoveredPristine(inst)
 
     if not TheNet:IsDedicated() then
-        inst._window = MakeWindow()
+        --[[inst._window = MakeWindow()
         inst._window.entity:SetParent(inst.entity)
         inst._windowsnow = MakeWindowSnow()
         inst._windowsnow.entity:SetParent(inst.entity)
         if not TheWorld.ismastersim then
             inst._window:DoPeriodicTask(FRAMES, OnUpdateWindow, nil, inst, inst._windowsnow)
-        end
+        end--]]
     end
 
     inst.entity:SetPristine()
