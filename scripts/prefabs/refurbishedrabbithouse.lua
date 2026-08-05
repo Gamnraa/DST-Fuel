@@ -177,7 +177,9 @@ end
 
 local function OnAccept(inst, giver, item)
     local wasempty = inst.components.fueled:IsEmpty()
+    inst.components.fueled.accepting = true
     inst.components.fueled:TakeFuelItem(item, giver)
+    inst.components.fueled.accepting = false
     inst.SoundEmitter:PlaySound("dontstarve/common/fireAddFuel")
     inst.components.fueled:StartConsuming()
     inst.Light:SetRadius(2)
@@ -187,6 +189,9 @@ local function OnAccept(inst, giver, item)
             v.components.combat.externaldamagemultipliers:SetModifier(inst, 1.15, "fuelhome", inst)
         end
     end
+    inst.smoke = SpawnPrefab( "stovesmoke" )
+    local follower = inst.smoke.entity:AddFollower()
+    follower:FollowSymbol( inst.GUID, "rabiit_house", 50, -100, 0 ) 
 end
 
 local function OnFuelEmpty(inst)
@@ -195,6 +200,8 @@ local function OnFuelEmpty(inst)
     for _, v in pairs(inst.components.childspawner.childrenoutside) do
         v.components.combat.externaldamagemultipliers:RemoveModifier("fuelhome")
     end
+    inst.smoke:Remove()
+    inst.smoke = nil
 end
 
 local function OnPreLoad(inst, data)
@@ -257,6 +264,9 @@ local function fn()
 
     inst:AddComponent("fueled")
     inst.components.fueled.accepting = false
+    inst.components.fueled.maxfuel = 60 * 8 * 3 --3 days
+    inst.components.fueled.rate = 0.67
+    inst.components.fueled:SetDepletedFn(OnFuelEmpty)
 
     inst:AddComponent("trader")
     inst.components.trader:SetAbleToAcceptTest(ShouldAccept)
