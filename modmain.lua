@@ -10,6 +10,7 @@ PrefabFiles = {
     "fuelstakes",
     "spearfire_fx",
     "charcoalsmoke_fx",
+    "stovesmoke_fx",
 }
 
 Assets = {

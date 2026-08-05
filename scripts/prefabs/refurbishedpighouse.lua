@@ -393,7 +393,7 @@ local function OnAccept(inst, giver, item)
     end
     inst.smoke = SpawnPrefab( "stovesmoke" )
     local follower = inst.smoke.entity:AddFollower()
-    follower:FollowSymbol( inst.GUID, "pighouse01", 50, -100, 0 ) 
+    follower:FollowSymbol( inst.GUID, "pig_house01", 230, -720, 0 ) 
 end
 
 local function OnFuelEmpty(inst)
