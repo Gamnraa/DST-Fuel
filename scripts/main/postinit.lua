@@ -5,6 +5,7 @@ local dohealingtask = function(inst, _dodelta)
     local health = inst.components.health
     if inst.slowhealtask then inst.slowhealtask:Cancel() end
     inst.slowhealtask = inst:DoPeriodicTask(inst.healtickrate, function(inst) 
+        health.currenthealth = math.floor(health.currenthealth)
         _dodelta(inst.components.health, 
             (health.currenthealth > inst.expectedhealth and -1) or 
             (health.currenthealth < inst.expectedhealth and 1) or 0)
