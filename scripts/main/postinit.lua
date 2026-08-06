@@ -317,18 +317,29 @@ AddComponentPostInit("burnable", function(self)
     self.inst.fuelspearcheck = self.inst:DoPeriodicTask(1, function(inst)
         if self.inst:HasTag("livingspear") then return end
         if not self:IsBurning() then return end
+        print(self.inst, self.inst:HasTag("fire"))
         local x,y,z = inst.Transform:GetWorldPosition()
-        local ents = GLOBAL.TheSim:FindEntities(x,y,z, 12, nil, {"INLIMBO", "playerghost"}, {"livingspear", "player"})
+        local ents = GLOBAL.TheSim:FindEntities(x,y,z, TUNING.LIVINGSPEAR_RANGE, nil, {"INLIMBO", "playerghost"}, {"livingspear", "player"})
         local isspear = false 
         for _, v in pairs(ents) do
             if v:HasTag("livingspear") then
-                v.components.fueled:DoDelta(-0.15)
+                v.components.fueled:DoDelta(-0.11)
                 isspear = true
+                if not v.glow then
+                    v.glow = GLOBAL.SpawnPrefab("heatrock_glow")
+                    local follower = v.glow.entity:AddFollower()
+                    follower:FollowSymbol( v.GUID, "swap_object_ground", 20, 90, 0 )
+                end 
             else 
                 local handitem = v.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
                 if handitem and handitem:HasTag("livingspear") then
-                    handitem.components.fueled:DoDelta(-0.15)
+                    handitem.components.fueled:DoDelta(-0.11)
                     isspear = true
+                    if not handitem.glow then
+                        handitem.glow = GLOBAL.SpawnPrefab("heatrock_glow")
+                        local follower = v.glow.entity:AddFollower()
+                        follower:FollowSymbol( v.GUID, "swap_object", 20, 90, 0 )
+                    end 
                 end
             end
         end

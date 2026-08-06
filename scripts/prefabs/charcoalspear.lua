@@ -129,6 +129,17 @@ local function fn()
     return inst
 end
 
+local function livingcoalfxcheck(inst)
+    if not inst.glow then return end
+    local x,y,z = inst.Transform:GetWorldPosition()
+    local ents = TheSim:FindEntities(x,y,z, TUNING.LIVINGSPEAR_RANGE, {"fire"}, {"INLIMBO"}, nil)
+    for _, _ in pairs(ents) do
+        return
+    end
+    inst.glow:Remove()
+    inst.glow = nil
+end
+
 --Livingcoal Spear will keep fires in range of it burning indefinitely, at the cost of its durability
 local function fnlivingcoal()
     local inst = CreateEntity()
@@ -181,6 +192,8 @@ local function fnlivingcoal()
     inst.components.burnable.burntime = 150
     inst.components.burnable.onignite = onignite
 	inst.components.burnable:SetOnExtinguishFn(onextinguish)
+
+    inst:DoPeriodicTask(1, livingcoalfxcheck)
 
     --inst:AddComponent("lighter") --fuel
 

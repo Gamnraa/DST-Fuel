@@ -11,6 +11,7 @@ PrefabFiles = {
     "spearfire_fx",
     "charcoalsmoke_fx",
     "stovesmoke_fx",
+    "heatrock_glow_fx",
 }
 
 Assets = {
@@ -127,7 +128,8 @@ TUNING.FUELSPEAR_RATE = (speardata == 0 and 2.5) or (speardata == 1 and 4) or (s
 TUNING.LIVINGSPEAR_DAMAGE = GetModConfigData("LIVINGSPEAR_DAMAGE")
 local speardata = GetModConfigData("LIVINGSPEAR_CONSUMPTION")
 TUNING.LIVINGSPEAR_FUEL = (speardata == 0 and 1500) or (speardata == 1 and 1000) or (speardata == 2 and 700)
-TUNING.LIVINGSPEAR_RATE = (speardata == 0 and 2.5) or (speardata == 1 and 4) or (speardata == 2 and 5) 
+TUNING.LIVINGSPEAR_RATE = (speardata == 0 and 2.5) or (speardata == 1 and 4) or (speardata == 2 and 5)
+TUNING.LIVINGSPEAR_RANGE = 12
 
 RemapSoundEvent( "dontstarve/characters/gramfuel/death_voice", "gramfuel/characters/gramfuel/death_voice" )
 RemapSoundEvent( "dontstarve/characters/gramfuel/hurt", "gramfuel/characters/gramfuel/hurt" )
