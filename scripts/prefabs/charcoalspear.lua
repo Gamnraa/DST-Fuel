@@ -141,7 +141,7 @@ local function fnlivingcoal()
     MakeInventoryPhysics(inst)
 
     inst.AnimState:SetBank("livingcoal_spear")
-    inst.AnimState:SetBuild("livngcoal_spear")
+    inst.AnimState:SetBuild("livingcoal_spear")
     inst.AnimState:PlayAnimation("idle")
 
     inst:AddTag("sharp")
