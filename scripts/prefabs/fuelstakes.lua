@@ -152,8 +152,9 @@ function MakeWallType(data)
         
         local num_loots = math.max(1, math.floor(2 * inst.components.health:GetPercent()))
         for i = 1, num_loots do
-            inst.components.lootdropper:SpawnLootPrefab("log")
+            inst.components.lootdropper:SpawnLootPrefab("twigs")
         end
+        inst.components.lootdropper:SpawnLootPrefab("log")
 
         local fx = SpawnPrefab("collapse_small")
         fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
@@ -231,6 +232,8 @@ function MakeWallType(data)
             local anim_to_play = resolveanimtoplay(inst, healthpercent)
             inst.AnimState:PlayAnimation("hit")
             inst.AnimState:PushAnimation("idle")
+        else
+            onhammered(inst, attacker)
         end
     end
 
