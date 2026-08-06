@@ -3507,7 +3507,7 @@ return {
 			COOLDOWN = "It's outta juice.",
         },
         ATRIUM_KEY = "This must go somewhere special.",
-		LIFEINJECTOR = "It'll help in a pinch",
+		LIFEINJECTOR = "It'll help in a pinch.",
 		SKELETON_PLAYER =
 		{
 			MALE = "Looks like ya didn't walk that one off, %s.",
@@ -5573,7 +5573,7 @@ return {
         SCRAP_MONOCLEHAT = "It looks stupid.",
         SCRAPHAT = "No thanks.",
 
-        FENCE_JUNK = "What a buncha crap",
+        FENCE_JUNK = "What a buncha crap.",
         JUNK_PILE = "Got no interest.",
         JUNK_PILE_BIG = {
             BLUEPRINT = "What's that?",
