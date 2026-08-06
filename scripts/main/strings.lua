@@ -9,8 +9,16 @@ STRINGS.NAMES.LIVINGCOAL_SPEAR = "Livingcoal Spear"
 STRINGS.NAMES.WALL_FUELSTAKES = "Wood Stakes"
 STRINGS.NAMES.WALL_FUELSTAKES_ITEM = "Wood Stakes"
 
-STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.BIGFUELAXE = "It's hefty, but with the right form, it makes short work of any tree."
-STRINGS.CHARACTERS.GRAMFUEL.ANNOUNCE_OTHER_PICKUP_FUELAXE = {
+STRINGS.RECIPE_DESC.BIGFUELAXE = "Not quite the family axe, but it gets the job done nonetheless."
+STRINGS.RECIPE_DESC.CHARCOAL_SPEAR = "Your very own relightable torch."
+STRINGS.RECIPE_DESC.FUELCHARCOALPILE = "Show 'em how Tazmilians get it done."
+STRINGS.RECIPE_DESC.LIVINGCOAL_SPEAR = "Delve into the magical side."
+STRINGS.RECIPE_DESC.WALL_FUELSTAKES_ITEM = "The best defense is a good offense."
+
+local FUEL = STRINGS.CHARACTERS.GRAMFUEL
+
+FUEL.DESCRIBE.BIGFUELAXE = "It's hefty, but with the right form, it makes short work of any tree."
+FUEL.ANNOUNCE_OTHER_PICKUP_FUELAXE = {
     GENERIC = {
         "Heavier than it looks, huh, %s?",
         "Careful with that, %s! Don't wanna throw your back out. Or worse!",
@@ -49,29 +57,32 @@ STRINGS.CHARACTERS.GRAMFUEL.ANNOUNCE_OTHER_PICKUP_FUELAXE = {
         "Not quite right, %s.",
     },
 }
-STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.CHARCOAL_SPEAR = "It won't do much, but charcoal is real irratatin' if it gets in your eyes!"
-STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.LIVINGCOAL_SPEAR = "It's fair from anythin' I've messed with before."
-STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.FUELCHARCOALPILE = {
+FUEL.DESCRIBE.CHARCOAL_SPEAR = "It won't do much, but charcoal is real irratatin' if it gets in your eyes!"
+FUEL.DESCRIBE.LIVINGCOAL_SPEAR = "It's fair from anythin' I've messed with before."
+FUEL.DESCRIBE.FUELCHARCOALPILE = {
     NEEDSMATERIALS = "Just needs some turf and wood, and I can do my magic!",
     CHARRING = "The smoke is how you tell when it's ready.",
     NEEDSWATER = "It's getting too hot! Some water will hit the spot.",
     DONE = "Would you look at that! Dad taught me well.",
 }
-STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.PIGHOUSE_FUELREFURBISHED = {
+FUEL.DESCRIBE.PIGHOUSE_FUELREFURBISHED = {
     GENERIC = "I made it nice and homely. Stove included!",
     BURNT = "Dang nabbit, again?!",
     COZY = "Life doesn't get better than relaxing by the ol' wood burner.",
     OCCUPIED = "Tucked in for the night.",
     LIGHTSOUT = "Guess they don't appreciate me quite enough."
 }
-STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.RABBITHOUSE_FUELREFURBISHED = {
+FUEL.DESCRIBE.RABBITHOUSE_FUELREFURBISHED = {
     GENERIC = "I made it nice and homely. Stove included!",
     BURNT = "Nang dabbit, again?!",
     COZY = "Bein' indoors with a nice wood stove going would make me too homesick.",
     FULL = "Tucked in for the night",
 }
-STRINGS.CHARACTERS.GRAMFUEL.DESCRIBE.FUELIVINGCOAL = "It's... different from normal charcoal."
-STRINGS.CHARACTERS.GRAMFUEL.ANNOUNCE_TAZMILIAN_CHARITY = {
+FUEL.DESCRIBE.FUELIVINGCOAL = "It's... different from normal charcoal."
+FUEL.DESCRIBE.WALL_FUELSTAKES = "That'll teach some nasty critter to lay off my camp!"
+FUEL.DESCRIBE.WALL_FUELSTAKES_ITEM = "Gotta get these set up."
+
+FUEL.ANNOUNCE_TAZMILIAN_CHARITY = {
     "Here ya go!",
     "From me, to you!",
     "We ought to help each other, dontcha think?",
@@ -81,7 +92,7 @@ STRINGS.CHARACTERS.GRAMFUEL.ANNOUNCE_TAZMILIAN_CHARITY = {
     "Happy to help!",
 }
 
-STRINGS.CHARACTERS.GRAMFUEL.ANNOUNCE_CRITICAL_INJURY = {
+FUEL.ANNOUNCE_CRITICAL_INJURY = {
     "Ooooh, that one's not healin' anytime soon.",
     "Owwww...",
     "OUCH! That's... That's gonna leave a mark...",
