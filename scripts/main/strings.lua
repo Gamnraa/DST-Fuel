@@ -58,7 +58,7 @@ FUEL.ANNOUNCE_OTHER_PICKUP_FUELAXE = {
     },
 }
 FUEL.DESCRIBE.CHARCOAL_SPEAR = "It won't do much, but charcoal is real irratatin' if it gets in your eyes!"
-FUEL.DESCRIBE.LIVINGCOAL_SPEAR = "It's fair from anythin' I've messed with before."
+FUEL.DESCRIBE.LIVINGCOAL_SPEAR = "It's far from anythin' I've messed with before."
 FUEL.DESCRIBE.FUELCHARCOALPILE = {
     NEEDSMATERIALS = "Just needs some turf and wood, and I can do my magic!",
     CHARRING = "The smoke is how you tell when it's ready.",

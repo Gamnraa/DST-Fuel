@@ -2119,7 +2119,7 @@ return {
 			GENERIC = "Someone lives here.",
 			EMPTY = "Guess they checked out.",
 		},
-		CATCOONHAT = "Almost like the pair I got back home!",
+		CATCOONHAT = "Almost like the one I got back home!",
 		COONTAIL = "Not bad.",
 		CARROT = "They're real good for ya.",
 		CARROT_COOKED = "Mmmm.",
@@ -5130,7 +5130,7 @@ return {
         SCANDATA = "Buncha crap.",
 
 		-- QOL 2022
-		JUSTEGGS = "Lucas and Claus will be your best friends forever if ya know how to whip 'em out.'",
+		JUSTEGGS = "Lucas and Claus will be your best friends forever if ya know how to whip 'em up.'",
 		VEGGIEOMLET = "Mmmm, if it's gonna be a long day, at least start it right.",
 		TALLEGGS = "Looks like a mouthful!",
 		BEEFALOFEED = "They're not bad to knaw on.",
