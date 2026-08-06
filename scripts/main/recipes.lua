@@ -102,7 +102,7 @@ AddCharacterRecipe("fuelcharcoalspear",
 )
 AddCharacterRecipe("fuellivingcoalspear",
     {Ingredient("livingcoal", 1), Ingredient("livinglog", 1), Ingredient("nightmarefuel", 4)},
-    TECH.MAGIC_TWO,
+    TECH.MAGIC_THREE,
     {
         product = "livingcoal_spear",
         builder_tag = "gramfuel",
