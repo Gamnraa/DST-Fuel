@@ -181,6 +181,7 @@ function CharcoalMaker:OnSave()
     return {
         timeleft = self.timeleft,
         logs = self.logs,
+        livinglogs = self.livinglogs,
         charcoaltickrate = charcoaltickrate,
         charcoaltick = self.charcoaltick,
         temptick = self.temptick,
@@ -198,6 +199,7 @@ function CharcoalMaker:OnLoad(data)
 
     self.timeleft = data.timeleft
     self.logs = data.logs
+    self.livinglogs = data.livinglogs
     charcoaltickrate = data.charcoaltickrate
     self.charcoaltick = data.charcoaltick
     self.temptick = data.temptick
@@ -275,7 +277,7 @@ function CharcoalMaker:OnUpdate(dt)
         self.temperature = math.clamp(self.temperature + 1, mintemp, maxtemp)
         self.inst.components.moisture:DoDelta(-2)
         self.temptick = temptickrate
-        print(self.inst.GUID, "temperature rising to " .. self.temperature, self:IsTooHot())
+        --print(self.inst.GUID, "temperature rising to " .. self.temperature, self:IsTooHot())
     end
 end
 
