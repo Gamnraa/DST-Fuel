@@ -328,7 +328,7 @@ AddComponentPostInit("burnable", function(self)
                 if not v.glow then
                     v.glow = GLOBAL.SpawnPrefab("heatrock_glow")
                     local follower = v.glow.entity:AddFollower()
-                    follower:FollowSymbol( v.GUID, "swap_object_ground", 20, 90, 0 )
+                    follower:FollowSymbol( v.GUID, "swap_object_ground", 120, 90, 0 )
                 end 
             else 
                 local handitem = v.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
@@ -337,8 +337,8 @@ AddComponentPostInit("burnable", function(self)
                     isspear = true
                     if not handitem.glow then
                         handitem.glow = GLOBAL.SpawnPrefab("heatrock_glow")
-                        local follower = v.glow.entity:AddFollower()
-                        follower:FollowSymbol( v.GUID, "swap_object", 20, 90, 0 )
+                        local follower = handitem.glow.entity:AddFollower()
+                        follower:FollowSymbol( v.GUID, "swap_object", 20, -160, 0 )
                     end 
                 end
             end

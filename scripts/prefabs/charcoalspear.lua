@@ -32,6 +32,13 @@ local function onequip(inst, owner)
     end
     owner.AnimState:Show("ARM_carry")
     owner.AnimState:Hide("ARM_normal")
+
+    if inst.glow then
+        inst.glow:Remove()
+        inst.glow = SpawnPrefab("heatrock_glow")
+        local follower = inst.glow.entity:AddFollower()
+        follower:FollowSymbol( owner.GUID, "swap_object", 20, -160, 0 )
+    end
 end
 
 local function onunequip(inst, owner)
@@ -41,6 +48,17 @@ local function onunequip(inst, owner)
     local skin_build = inst:GetSkinBuild()
     if skin_build ~= nil then
         owner:PushEvent("unequipskinneditem", inst:GetSkinName())
+    end
+
+    if inst.glow then
+        inst.glow:Remove()
+        if not inst:HasTag("INLIMBO") then
+            inst.glow = GLOBAL.SpawnPrefab("heatrock_glow")
+            local follower = inst.glow.entity:AddFollower()
+            follower:FollowSymbol( inst.GUID, "swap_object_ground", 120, 90, 0 )
+            return
+        end
+        inst.glow = nil
     end
 end
 
@@ -131,6 +149,12 @@ end
 
 local function livingcoalfxcheck(inst)
     if not inst.glow then return end
+    if inst:HasTag("INLIMBO") and not inst.components.equippable:IsEquipped() then
+        inst.glow:Remove()
+        inst.glow = nil
+        return
+    end
+
     local x,y,z = inst.Transform:GetWorldPosition()
     local ents = TheSim:FindEntities(x,y,z, TUNING.LIVINGSPEAR_RANGE, {"fire"}, {"INLIMBO"}, nil)
     for _, _ in pairs(ents) do
