@@ -55,7 +55,7 @@ local function onunequip(inst, owner)
         if not inst:HasTag("INLIMBO") then
             inst.glow = GLOBAL.SpawnPrefab("heatrock_glow")
             local follower = inst.glow.entity:AddFollower()
-            follower:FollowSymbol( inst.GUID, "swap_object_ground", 120, 90, 0 )
+            follower:FollowSymbol( inst.GUID, "swap_object_ground", 116, 90, 0 )
             return
         end
         inst.glow = nil
@@ -195,11 +195,11 @@ local function fnlivingcoal()
     end
 
     inst:AddComponent("weapon")
-    inst.components.weapon:SetDamage(TUNING.FUELSPEAR_DAMAGE)
+    inst.components.weapon:SetDamage(TUNING.LIVINGSPEAR_DAMAGE)
     inst.components.weapon:SetOnAttack(onattack)
 
     inst:AddComponent("fueled")
-    inst.components.fueled:InitializeFuelLevel(TUNING.FUELSPEAR_FUEL)
+    inst.components.fueled:InitializeFuelLevel(TUNING.LIVINGSPEAR_FUEL)
     inst.components.fueled:SetDepletedFn(inst.Remove)
 
     inst:AddComponent("inspectable")
