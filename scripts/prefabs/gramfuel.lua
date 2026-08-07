@@ -89,6 +89,8 @@ local master_postinit = function(inst)
 	
 	-- Uncomment if "wathgrithr"(Wigfrid) or "webber" voice is used
     --inst.talker_path_override = "dontstarve_DLC001/characters/"
+
+	inst.components.foodaffinity:AddPrefabAffinity("veggieomlet", TUNING.AFFINITY_15_CALORIES_MED)
 	
 	-- Stats	
 	inst.components.health:SetMaxHealth(TUNING.GRAMFUEL_HEALTH)
