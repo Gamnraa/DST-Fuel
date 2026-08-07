@@ -323,7 +323,7 @@ AddComponentPostInit("burnable", function(self)
         local isspear = false 
         for _, v in pairs(ents) do
             if v:HasTag("livingspear") then
-                v.components.fueled:DoDelta(-0.11)
+                v.components.fueled:DoDelta(-0.05)
                 isspear = true
                 if not v.glow then
                     v.glow = GLOBAL.SpawnPrefab("heatrock_glow")
@@ -333,7 +333,7 @@ AddComponentPostInit("burnable", function(self)
             else 
                 local handitem = v.components.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
                 if handitem and handitem:HasTag("livingspear") then
-                    handitem.components.fueled:DoDelta(-0.11)
+                    handitem.components.fueled:DoDelta(-0.05)
                     isspear = true
                     if not handitem.glow then
                         handitem.glow = GLOBAL.SpawnPrefab("heatrock_glow")

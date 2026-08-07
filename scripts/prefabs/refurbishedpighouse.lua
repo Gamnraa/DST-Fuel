@@ -275,18 +275,6 @@ local function onignite(inst)
     end
 end
 
-local function onsave(inst, data)
-    if inst:HasTag("burnt") or (inst.components.burnable ~= nil and inst.components.burnable:IsBurning()) then
-        data.burnt = true
-    end
-end
-
-local function onload(inst, data)
-    if data ~= nil and data.burnt then
-        inst.components.burnable.onburnt(inst)
-    end
-end
-
 local function spawncheckday(inst)
     inst.inittask = nil
     inst:WatchWorldState("startcaveday", OnStartDay)
@@ -383,7 +371,6 @@ local function OnAccept(inst, giver, item)
     inst.components.fueled.accepting = false
     inst.SoundEmitter:PlaySound("dontstarve/common/fireAddFuel")
     inst.components.fueled:StartConsuming()
-    print(inst.components.fueled.currentfuel)
     inst.Light:SetRadius(2)
     LightsOn(inst)
     if wasempty then
@@ -402,8 +389,32 @@ local function OnFuelEmpty(inst)
     for _, v in pairs(inst.components.childspawner.childrenoutside) do
         v.components.workmultiplier:AddMultiplier(ACTIONS.CHOP, math.max(1, v.components.workmultiplier:GetMultiplier(ACTIONS.CHOP) - .15), v)
     end
-    inst.smoke:Remove()
-    inst.smoke = nil
+    if inst.smoke then
+        inst.smoke:Remove()
+        inst.smoke = nil
+    end
+end
+
+local function onsave(inst, data)
+    if inst:HasTag("burnt") or (inst.components.burnable ~= nil and inst.components.burnable:IsBurning()) then
+        data.burnt = true
+    end
+end
+
+local function onload(inst, data)
+    if data ~= nil and data.burnt then
+        inst.components.burnable.onburnt(inst)
+    end
+
+    print(inst, inst.components.fueled.currentfuel)
+    if inst.components.fueled:IsEmpty() then
+        OnFuelEmpty(inst)
+    else
+        inst.smoke = SpawnPrefab( "stovesmoke" )
+        local follower = inst.smoke.entity:AddFollower()
+        follower:FollowSymbol( inst.GUID, "pig_house01", 230, -720, 0 )
+        inst.components.fueled:StartConsuming()
+    end
 end
 
 local function OnPreLoad(inst, data)
@@ -487,6 +498,7 @@ local function fn()
     inst.components.fueled.maxfuel = 60 * 8 * 3 --3 days
     inst.components.fueled.rate = 0.67
     inst.components.fueled:SetDepletedFn(OnFuelEmpty)
+    print(inst, inst.components.fueled.currentfuel)
 
     inst:AddComponent("trader")
     inst.components.trader:SetAbleToAcceptTest(ShouldAccept)
