@@ -1627,7 +1627,7 @@ return {
             BROKEN = "It's not lookin' too good.",
             STAFFED = "I guess I'll have to wait and see.",
             WRONGSTAFF = "Naw, it doesn't fit quite right.",
-            MOONSTAFF = "Whoa. The mood did that?",
+            MOONSTAFF = "Whoa. The moon did that?",
         },
         MOONDIAL =
         {
@@ -4645,7 +4645,7 @@ return {
 		{
 			GENERIC = "It'll grow into something I can put into my mouth one of these days.",
 			SEED = "Be kind to time and it will be kind to me.",
-			GROWING = "It'll grow into something I can put itno my mouth one of these days.",
+			GROWING = "It'll grow into something I can put into my mouth one of these days.",
 			FULL = "Harvest season is upon us!",
 			ROTTEN = "That's not good.",
 			FULL_OVERSIZED = "Well I'll be, I'll be!",
