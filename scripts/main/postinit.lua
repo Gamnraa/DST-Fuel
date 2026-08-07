@@ -24,7 +24,7 @@ AddComponentPostInit("health", function(self)
             return
         end
 
-        if self.inst:HasTag("slowhealer") and amount ~= 0 and self.redirect == nil and cause ~= "cold" and cause ~= "hunger" then
+        if self.inst:HasTag("slowhealer") and amount ~= 0 and self.redirect == nil and cause ~= "cold" and cause ~= "hot" and cause ~= "hunger" then
             if amount < 0 and math.random(100) + 5 < math.abs(amount) then
                 --Take away maxhealth
                 self.inst.components.talker:Say(GLOBAL.GetString(self.inst, "ANNOUNCE_CRITICAL_INJURY"))
