@@ -101,7 +101,7 @@ AddCharacterRecipe("fuelcharcoalspear",
     }
 )
 AddCharacterRecipe("fuellivingcoalspear",
-    {Ingredient("fuelivingcoal", 1), Ingredient("livinglog", 1), Ingredient("nightmarefuel", 4)},
+    {Ingredient("livingcoal", 1), Ingredient("livinglog", 1), Ingredient("nightmarefuel", 4)},
     TECH.MAGIC_THREE,
     {
         product = "livingcoal_spear",
