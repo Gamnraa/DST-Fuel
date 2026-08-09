@@ -5666,7 +5666,7 @@ return {
         SADDLE_SHADOW = "It doesn't look too comfy.",
         SHADOW_BATTLEAXE = "I'm gonna stick to the family axe now that I think about it.",
         VOIDCLOTH_BOOMERANG = "Don't wanna the catch on this one.",
-		ROPE_BRIDGE_KIT = "Now I can across big gaps!",
+		ROPE_BRIDGE_KIT = "Now I can get across big gaps!",
 		GELBLOB =
 		{
 			GENERIC = "Gross!",
