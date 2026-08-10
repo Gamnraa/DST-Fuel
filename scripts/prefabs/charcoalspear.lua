@@ -18,7 +18,7 @@ local function onattack(inst, attacker, target)
     end
 
     if target.components.burnable and target.components.burnable:IsBurning() then
-       if target.components.health then target.components.health:DoDelta(-TUNING.FUELSPEAR_DAMAGE / 5) end
+       if target.components.health then target.components.health:DoDelta(-TUNING.FUELSPEAR_DAMAGE / 2) end
     end
 end
 
