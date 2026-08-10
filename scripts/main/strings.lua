@@ -4,7 +4,7 @@ STRINGS.NAMES.CHARCOAL_SPEAR = "Charcoal Spear"
 STRINGS.NAMES.FUELCHARCOALPILE = "Charcoal Pile"
 STRINGS.NAMES.PIGHOUSE_FUELREFURBISHED = "Refurbished Pighouse"
 STRINGS.NAMES.RABBITHOUSE_FUELREFURBISHED = "Refurbished Rabbit Hutch"
-STRINGS.NAMES.FUELIVINGCOAL = "Livingcoal"
+STRINGS.NAMES.LIVINGCOAL = "Livingcoal"
 STRINGS.NAMES.LIVINGCOAL_SPEAR = "Livingcoal Spear"
 STRINGS.NAMES.WALL_FUELSTAKES = "Wood Stakes"
 STRINGS.NAMES.WALL_FUELSTAKES_ITEM = "Wood Stakes"
@@ -78,7 +78,7 @@ FUEL.DESCRIBE.RABBITHOUSE_FUELREFURBISHED = {
     COZY = "Bein' indoors with a nice wood stove going would make me too homesick.",
     FULL = "Tucked in for the night",
 }
-FUEL.DESCRIBE.FUELIVINGCOAL = "It's... different from normal charcoal."
+FUEL.DESCRIBE.LIVINGCOAL = "It's... different from normal charcoal."
 FUEL.DESCRIBE.WALL_FUELSTAKES = "That'll teach some nasty critter to lay off my camp!"
 FUEL.DESCRIBE.WALL_FUELSTAKES_ITEM = "Gotta get these set up."
 
