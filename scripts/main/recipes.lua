@@ -97,7 +97,7 @@ AddCharacterRecipe("fuelcharcoalspear",
         atlas = "images/inventoryimages/charcoal_spear.xml",
     },
     {
-        "WEAPONS",
+        "TOOLS", "WEAPONS",
     }
 )
 AddCharacterRecipe("fuellivingcoalspear",
@@ -141,6 +141,18 @@ AddCharacterRecipe("fuelcharcoalpile",
     },
     {
         "STRUCTURES",
+    }
+)
+AddCharacterRecipe("fuelifeinjector",
+    {Ingredient("charcoal", 24), Ingredient("nitre", 2), Ingredient("stinger", 1)},
+    TECH.SCIENCE_TWO,
+    {
+        product = "lifeinjector",
+        builder_tag = "gramfuel",
+        numtogive = 1,
+    },
+    {
+        "HEALING"
     }
 )
 
