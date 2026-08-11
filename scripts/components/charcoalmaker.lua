@@ -1,4 +1,4 @@
-local temptickrate = 3
+local temptickrate = 5
 local ashtickrate = nil
 local charcoaltickrate = nil
 
@@ -91,7 +91,7 @@ function CharcoalMaker:Start()
         self.totallogs = self.logs + self.livinglogs
     end
 
-    self.timeleft = (TUNING.CHARCOALPILE_CHAR_TIME or 8 * 1.67 * 60) + 1
+    self.timeleft = (TUNING.CHARCOALPILE_CHAR_TIME or 8 * 2.5 * 60) + 1
     --self.timeleft = 20
     
     charcoaltickrate = self.timeleft / self.totallogs
