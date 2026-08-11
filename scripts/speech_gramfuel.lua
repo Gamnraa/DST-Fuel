@@ -4493,7 +4493,7 @@ return {
 
         DUSTMOTHDEN = "Even insect critters gotta have a home.",
 
-        ARCHIVE_LOCKBOX = "It's holding something important",
+        ARCHIVE_LOCKBOX = "It's holding something important.",
         ARCHIVE_CENTIPEDE = "Intruder? Me?",
         ARCHIVE_CENTIPEDE_HUSK = "A buncha garbage.",
 
