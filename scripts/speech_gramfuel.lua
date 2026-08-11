@@ -4537,7 +4537,7 @@ return {
 
         ARCHIVE_SECURITY_DESK = {
             POWEROFF = "Upta nothin' but lookin' pretty.",
-            GENERIC = "I like the glowey lights. They're glowey",
+            GENERIC = "I like the glowey lights. They're glowey.",
         },
 
         ARCHIVE_SECURITY_PULSE = "I wanna eat it.",
