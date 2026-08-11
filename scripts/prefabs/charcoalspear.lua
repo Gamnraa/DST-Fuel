@@ -213,7 +213,7 @@ local function fnlivingcoal()
     inst:AddComponent("burnable")
     inst.components.burnable.canlight = false
     inst.components.burnable.fxprefab = nil
-    inst.components.burnable.burntime = 150
+    inst.components.burnable.burntime = 180
     inst.components.burnable.onignite = onignite
 	inst.components.burnable:SetOnExtinguishFn(onextinguish)
 
