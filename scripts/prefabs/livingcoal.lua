@@ -36,8 +36,8 @@ local function fn()
 
     inst:AddComponent("edible")
     inst.components.edible.foodtype = FOODTYPE.BURNT
-    inst.components.edible.hungervalue = 20
-    inst.components.edible.healthvalue = 20
+    inst.components.edible.hungervalue = 30
+    inst.components.edible.healthvalue = 30
     --inst.components.edible.sanityvalue = -15
 
     inst:AddComponent("tradable")
