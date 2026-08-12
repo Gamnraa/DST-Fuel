@@ -201,7 +201,7 @@ function MakeWallType(data)
 
         inst:AddComponent("repairer")
         inst.components.repairer.repairmaterial = MATERIALS.WOOD
-        inst.components.repairer.healthrepairvalue = 150 / 6
+        inst.components.repairer.healthrepairvalue = 150 / 2
 
         MakeSmallBurnable(inst, TUNING.MED_BURNTIME)
         MakeSmallPropagator(inst)
@@ -221,7 +221,7 @@ function MakeWallType(data)
 
     local function onhit(inst, attacker)
         if attacker and attacker.components.combat then
-            attacker.components.combat:GetAttacked(inst, 34)
+            attacker.components.combat:GetAttacked(inst, 20)
         end
 
         inst.SoundEmitter:PlaySound("dontstarve/common/destroy_wood")
