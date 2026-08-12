@@ -193,7 +193,7 @@ local function fn()
     inst:AddTag("structure")
     inst:AddTag("fuelcharcoalmaker")
     inst:AddTag("constructionsite")
-    inst:AddTag("HASHEATER")
+    --inst:AddTag("HASHEATER")
 
     inst.AnimState:SetBank("charcoal_pile")
     inst.AnimState:SetBuild("charcoal_pile")

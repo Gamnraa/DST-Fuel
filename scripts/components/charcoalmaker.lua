@@ -62,10 +62,11 @@ function CharcoalMaker:IsTooHot()
             UpdateSmokeFx(self, "c2")
         end
         return true
+    elseif self.inst.smoke and self.inst.smoke.name == "charcoalsmokec2" then
+        UpdateSmokeFx(self, "c1")
     elseif self.temperature < maxtemp - 130 then
         if self.inst:HasTag("wantswater") then
             self.inst:RemoveTag("wantswater")
-            UpdateSmokeFx(self, "c1")
         end
     end
     return false
@@ -274,11 +275,16 @@ function CharcoalMaker:OnUpdate(dt)
     if dt < self.temptick then
         self.temptick = self.temptick - dt
     else
-        self.temperature = math.clamp(self.temperature + 1, mintemp, maxtemp)
-        self.inst.components.moisture:DoDelta(-2)
+        if self.inst.components.moisture:IsWet() then
+            self.tempature = math.clamp(self.temperature - 2, mintemp, maxtemp)
+            self.inst.components.moisture:DoDelta(-0.5)
+        else
+            self.temperature = math.clamp(self.temperature + 1, mintemp, maxtemp)
+        end
         self.temptick = temptickrate
         --print(self.inst.GUID, "temperature rising to " .. self.temperature, self:IsTooHot())
     end
+    --print(self.inst.components.moisture.moisture)
 end
 
 return CharcoalMaker
