@@ -156,7 +156,7 @@ AddCharacterRecipe("fuelifeinjector",
     }
 )
 
-GLOBAL.CONSTRUCTION_PLANS["pighouse"] = {Ingredient("boards", 6), Ingredient("cutstone", 5), Ingredient("goldnugget", 2)}
+GLOBAL.CONSTRUCTION_PLANS["pighouse"] = {Ingredient("boards", 6), Ingredient("cutstone", 3), Ingredient("goldnugget", 2)}
 GLOBAL.CONSTRUCTION_PLANS["rabbithouse"] = {Ingredient("boards", 6), Ingredient("cutstone", 3), Ingredient("goldnugget", 2)}
 
 GLOBAL.CONSTRUCTION_PLANS["fuelcharcoalpile"] = {Ingredient("turf_grass", 1), Ingredient("log", 20), Ingredient("log", 20)}
