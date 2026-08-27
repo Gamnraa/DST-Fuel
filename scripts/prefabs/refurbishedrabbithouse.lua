@@ -12,6 +12,25 @@ local prefabs =
     "splash_sink",
 }
 
+local loot = {
+    "carrot",
+    "carrot",
+    "carrot",
+    "carrot",
+    "carrot",
+    "manrabbit_tail",
+    "manrabbit_tail",
+    "boards",
+    "boards",
+    "boards",
+    "boards",
+    "cutstone",
+    "cutstone",
+    "cutstone",
+    "cutstone",
+    "goldnugget"
+}
+
 local function getstatus(inst)
     return (inst:HasTag("burnt") and "BURNT")
         or (not inst.components.fueled:IsEmpty() and "COZY")
@@ -244,6 +263,8 @@ local function fn()
     end
 
     inst:AddComponent("lootdropper")
+    inst.components.lootdropper:SetLoot(loot)
+
     inst:AddComponent("workable")
     inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
     inst.components.workable:SetWorkLeft(4)
