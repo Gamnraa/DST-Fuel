@@ -18,6 +18,31 @@ STRINGS.RECIPE_DESC.WALL_FUELSTAKES_ITEM = "The best defense is a good offense."
 local FUEL = STRINGS.CHARACTERS.GRAMFUEL
 local WILSON = STRINGS.CHARACTERS.GENERIC
 
+--We try to avoid being too Wilson-y with these, just so it makes some sense for any char to say it
+WILSON.DESCRIBE.BIGFUELAXE = "That axe seems more dangerous to the wielder than any tree!"
+WILSON.DESCRIBE.CHARCOAL_SPEAR = "Now I can bring the barbeque with me!"
+WILSON.DESCRIBE.LIVINGCOAL_SPEAR = "Was this really necessary?"
+WILSON.DESCRIBE.FUELCHARCOALPILE = {
+    NEEDSMATERIALS = "Looks like he's working on it.",
+    CHARRING = "Smells like hard work.",
+}
+WILSON.DESCRIBE.PIGHOUSE_FUELREFURBISHED =  {
+    FULL = "I can see a snout pressed up against the window.",
+    GENERIC = "They're much fancier now!",
+    LIGHTSOUT = "Come ON! I know you're home!",
+    BURNT = "Not so fancy now, pig!",
+    COZY = "I wish I were allowed in.",
+}
+WILSON.DESCRIBE.RABBITHOUSE_FUELREFURBISHED = {
+    GENERIC = "It's a nice upgrade.",
+    BURNT = "I have a feeling our carrots are toast.",
+    COZY = "If I only I could stay the night.",
+    FULL = "Everyone's home."
+}
+WILSON.DESCRIBE.LIVINGCOAL = "Some funny looking charcoal."
+WILSON.DESCRIBE.WALL_FUELSTAKES = "I never felt so safe!"
+WILSON.DESCRIBE.WALL_FUELSTAKES_ITEM = "Just need to find a good spot for them."
+
 FUEL.DESCRIBE.BIGFUELAXE = "It's hefty, but with the right form, it makes short work of any tree."
 FUEL.ANNOUNCE_OTHER_PICKUP_FUELAXE = {
     GENERIC = {
@@ -82,6 +107,45 @@ FUEL.DESCRIBE.RABBITHOUSE_FUELREFURBISHED = {
 FUEL.DESCRIBE.LIVINGCOAL = "It's... different from normal charcoal."
 FUEL.DESCRIBE.WALL_FUELSTAKES = "That'll teach some nasty critter to lay off my camp!"
 FUEL.DESCRIBE.WALL_FUELSTAKES_ITEM = "Gotta get these set up."
+
+FUEL.ANNOUNCE_TAZMILIAN_CHARITY = {
+    "Here ya go!",
+    "From me, to you!",
+    "We ought to help each other, dontcha think?",
+    "Hope it suits your fancy!",
+    "Dad always said to be a good neighbor!",
+    "Here, have this!",
+    "Happy to help!",
+}
+
+FUEL.ANNOUNCE_CRITICAL_INJURY = {
+    "Ooooh, that one's not healin' anytime soon.",
+    "Owwww...",
+    "OUCH! That's... That's gonna leave a mark...",
+    "I don't think my arm is supposed to twist like that.",
+}
+
+local fn = require("play_commonfn")
+local FUEL_SCRIPT1 = {
+    cast = {"gramfuel"},
+    lines = {
+        {roles = {"gramfuel"}, duration = 2.7, line = "This one is dedicated to the greatest man I know.", anim ="dial_loop"},
+        {actionfn = fn.crowdcomment,	duration = "1.3", line = "Spider Man?!", prefabs = {"gramness"}},
+        {roles = {"gramfuel"}, duration = 2.7, line = "There once was a little jack rabbit who lived with his family in a hole."},
+        {roles = {"gramfuel"}, duration = 2.4, line = "The little jack rabbit loved his family with all his soul."},
+        {roles = {"gramfuel"}, duration = 2.7, line = "They worked hard together to bring home carrots to eat to their content."},
+        {roles = {"gramfuel"}, duration = 2.6, line = "It was a simple life, yet he lived it without a hint of lament."},
+        {roles = {"gramfuel"}, duration = 2.8, line = "One day, when the little jack rabbit wandered too far and got lost, much to his fear."},
+        {roles = {"gramfuel"}, duration = 3.0, line = "\"Look up to the lights in the sky, they are your friends, they will show you family is always near!\""},
+        {roles = {"gramfuel"}, duration = 2.2, line = "The words of his papa rabbit echoed in his mind"},
+        {roles = {"gramfuel"}, duration = 4.0, line = "And the little jack rabbit smiled. The stars are his friends, and with them his home and loved ones he would find."},
+        {roles = {"gramfuel"}, duration = 1.8, line = "Just follow the stars...", anim ="dial_loop"},
+    }
+}
+
+AddComponentPostInit("stageactingprop", function(inst)
+	inst:AddGeneralScript("LUCAS1", FUEL_SCRIPT1)
+end)
 
 AddPrefabPostInit("lucas", function(inst)
     local LUCAS = STRINGS.CHARACTERS.LUCAS
@@ -154,48 +218,5 @@ AddPrefabPostInit("claus", function(inst)
     CLAUS.DESCRIBE.WALL_FUELSTAKES = "It's a sorta keep out sign for folks who can't read too good."
     CLAUS.DESCRIBE.WALL_FUELSTAKES_ITEM = "We gotta place those."
 end)
-
---We try to avoid being too Wilson-y with these, just so it makes some sense for any char to say it
-WILSON.DESCRIBE.BIGFUELAXE = "That axe seems more dangerous to the wielder than any tree!"
-WILSON.DESCRIBE.CHARCOAL_SPEAR = "Now I can bring the barbeque with me!"
-WILSON.DESCRIBE.LIVINGCOAL_SPEAR = "Was this really necessary?"
-WILSON.DESCRIBE.FUELCHARCOALPILE = {
-    NEEDSMATERIALS = "Looks like he's working on it.",
-    CHARRING = "Smells like hard work.",
-}
-WILSON.DESCRIBE.PIGHOUSE_FUELREFURBISHED =  {
-    FULL = "I can see a snout pressed up against the window.",
-    GENERIC = "They're much fancier now!",
-    LIGHTSOUT = "Come ON! I know you're home!",
-    BURNT = "Not so fancy now, pig!",
-    COZY = "I wish I were allowed in.",
-}
-WILSON.DESCRIBE.RABBITHOUSE_FUELREFURBISHED = {
-    GENERIC = "It's a nice upgrade.",
-    BURNT = "I have a feeling our carrots are toast.",
-    COZY = "If I only I could stay the night.",
-    FULL = "Everyone's home."
-}
-WILSON.DESCRIBE.LIVINGCOAL = "Some funny looking charcoal."
-WILSON.DESCRIBE.WALL_FUELSTAKES = "I never felt so safe!"
-WILSON.DESCRIBE.WALL_FUELSTAKES_ITEM = "Just need to find a good spot for them."
-
-
-FUEL.ANNOUNCE_TAZMILIAN_CHARITY = {
-    "Here ya go!",
-    "From me, to you!",
-    "We ought to help each other, dontcha think?",
-    "Hope it suits your fancy!",
-    "Dad always said to be a good neighbor!",
-    "Here, have this!",
-    "Happy to help!",
-}
-
-FUEL.ANNOUNCE_CRITICAL_INJURY = {
-    "Ooooh, that one's not healin' anytime soon.",
-    "Owwww...",
-    "OUCH! That's... That's gonna leave a mark...",
-    "I don't think my arm is supposed to twist like that.",
-}
 
 
