@@ -81,10 +81,11 @@ function CharcoalMaker:Start()
     self.numashproduced = 0
     local slot1 = self.logslots[1]
     local slot2 = self.logslots[2]
+    print(slot1, slot2, slot1.components.stackable.stacksize, slot2.components.stackable.stacksize)
     self.logs = ((slot1 and slot1.prefab == "log") and slot1.components.stackable.stacksize or 0) + ((slot2 and slot2.prefab == "log") and slot2.components.stackable.stacksize or 0)
     self.livinglogs = ((slot1 and slot1.prefab == "livinglog") and slot1.components.stackable.stacksize or 0) + ((slot2 and slot2.prefab == "livinglog") and slot2.components.stackable.stacksize or 0)
 
-    print(self.logs, self.livinglogs)
+    print("Charcoalmaker", self.logs, self.livinglogs)
 
     if self.logs > 0 or self.livinglogs > 0 then 
         self.logs = math.floor(self.logs * 1.5)
@@ -119,10 +120,10 @@ function CharcoalMaker:Harvest(doer)
     if self.onharvest then self.onharvest(self.inst) end
     if self.numcharcoalproduced and self.numashproduced then
        
-        local tileproduct = SpawnPrefab(self.tileslot:HasTag("charred") and "ash" or "turf_grass")
+        --local tileproduct = SpawnPrefab(self.tileslot:HasTag("charred") and "ash" or "turf_grass")
         self.inst.components.container:DestroyContents()
 
-        print(self.numcharcoalproduced, self.numlivingcoalproduced)
+        print("Charcoalmaker harvest", self.numcharcoalproduced, self.numlivingcoalproduced)
 
         for i = 1, self.numcharcoalproduced do
             local product = SpawnPrefab("charcoal")
@@ -136,7 +137,7 @@ function CharcoalMaker:Harvest(doer)
         end
 
         for i = 1, self.numlivingcoalproduced do
-            local product = SpawnPrefab("fuelivingcoal")
+            local product = SpawnPrefab("livingcoal")
             if doer and doer.components.inventory then
                 doer.components.inventory:GiveItem(product, nil, self.inst:GetPosition())
             else
@@ -171,6 +172,8 @@ function CharcoalMaker:Harvest(doer)
         self.temptick = nil
         ashtickrate = nil
         self.ashtick = nil
+        self.logslots = {}
+        self.tileslot = nil
 
         self.inst:RemoveTag("readytoharvest")
 
@@ -199,8 +202,8 @@ function CharcoalMaker:OnLoad(data)
     self.inst:DoTaskInTime(0, function(inst) self:UpdateSlots() end)
 
     self.timeleft = data.timeleft
-    self.logs = data.logs
-    self.livinglogs = data.livinglogs
+    self.logs = data.logs or 0
+    self.livinglogs = data.livinglogs or 0
     charcoaltickrate = data.charcoaltickrate
     self.charcoaltick = data.charcoaltick
     self.temptick = data.temptick
@@ -223,7 +226,7 @@ function CharcoalMaker:OnLoad(data)
 end
 
 function CharcoalMaker:OnUpdate(dt)
-    self.timeleft = self.timeleft - dt - (self.inst.components.moisture:GetMoisturePercent() >= .38 and FRAMES * 1.1 or 0)
+    self.timeleft = self.timeleft - dt - (self.inst.components.moisture:GetMoisturePercent() >= .38 and FRAMES * 1.3 or 0)
     if self:IsDone() then
         self.numcharcoalproduced = self.numcharcoalproduced + self.logs
         local item = self.inst.components.container:RemoveItem(self.inst.components.container:FindItem(function(inst) return inst.prefab == "log" end, true))
@@ -245,7 +248,7 @@ function CharcoalMaker:OnUpdate(dt)
             self.logs = math.max(0, self.logs - 1)
             for _, v in pairs(self.logslots) do
                 if v.prefab == "log" then
-                    v.components.stackable:SetStackSize(v.components.stackable.stacksize - 1)
+                    v.components.stackable:SetStackSize(math.max(0, v.components.stackable.stacksize - 1))
                 end
             end
         elseif self.livinglogs > 0 then
@@ -253,7 +256,7 @@ function CharcoalMaker:OnUpdate(dt)
             self.livinglogs = math.max(0, self.livinglogs - 1)
             for _, v in pairs(self.logslots) do
                 if v.prefab == "livinglog" then
-                    v.components.stackable:SetStackSize(v.components.stackable.stacksize - 1)
+                    v.components.stackable:SetStackSize(math.max(0, v.components.stackable.stacksize - 1))
                 end
             end
         end
@@ -266,7 +269,7 @@ function CharcoalMaker:OnUpdate(dt)
         self.numashproduced =  self.numashproduced + 1
         if self.logs > 0 then
             self.numcharcoalproduced =  math.max(1, self.numcharcoalproduced - 1)
-        else
+        elseif self.livinglogs > 0 then
             self.numlivingcoalproduced = math.max(1, self.numlivingcoalproduced - 1)
         end
         self.ashtick = ashtickrate
@@ -276,7 +279,7 @@ function CharcoalMaker:OnUpdate(dt)
         self.temptick = self.temptick - dt
     else
         if self.inst.components.moisture:IsWet() then
-            self.tempature = math.clamp(self.temperature - 2, mintemp, maxtemp)
+            self.temperature = math.clamp(self.temperature - 2, mintemp, maxtemp)
             self.inst.components.moisture:DoDelta(-0.5)
         else
             self.temperature = math.clamp(self.temperature + 1, mintemp, maxtemp)
