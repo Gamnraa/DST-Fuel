@@ -62,11 +62,11 @@ function CharcoalMaker:IsTooHot()
             UpdateSmokeFx(self, "c2")
         end
         return true
-    elseif self.inst.smoke and self.inst.smoke.name == "charcoalsmokec2" then
-        UpdateSmokeFx(self, "c1")
+        
     elseif self.temperature < maxtemp - 130 then
         if self.inst:HasTag("wantswater") then
             self.inst:RemoveTag("wantswater")
+            UpdateSmokeFx(self, "c1")
         end
     end
     return false
