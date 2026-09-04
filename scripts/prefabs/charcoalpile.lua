@@ -76,6 +76,7 @@ local function startcharring(inst)
     inst.smoke = SpawnPrefab("charcoalsmokec1")
     local follower = inst.smoke.entity:AddFollower()
     follower:FollowSymbol( inst.GUID, "object", 0, -350, 0 ) 
+    MakeObstaclePhysics(inst, 2.5)
 end
 
 local validturfs = {
@@ -125,6 +126,7 @@ local function harvest(inst)
     inst:AddTag("waiting")
     inst.smoke:Remove()
     inst.smoke = nil
+    MakeObstaclePhysics(inst, 0.8)
 end
 
 local function getstatus(inst, viewer)
@@ -161,6 +163,9 @@ local function onload(inst)
         local follower = inst.smoke.entity:AddFollower()
         follower:FollowSymbol( inst.GUID, "object", 0, -350, 0 )
     end
+    if state == "_full" then
+        inst:DoTaskInTime(0, function() MakeObstaclePhysics(inst, 2.5) end)
+    end
 end
 
 local function onloadpostpass(inst, newents, data)
@@ -182,7 +187,8 @@ local function fn()
     inst.entity:AddNetwork()
 
 	inst:SetDeploySmartRadius(1) --recipe min_spacing/2
-    MakeObstaclePhysics(inst, 2.5)
+    MakeObstaclePhysics(inst, 0.8)
+    --RemovePhysicsColliders(inst)
 
     inst.Light:Enable(false)
     inst.Light:SetRadius(2.2)
