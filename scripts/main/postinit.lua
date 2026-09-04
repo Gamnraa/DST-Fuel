@@ -317,7 +317,6 @@ AddComponentPostInit("burnable", function(self)
     self.inst.fuelspearcheck = self.inst:DoPeriodicTask(1, function(inst)
         if self.inst:HasTag("livingspear") then return end
         if not self:IsBurning() then return end
-        print(self.inst, self.inst:HasTag("fire"))
         local x,y,z = inst.Transform:GetWorldPosition()
         local ents = GLOBAL.TheSim:FindEntities(x,y,z, TUNING.LIVINGSPEAR_RANGE, nil, {"INLIMBO", "playerghost"}, {"livingspear", "player"})
         local isspear = false 
