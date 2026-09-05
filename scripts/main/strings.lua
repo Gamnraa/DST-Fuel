@@ -129,7 +129,7 @@ local fn = require("play_commonfn")
 local FUEL_SCRIPT1 = {
     cast = {"gramfuel"},
     lines = {
-        {roles = {"gramfuel"}, duration = 2.7, line = "This one is dedicated to the greatest man I know.", anim ="dial_loop"},
+        {roles = {"gramfuel"}, duration = 2.5, line = "This one is dedicated to the greatest man I know.", anim ="dial_loop"},
         {actionfn = fn.crowdcomment,	duration = 0.8, line = "Spider Man?!", prefabs = {"gramness"}},
         {roles = {"gramfuel"}, duration = 2.7, line = "There once was a little jack rabbit who lived with his family in a hole."},
         {roles = {"gramfuel"}, duration = 2.4, line = "The little jack rabbit loved his family with all his soul."},
