@@ -144,7 +144,7 @@ local FUEL_SCRIPT1 = {
 }
 
 AddComponentPostInit("stageactingprop", function(inst)
-	inst:AddGeneralScript("LUCAS1", FUEL_SCRIPT1)
+	inst:AddGeneralScript("GRAMFUEL1", FUEL_SCRIPT1)
 end)
 
 AddPrefabPostInit("lucas", function(inst)
