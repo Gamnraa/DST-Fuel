@@ -2,7 +2,7 @@
 name = "(DEV) EarthBound: Fuel"
 description = "Adds Fuel from Mother 3."
 author = "Lucas, Claus, Miz"
-version = "0.01" -- This is the version of the template. Change it to your own number.
+version = "0.03" -- This is the version of the template. Change it to your own number.
 
 -- This is the URL name of the mod's thread on the forum; the part after the ? and before the first & in the url
 forumthread = "/files/file/950-extended-sample-character/"
