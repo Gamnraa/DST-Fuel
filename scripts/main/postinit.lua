@@ -100,25 +100,26 @@ end)
 
 AddComponentPostInit("childspawner", function(self)
     local _spawnchild = self.SpawnChild
-    self.SpawnChild = function(target, prefab, radius, ...)
-        local child = _spawnchild(target, prefab, radius, ...)
+    self.SpawnChild = function(self, target, prefab, radius, ...)
+        local child = _spawnchild(self, target, prefab, radius, ...)
         if child then
             self.inst:PushEvent("spawnedchild", {child = child})
         end
+        return child
     end
 end)
 
 AddComponentPostInit("trader", function(self)
     local _acceptgift = self.AcceptGift
-    self.AcceptGift = function(item, giver, count, ...)
-        if _acceptgift(item, giver, count, ...) then
+    self.AcceptGift = function(self, item, giver, count, ...)
+        if _acceptgift(self, item, giver, count, ...) then
             if giver then giver:PushEvent("giveitem", self.inst, item) end
         end
     end
 end)
 
 AddStategraphPostInit("wilson", function(sg)
-    --Taken form Skylarr and Monti18
+    --Taken from Skylarr and Monti18
     local _attack = sg.states.attack
 	local _onenter = _attack.onenter
 	_attack.onenter = function(inst,...)
