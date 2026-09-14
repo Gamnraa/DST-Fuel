@@ -111,8 +111,8 @@ end)
 
 AddComponentPostInit("trader", function(self)
     local _acceptgift = self.AcceptGift
-    self.AcceptGift = function(self, item, giver, count, ...)
-        if _acceptgift(self, item, giver, count, ...) then
+    self.AcceptGift = function(item, giver, count, ...)
+        if _acceptgift(item, giver, count, ...) then
             if giver then giver:PushEvent("giveitem", self.inst, item) end
         end
     end
