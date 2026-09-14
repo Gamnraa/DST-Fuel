@@ -15,6 +15,24 @@ for k, v in pairs(TUNING.GAMEMODE_STARTING_ITEMS) do
 end
 local prefabs = FlattenTree(start_inv, true)
 
+--I found you, faker
+local function fuel_hat_faker(inst, data)
+	--I stole this from Ralsei thanks Miz
+	local equipment = inst.components.inventory and inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
+
+	if data and data.eslot == EQUIPSLOTS.HEAD or not equipment then
+		inst.AnimState:ClearOverrideSymbol("swap_hat")
+		if inst.components.skinner.skin_name == "ms_gramfuel_hallowed" then
+			inst.AnimState:Show("HAT")
+			inst.AnimState:Show("HAIR_HAT")
+			inst.AnimState:Show("HEAD_HAT")
+			inst.AnimState:Hide("HEAD")
+			inst.AnimState:Hide("HAIR")
+			inst.AnimState:Show("HEAD_HAT_NOHELM") 
+			inst.AnimState:Hide("HEAD_HAT_HELM")
+		end
+	end
+end
 
 local function ontimerdone(inst, data)
 	if data.name == "fuelslowheal" then
@@ -121,6 +139,10 @@ local master_postinit = function(inst)
 
 	inst:ListenForEvent("giveitem", ongiveitem)
 	inst:WatchWorldState("isday", onnewday)
+
+	inst:DoTaskInTime(0, function(inst) fuel_hat_faker(inst) end)
+	inst:ListenForEvent("unequip", fuel_hat_faker)
+	inst:ListenForEvent("onskinschanged", fuel_hat_faker)
 
 	
 end
