@@ -138,6 +138,7 @@ AddCharacterRecipe("fuelcharcoalpile",
         numtogive = 1,
         image = "charcoal_pile.tex",
         atlas = "images/map_icons/charcoal_pile.xml",
+        min_spacing = 5.0,
     },
     {
         "STRUCTURES",
