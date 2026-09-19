@@ -33,7 +33,7 @@ table.insert(prefabs, CreatePrefabSkin("ms_gramfuel_merrymaker",
 		normal_skin = "ms_gramfuel_merrymaker",
 		ghost_skin = "ghost_gramfuel_build",
 	},
-	skin_tags = {"GRAMFUEL", "CHARACTER", "BASE", "MERRYMAKER"},
+	skin_tags = {"GRAMFUEL", "CHARACTER", "BASE", "YULE"},
 	build_name_override = "ms_gramfuel_merrymaker",
 	rarity = "Character",
 }))
