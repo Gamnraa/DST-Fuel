@@ -108,6 +108,9 @@ STRINGS.SKIN_NAMES.ms_gramfuel_hallowed = "Baked Yammonster Costume"
 STRINGS.SKIN_DESCRIPTIONS.ms_gramfuel_hallowed = "A ghoulish and yummy costume, perfect for Hallowed Nights."
 STRINGS.SKIN_QUOTES.ms_gramfuel_hallowed = "\"I might be a little too old for this sorta getup.\""
 
+STRINGS.SKIN_NAMES.ms_fuel_winterbg  = "Fuel on a Winter Night"
+STRINGS.SKIN_DESCRIPTIONS.ms_fuel_winterbg = "A true charcoal burner knows no rest, not when there's charcoal to be made!"
+
 -- Custom speech strings
 STRINGS.CHARACTERS.GRAMFUEL = require "speech_gramfuel"
 
@@ -196,3 +199,19 @@ local taunt = State({
 
 AddStategraphState("wilson", taunt)
 AddStategraphState("wilson_client", taunt)
+
+
+ModdedCurios = {
+	ms_fuel_winterbg = {
+		type = "loading",
+		skin_tags = {"LOADING"},
+		rarity = "ModMade",
+		assets = {
+			Asset("ATLAS", "images/bg_loading_ms_fuel_winterbg.xml"),
+			Asset("IMAGE", "images/bg_loading_ms_fuel_winterbg.tex"),
+			
+			Asset("DYNAMIC_ANIM", "anim/dynamic/ms_fuel_winterbg.zip"),
+			Asset("PKGREF", "anim/dynamic/ms_fuel_winterbg.dyn")
+		},
+	},
+}
