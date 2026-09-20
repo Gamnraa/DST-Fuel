@@ -1,5 +1,5 @@
 -- This information tells other players more about the mod
-name = "EarthBound: Fuel"
+name = "(DEV) EarthBound: Fuel"
 description = "Adds Fuel from Mother 3."
 author = "Lucas, Claus, Miz"
 version = "1.0" -- This is the version of the template. Change it to your own number.

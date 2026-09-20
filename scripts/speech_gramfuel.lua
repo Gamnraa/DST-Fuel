@@ -2375,11 +2375,7 @@ return {
 			BURNING = "Not again!!",
 			BURNT = "What a shame.",
 			CHOPPED = "Nothing Fuel couldn't handle!",
-			GENERIC = {
-                "They can live for much longer than you and I.",
-                "They can live for much longer than you and I.",
-                "They can live for much longer than you and I. Makes you wonder."
-            },
+			GENERIC = "They can live for much longer than you and I.",
 		},
 		EVERGREEN_SPARSE =
 		{
