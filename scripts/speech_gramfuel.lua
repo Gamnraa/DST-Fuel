@@ -1631,7 +1631,7 @@ return {
         },
         MOONDIAL =
         {
-			GENERIC = "The phase depends on the sun's shadow. That's what dad says.",
+			GENERIC = "The phase is based on where the moon relative to the Earth.",
 			NIGHT_NEW = "Ain't no moon there.",
 			NIGHT_WAX = "Moon's growing",
 			NIGHT_FULL = "Moon's grown up!",
@@ -2375,14 +2375,18 @@ return {
 			BURNING = "Not again!!",
 			BURNT = "What a shame.",
 			CHOPPED = "Nothing Fuel couldn't handle!",
-			GENERIC = "Fresh lumber.",
+			GENERIC = {
+                "They can live for much longer than you and I.",
+                "They can live for much longer than you and I.",
+                "They can live for much longer than you and I. Makes you wonder."
+            },
 		},
 		EVERGREEN_SPARSE =
 		{
 			BURNING = "Not again!!",
 			BURNT = "What a shame.",
 			CHOPPED = "Nothing Fuel couldn't handle!",
-			GENERIC = "Lumber's lumber.",
+			GENERIC = "Ain't a tree I'm familiar with. Wonder if it'd still char good.",
 		},
 		TWIGGYTREE =
 		{
@@ -2399,7 +2403,7 @@ return {
 		INSPECTSELF = "Looking alright, Fuel.",
 		FARMPLOT =
 		{
-			GENERIC = "Was never a farm, but I'll give it a shot!",
+			GENERIC = "Was never a farmhand, but I'll give it a shot!",
 			GROWING = "Looks like they're growing!",
 			NEEDSFERTILIZER = "Ain't getting what they need.",
 			BURNT = "Yikes.",
@@ -2510,7 +2514,7 @@ return {
 		GREEN_MUSHROOM =
 		{
 			GENERIC = "A little evening mushroom.",
-			INGROUND = "It's dug in for me to pry out.",
+			INGROUND = "It's too dug in for me to pry out.",
 			PICKED = "Justa hole now.",
 		},
 		GUNPOWDER = "It's super messy, whatever it is.",
@@ -2545,7 +2549,7 @@ return {
 			BURNT = "\"Don't play with matches.\"",
 		},
 		HONEY = "Mmmmmm, honey!",
-		HONEYCOMB = "Cool lookin.'",
+		HONEYCOMB = "Bees are some crafty critters!",
 		HONEYHAM = "Is it my birthday?!",
 		HONEYNUGGETS = "It's an awesome snack, for the specialist of occasions!",
 		HORN = "It's a good hearing aide.",
@@ -2582,7 +2586,7 @@ return {
 		KRAMPUS_SACK = "Now it's mine, hehehe!",
 		LEIF = "Keep it up with the attitude and I'll chop ya just like your tree buddies!",
 		LEIF_SPARSE  = "Keep it up with the attitude and I'll chop ya just like your tree buddies!",
-		LIGHTER  = "Don't ask.",
+		LIGHTER  = "...",
 		LIGHTNING_ROD =
 		{
 			CHARGED = "That's awesome.",
@@ -2803,7 +2807,11 @@ return {
             GENERIC = "A whole lotta reeds.",
             PICKED = "Nothin' left to take.",
         },
-        RELIC = "Dustier than a history book.",
+        RELIC = {
+            "Dustier than a history book.",
+            "Dustier than a history book.",
+            "Your can learn a lot from the past. Humans only got so far because of past humans!"
+        },
         RUINS_RUBBLE = "Fallin' apart.",
         RUBBLE = "Nothin' left.",
         RESEARCHLAB =
@@ -2952,7 +2960,7 @@ return {
 		SMALLMEAT_DRIED = "I'll be snacking on that later!",
 		SPAT = "Where's the Twins when you need 'em...",
 		SPEAR = "For stabbing. And impaling. And thrusting. And-",
-		SPEAR_WATHGRITHR = "This one'll get the job done! The job? Just you wait!",
+		SPEAR_WATHGRITHR = "This one'll get the job done! What's the job? Just you wait!",
 		WATHGRITHRHAT = "It ain't my style, but I won't complain if it keeps my brain inside my skull.",
 		SPIDER =
 		{
@@ -2968,7 +2976,7 @@ return {
 		SPIDER_WARRIOR =
 		{
 			DEAD = "Ain't doing no one no harm now.",
-			GENERIC = "They don't me getting close.",
+			GENERIC = "They don't want me getting close.",
 			SLEEPING = "Pay me no mind.",
 		},
 		SPOILED_FOOD = "Completely inedible.",
@@ -2988,7 +2996,7 @@ return {
 		STATUEMAXWELL = "I don't think I'd ever want my own statue.",
 		STEELWOOL = "It's real rough feelin.'",
 		STINGER = "It came from a bee.",
-		STRAWHAT = "I look like a bit like a cowboy in it.",
+		STRAWHAT = "I look like a bit like a farmboy in it.",
 		STUFFEDEGGPLANT = "You put veggies in the veggie.",
 		SWEATERVEST = "The scratchyness means it's working.",
 		REFLECTIVEVEST = "I'd go shirtless if I didn't sunburn!",
@@ -3094,7 +3102,7 @@ return {
 		TRINKET_24 = "A jar.", --Lucky Cat Jar
 		TRINKET_25 =  "I hate how it smells.", --Air Unfreshener
 		TRINKET_26 = "Huh, guess it works.", --Potato Cup
-		TRINKET_27 = "I don't own a coat.", --Coat Hanger
+		TRINKET_27 = "I don't own a suit.", --Coat Hanger
 		TRINKET_28 = "I got no time for chess.", --Rook
         TRINKET_29 = "I got no time for chess.", --Rook
         TRINKET_30 = "I got no time for chess.", --Knight
@@ -3127,37 +3135,37 @@ return {
         LOST_TOY_42 = "Lost but found.",
         LOST_TOY_43 = "Lost but found.",
 
-        HALLOWEENCANDY_1 = "The cavities are probably worth it, right?",
-        HALLOWEENCANDY_2 = "What corruption of science grew these?",
-        HALLOWEENCANDY_3 = "It's... corn.",
-        HALLOWEENCANDY_4 = "They wriggle on the way down.",
-        HALLOWEENCANDY_5 = "My teeth are going to have something to say about this tomorrow.",
-        HALLOWEENCANDY_6 = "I... don't think I'll be eating those.",
-        HALLOWEENCANDY_7 = "Everyone'll be raisin' a fuss over these.",
-        HALLOWEENCANDY_8 = "Only a sucker wouldn't love this.",
-        HALLOWEENCANDY_9 = "Sticks to your teeth.",
-        HALLOWEENCANDY_10 = "Only a sucker wouldn't love this.",
-        HALLOWEENCANDY_11 = "Much better tasting than the real thing.",
-        HALLOWEENCANDY_12 = "Did that candy just move?", --ONI meal lice candy
-        HALLOWEENCANDY_13 = "Oh, my poor jaw.", --Griftlands themed candy
-        HALLOWEENCANDY_14 = "I don't do well with spice.", --Hot Lava pepper candy
-        CANDYBAG = "It's some sort of delicious pocket dimension for sugary treats.",
+        HALLOWEENCANDY_1 = "It's a real sweet apple.",
+        HALLOWEENCANDY_2 = "What in tarnation typa corn ya tryin' to pass here, doggonit!",
+        HALLOWEENCANDY_3 = "Corn goes good with plenty of things",
+        HALLOWEENCANDY_4 = "Tastes real sweet.",
+        HALLOWEENCANDY_5 = "Ain't that cute, I guess.",
+        HALLOWEENCANDY_6 = "Hah! Good one.",
+        HALLOWEENCANDY_7 = "Dried grapes, huh?",
+        HALLOWEENCANDY_8 = "Them city folk like stuff like this.",
+        HALLOWEENCANDY_9 = "We don't get much candy out in Sunshine Forest.",
+        HALLOWEENCANDY_10 = "One bite couldn't hurt.",
+        HALLOWEENCANDY_11 = "Dad wouldn't approve of this diet.",
+        HALLOWEENCANDY_12 = "Strange, even for a candy.", --ONI meal lice candy
+        HALLOWEENCANDY_13 = "My bones ain't strong enough.", --Griftlands themed candy
+        HALLOWEENCANDY_14 = "Sweet and spicy, just like the girl of my dreams.", --Hot Lava pepper candy
+        CANDYBAG = "Being organized here matters, yeah?",
 
-		HALLOWEEN_ORNAMENT_1 = "A spectornament I could hang in a tree.",
-		HALLOWEEN_ORNAMENT_2 = "Completely batty decoration.",
-		HALLOWEEN_ORNAMENT_3 = "This wood look good hanging somewhere.",
-		HALLOWEEN_ORNAMENT_4 = "Almost i-tentacle to the real ones.",
-		HALLOWEEN_ORNAMENT_5 = "Eight-armed adornment.",
-		HALLOWEEN_ORNAMENT_6 = "Everyone's raven about tree decorations these days.",
+		HALLOWEEN_ORNAMENT_1 = "It must get real boring being stuck as a ghost.",
+		HALLOWEEN_ORNAMENT_2 = "Sky rats.",
+		HALLOWEEN_ORNAMENT_3 = "Some spider decor.",
+		HALLOWEEN_ORNAMENT_4 = "Just what am I supposed to do with this?",
+		HALLOWEEN_ORNAMENT_5 = "Spidery. Very fittign!",
+		HALLOWEEN_ORNAMENT_6 = "Crows some spiteful critters, by the way.",
 
-		HALLOWEENPOTION_DRINKS_WEAK = "I was hoping for something bigger.",
-		HALLOWEENPOTION_DRINKS_POTENT = "A potent potion.",
-        HALLOWEENPOTION_BRAVERY = "Full of grit.",
-		HALLOWEENPOTION_MOON = "Infused with transforming such-and-such.",
-		HALLOWEENPOTION_FIRE_FX = "Crystallized inferno.",
-		MADSCIENCE_LAB = "Sanity is a small price to pay for science!",
-		LIVINGTREE_ROOT = "Something's in there! I'll have to root it out.",
-		LIVINGTREE_SAPLING = "It'll grow up big and horrifying.",
+		HALLOWEENPOTION_DRINKS_WEAK = "Huh. Guess I'm too strong for it.",
+		HALLOWEENPOTION_DRINKS_POTENT = "Whew, that's the stuff!",
+        HALLOWEENPOTION_BRAVERY = "Heh. Guess I won't be needing this.",
+		HALLOWEENPOTION_MOON = "I dunno 'bout that one.",
+		HALLOWEENPOTION_FIRE_FX = "That's trouble in a bottle.",
+		MADSCIENCE_LAB = "Charcoal burning is a form of alchemy.",
+		LIVINGTREE_ROOT = "Wazzat?",
+		LIVINGTREE_SAPLING = "That ain't a normal tree.",
 
         DRAGONHEADHAT = "So who gets to be the head?",
         DRAGONBODYHAT = "I'm middling on this middle piece.",
@@ -3347,7 +3355,10 @@ return {
 		WALL_HAY_ITEM = "Maybe it'll provide some shelter.",
 		WALL_STONE = "Good 'n sturdy. Like me!",
 		WALL_STONE_ITEM = "Some walls might help.",
-		WALL_RUINS = "Who knows how old it is.",
+		WALL_RUINS = {
+            "Who knows how old it is.",
+            "Been here longer than whoever built them. Ain't that interesting to ponder."
+        },
 		WALL_RUINS_ITEM = "Guess I could put 'em to use.",
 		WALL_WOOD =
 		{
