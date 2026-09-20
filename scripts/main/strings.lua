@@ -129,16 +129,16 @@ local fn = require("play_commonfn")
 local FUEL_SCRIPT1 = {
     cast = {"gramfuel"},
     lines = {
-        {roles = {"gramfuel"}, duration = 2.5, line = "This one is dedicated to the greatest man I know.", anim ="dial_loop"},
+        {roles = {"gramfuel"}, duration = 2.7, line = "This one is dedicated to the greatest man I know.", anim ="dial_loop"},
         {actionfn = fn.crowdcomment,	duration = 0.8, line = "Spider Man?!", prefabs = {"gramness"}},
-        {roles = {"gramfuel"}, duration = 2.7, line = "There once was a little jack rabbit who lived with his family in a hole."},
-        {roles = {"gramfuel"}, duration = 2.4, line = "The little jack rabbit loved his family with all his soul."},
-        {roles = {"gramfuel"}, duration = 2.7, line = "They worked hard together to bring home carrots to eat to their content."},
+        {roles = {"gramfuel"}, duration = 2.9, line = "There once was a little jack rabbit who lived with his family in a hole."},
+        {roles = {"gramfuel"}, duration = 2.5, line = "The little jack rabbit loved his family with all his soul."},
+        {roles = {"gramfuel"}, duration = 2.8, line = "They worked hard together to bring home carrots to eat to their content."},
         {roles = {"gramfuel"}, duration = 2.6, line = "It was a simple life, yet he lived it without a hint of lament."},
-        {roles = {"gramfuel"}, duration = 2.8, line = "One day, when the little jack rabbit wandered too far and got lost, much to his fear."},
-        {roles = {"gramfuel"}, duration = 3.0, line = "\"Look up to the lights in the sky, they are your friends, they will show you family is always near!\""},
-        {roles = {"gramfuel"}, duration = 2.2, line = "The words of his papa rabbit echoed in his mind"},
-        {roles = {"gramfuel"}, duration = 4.0, line = "And the little jack rabbit smiled. The stars are his friends, and with them his home and loved ones he would find."},
+        {roles = {"gramfuel"}, duration = 3.1, line = "One day, when the little jack rabbit wandered too far and got lost, much to his fear."},
+        {roles = {"gramfuel"}, duration = 3.2, line = "\"Look up to the lights in the sky, they are your friends, they will show you family is always near!\""},
+        {roles = {"gramfuel"}, duration = 2.4, line = "The words of his papa rabbit echoed in his mind,"},
+        {roles = {"gramfuel"}, duration = 4.8, line = "And the little jack rabbit smiled. The stars are his friends, and with them his home and loved ones he would find."},
         {roles = {"gramfuel"}, duration = 1.8, line = "Just follow the stars...", anim ="dial_loop"},
     }
 }
