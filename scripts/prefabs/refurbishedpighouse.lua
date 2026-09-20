@@ -392,7 +392,6 @@ local function OnAccept(inst, giver, item)
             v.components.workmultiplier:AddMultiplier(ACTIONS.CHOP, v.components.workmultiplier:GetMultiplier(ACTIONS.CHOP) + .15, v)
         end
     end
-    inst.smoke = SpawnPrefab( "stovesmoke" )
     local follower = inst.smoke.entity:AddFollower()
     follower:FollowSymbol( inst.GUID, "pig_house01", 230, -720, 0 ) 
 end
@@ -402,10 +401,6 @@ local function OnFuelEmpty(inst)
     LightsOff(inst)
     for _, v in pairs(inst.components.childspawner.childrenoutside) do
         v.components.workmultiplier:AddMultiplier(ACTIONS.CHOP, math.max(1, v.components.workmultiplier:GetMultiplier(ACTIONS.CHOP) - .15), v)
-    end
-    if inst.smoke then
-        inst.smoke:Remove()
-        inst.smoke = nil
     end
 end
 
