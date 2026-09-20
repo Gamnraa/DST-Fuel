@@ -126,7 +126,7 @@ return {
 		},
         CONSTRUCT =
         {
-            INUSE = "I trust 'em too get it done.",
+            INUSE = "I trust 'em to get it done.",
             NOTALLOWED = "That ain't right.",
             EMPTY = "I need tools!",
             MISMATCH = "I screwed that one up.",
@@ -550,9 +550,9 @@ return {
 	ANNOUNCE_BEES = "Run for it!",
 	ANNOUNCE_BOOMERANG = "Ow! Dumb boomerang!",
 	ANNOUNCE_CHARLIE = "Please don't hurt me!",
-	ANNOUNCE_CHARLIE_ATTACK = "Please... I just... want... to see Dad again...",
+	ANNOUNCE_CHARLIE_ATTACK = "Please...",
 	ANNOUNCE_CHARLIE_MISSED = "only_used_by_winona", --winona specific
-	ANNOUNCE_COLD = "A-a-and I-I thought W-winters, in Sunshine F-f-forest were bad..!",
+	ANNOUNCE_COLD = "A-a-and I-I thought th-th-the W-winters, in Sunshine F-f-forest were bad..!",
 	ANNOUNCE_HOT = "I might just become charcoal myself at this rate!",
 	ANNOUNCE_CRAFTING_FAIL = "Somethin's missing.",
 	ANNOUNCE_DEERCLOPS = "We're being stalked, by something big.",
@@ -1631,7 +1631,7 @@ return {
         },
         MOONDIAL =
         {
-			GENERIC = "The moon has different phases! I wonder how it manages to change shape so easily.",
+			GENERIC = "The phase depends on the sun's shadow. That's what dad says.",
 			NIGHT_NEW = "Ain't no moon there.",
 			NIGHT_WAX = "Moon's growing",
 			NIGHT_FULL = "Moon's grown up!",
@@ -1645,7 +1645,7 @@ return {
 		ARMORSKELETON = "Wearin' your ribs on the outside.",
 		SKELETONHAT = "I don't like it one bit.",
 		RUINS_BAT = "Oh this'll get the job done.",
-		RUINSHAT = "Bet the folks that lived up in the castle had somethin' like this!",
+		RUINSHAT = "Bet the folks that lived up in the Castle had somethin' like this!",
 		NIGHTMARE_TIMEPIECE =
 		{
             CALM = "It's sleeping.",
@@ -1934,12 +1934,12 @@ return {
 		BACKPACK = "For when my pockets don't got enough pockets.",
 		BACONEGGS = "Ain't nothing special, but it's a good start to any day!",
 		BANDAGE = "The stinging means a job well done.",
-		BASALT = "Naw, not even a dent!", --removed
+		BASALT = "Naw, not even a dent!", --removed - Not true the setpiece still exists
 		BEARDHAIR = "Nasty.",
 		BEARGER = "Big guy gets real hungry.",
 		BEARGERVEST = "Winter's no problem with this!",
 		ICEPACK = "Now my lunch is preserved!",
-		BEARGER_FUR = "It's real nice feelin.'",
+		BEARGER_FUR = "Rugged. Manly, you might even say.",
 		BEDROLL_STRAW = "Sleeping under the stars sounds real nice.",
 		BEEQUEEN = "That'll do more than sting!",
 		BEEQUEENHIVE =
@@ -2067,7 +2067,7 @@ return {
 			INGROUND = "It's too dug in for me to pick.",
 			PICKED = "Maybe something will take its place.",
 		},
-		BOARDS = "For construction. Or whapping someone on the head real good.",
+		BOARDS = "For whapping someone on the head real good.",
 		BONESHARD = "Small 'lil bones.",
 		BONESTEW = "Now that's a proper meal!",
 		BUGNET = "It'll catch more than bugs with the right mindset.",
@@ -5998,14 +5998,14 @@ return {
 		HERMITHOUSE_ORNAMENT = "It's neat.",
 		HERMITHOUSE_LAUNDRY = "Old lady clothes",
 
-        PETALS_DRIED = "The twins' mom always dried these. Maybe mine would have too.",
-        PETALS_EVIL_DRIED = "The twins' mom always dried these. Maybe mine would have too.",
-        FOLIAGE_DRIED = "The twins' mom always dried these. Maybe mine would have too.",
-        SUCCULENT_PICKED_DRIED = "The twins' mom always dried these. Maybe mine would have too.",
-        FIRENETTLES_DRIED = "The twins' mom always dried these. Maybe mine would have too.",
-        TILLWEED_DRIED = "The twins' mom always dried these. Maybe mine would have too.",
-        MOON_TREE_BLOSSOM_DRIED = "The twins' mom always dried these. Maybe mine would have too.",
-        FORGETMELOTS_DRIED = "The twins' mom always dried these. Maybe mine would have too.",
+        PETALS_DRIED = "The Twins' mom always dried these. Maybe mine would have too.",
+        PETALS_EVIL_DRIED = "The Twins' mom always dried these. Maybe mine would have too.",
+        FOLIAGE_DRIED = "The Twins' mom always dried these. Maybe mine would have too.",
+        SUCCULENT_PICKED_DRIED = "The Twins' mom always dried these. Maybe mine would have too.",
+        FIRENETTLES_DRIED = "The Twins' mom always dried these. Maybe mine would have too.",
+        TILLWEED_DRIED = "The Twins' mom always dried these. Maybe mine would have too.",
+        MOON_TREE_BLOSSOM_DRIED = "The Twins' mom always dried these. Maybe mine would have too.",
+        FORGETMELOTS_DRIED = "The Twins' mom always dried these. Maybe mine would have too.",
 
         HERMITCRABTEA_PETALS = "It's real relaxin.'",
         HERMITCRABTEA_PETALS_EVIL = "This just stresses me out.",
